@@ -35,8 +35,8 @@ corridors = {
 
     # S: Sajha Yatayat
     'S': [
-        # North-South trunk: Budhanilkantha -> Maharajgunj -> Lazimpat -> Ratnapark -> Tripureshwor -> Pulchowk -> Lagankhel
-        [(6626, 2212), (6100, 2600), (5100, 3050), (4800, 3400), (4400, 3600), (4410, 4145), (4537, 4565), (4600, 4800), (4516, 5182), (4803, 5109)],
+        # North-South trunk: Budhanilkantha -> Sahajmarga -> Maharajgunj -> Lazimpat -> Ratnapark -> Tripureshwor -> Pulchowk -> Lagankhel
+        [(6602, 1018), (6589, 1410), (6626, 2212), (6100, 2600), (5100, 3050), (4800, 3400), (4400, 3600), (4410, 4145), (4537, 4565), (4600, 4800), (4516, 5182), (4803, 5109)],
         # East trunk: Ratnapark -> Maitighar -> New Baneshwor -> Koteshwor -> Thimi -> Sallaghari -> Suryabinayak (ENDS AT SURYABINAYAK!)
         [(4410, 4145), (4800, 4300), (5202, 4485), (5489, 4895), (5800, 4800), (6500, 4400), (7590, 4112), (8520, 4640), (8933, 5051)],
         # West trunk: Ratnapark -> Tripureshwor -> Kalimati -> Balkhu -> Kalanki -> Swayambhu
@@ -77,47 +77,53 @@ corridors = {
         [(3465, 6107), (2825, 5776), (3863, 5639), (3964, 5207), (3932, 4518), (4537, 4565), (4410, 4145), (4400, 3600), (5100, 3050)]
     ],
 
-    # T: Tarakeshwor Yatayat (Dharmasthali / Goldhunga / Lolang / Phutung -> Balaju -> Thamel -> Ratnapark; Western loop to Kalanki)
+    # T: Tarakeshwor Yatayat (Dharmasthali / Goldhunga / Lolang / Bohoratar / Phutung -> Balaju -> Thamel -> Ratnapark; Western loop to Kalanki)
     'T': [
+        [(1210, 1442), (1267, 1542), (1405, 1695), (1576, 1224), (1618, 1290), (1703, 1356), (1762, 1424), (1803, 1508), (1880, 1934), (1814, 2100), (1852, 2166), (2300, 2017), (2828, 1489), (3417, 2885), (3617, 3058)],
         [(2828, 1489), (2609, 1263), (3417, 2885), (3617, 3058), (4142, 3760), (4410, 4145)],
         [(3617, 3058), (3096, 3196), (3227, 3097), (3056, 3592), (3208, 4542)],
         [(3617, 3058), (3212, 2399), (2803, 2423), (2742, 2183), (2569, 2019), (3161, 1992), (3538, 1953)],
         [(3617, 3058), (3400, 2700), (3200, 2600)]
     ],
 
-    # F: Balaju Yatayat (Balaju -> Machhapokhari -> Sorhakhutte -> Thamel -> Ratnapark; Western Ring Road)
+    # F: Balaju Yatayat (Raniban -> Buddha Chowk -> Radha Krishna Temple -> Balaju -> Machhapokhari -> Sorhakhutte -> Thamel -> Ratnapark; Western Ring Road)
     'F': [
+        # Raniban branch
+        [(1738, 2357), (1768, 2448), (1857, 2507), (1922, 2573), (1976, 2639), (2033, 2706), (2079, 2723), (2109, 2773), (2403, 2784), (2802, 2784), (3096, 3196), (3617, 3058)],
+        # Balaju into Ratnapark
         [(3617, 3058), (3417, 2885), (4142, 3760), (4410, 4145)],
+        # Western Ring Road
         [(3617, 3058), (3096, 3196), (3227, 3097), (3056, 3592)]
     ],
 
     # Z: Samakhusi Yatayat (Gongabu New Bus Park -> Town Planning -> Samakhusi -> Lainchaur -> Thamel -> Ratnapark; Tokha branch)
     'Z': [
         [(3980, 2700), (4370, 2682), (4400, 3600), (4142, 3760), (4410, 4145)],
-        [(4370, 2682), (4658, 2565), (4960, 2254), (5212, 1717), (5212, 1505)]
+        [(4370, 2682), (4658, 2565), (4960, 2254), (5212, 1717), (5212, 1505)],
+        [(4204, 1868), (4209, 1978), (4370, 2682)]
     ],
 
     # A: Budhanilkantha Yatayat (Budhanilkantha -> Golfutar -> Maharajgunj -> Lazimpat -> Thamel -> Ratnapark -> Swayambhu -> Kalanki)
     'A': [
-        [(6626, 2212), (6100, 2600), (5100, 3050), (4800, 3400), (4400, 3600), (4142, 3760), (4410, 4145)],
+        [(6602, 1018), (6589, 1410), (6626, 2212), (6100, 2600), (5100, 3050), (4800, 3400), (4400, 3600), (4142, 3760), (4410, 4145)],
         [(4410, 4145), (3056, 3592), (3208, 4542)]
     ],
 
-    # D: Digo Yatayat (Budhanilkantha -> Maharajgunj -> Lazimpat -> Ratnapark -> Kalimati -> Kalanki)
+    # D: Digo Yatayat (Gongabu / New Bus Park -> Samakhusi -> Lainchaur -> Jamal -> Ratnapark -> Maitidevi -> Sinamangal / Airport Gate)
     'D': [
-        [(6626, 2212), (5100, 3050), (4400, 3600), (4410, 4145), (3932, 4518), (3208, 4542)]
+        [(4009, 2956), (4135, 3018), (4135, 3524), (4268, 3603), (4310, 3661), (4310, 3924), (4535, 4005), (4468, 4124), (4733, 4124), (5166, 4124), (5953, 4124)]
     ],
 
     # L: Gokarneshwar Yatayat (Sundarijal -> Gokarna -> Jorpati -> Boudha -> Chabahil -> Maitidevi -> Ratnapark; Danchhi branch)
     'L': [
         [(7125, 1861), (6800, 2600), (6838, 3211), (6400, 3300), (5780, 3492), (5850, 3800), (5178, 4022), (4800, 4100), (4410, 4145)],
-        [(6838, 3211), (7400, 3200), (7800, 3200)]
+        [(6838, 3211), (7400, 3200), (7800, 3200), (8656, 2961), (8802, 2952), (9051, 2952), (9155, 3026)]
     ],
 
     # P: Panchpokhari Yatayat (Sankhu -> Mulpani -> Jorpati -> Boudha -> Chabahil -> Maitidevi -> Ratnapark -> Lagankhel -> Satdobato; Danchhi branch)
     'P': [
         [(8200, 2300), (7509, 3522), (6838, 3211), (5780, 3492), (5178, 4022), (4410, 4145), (4537, 4565), (4803, 5109), (5068, 5632)],
-        [(6838, 3211), (7400, 3200), (7800, 3200)]
+        [(6838, 3211), (7400, 3200), (7800, 3200), (8656, 2961), (8802, 2952), (9051, 2952), (9155, 3026)]
     ],
 
     # H: Basuki Yatayat (Sankhu -> Jorpati -> Boudha -> Chabahil -> Maitidevi -> Ratnapark -> Swayambhu)
@@ -142,9 +148,10 @@ corridors = {
         [(5489, 4895), (5175, 5270), (5068, 5632), (6119, 6447)]
     ],
 
-    # Y: Samyukta Yatayat (Kalanki -> Kalimati -> Tripureshwor -> Ratnapark -> New Baneshwor -> Tinkune -> Sinamangal -> Airport)
+    # Y: Samyukta Yatayat (Pradesh Park / Hattigauda -> Golfutar -> Chabahil -> Maitidevi -> Ratnapark -> Kalimati -> Kalanki -> Swayambhu -> Balaju -> Gongabu Loop)
     'Y': [
-        [(3208, 4542), (3932, 4518), (4537, 4565), (4410, 4145), (5202, 4485), (5800, 4500), (6000, 4200), (6112, 4024)]
+        [(7000, 916), (6633, 1501), (6403, 1879), (6029, 3208), (6029, 3499), (5750, 3683), (5294, 3815), (5109, 4091), (4733, 4124), (4468, 4124), (4310, 4323), (4474, 4565), (3839, 4565), (3193, 4565)],
+        [(3193, 4565), (3067, 4536), (3067, 3571), (3169, 3216), (3667, 3112), (4023, 2779), (5337, 2537), (5558, 2652), (5946, 2283), (6403, 1879)]
     ],
 
     # N: Nepal Yatayat (Balkhu -> Kalimati -> Ratnapark -> Maitidevi -> Baneshwor -> Koteshwor -> Gaushala -> Chabahil -> Boudha -> Jorpati -> Kapan; Tikathali branch)
@@ -154,14 +161,14 @@ corridors = {
         [(5489, 4895), (5900, 5200), (6200, 5500)]
     ],
 
-    # E: Dhumrabaraha Yatayat (Dhumbarahi -> Chabahil -> Gaushala -> Maitidevi -> Ratnapark -> Tripureshwor)
+    # E: Dhumrabaraha Yatayat (Kapan / Aakashedhara -> Dhumbarahi -> Bishalnagar -> Naxal -> Ratnapark)
     'E': [
-        [(5450, 3200), (5780, 3492), (5850, 3800), (5178, 4022), (4410, 4145), (4537, 4565)]
+        [(6759, 2159), (5945, 3041), (5546, 3349), (5240, 3151), (5072, 3549), (4939, 3717), (4535, 3991), (4310, 4323)]
     ],
 
-    # O: Om Janata Yatayat (Lubhu -> Mahalaxmi -> Imadol -> Gwarko -> Satdobato -> Lagankhel -> Ratnapark)
+    # O: Om Janata Yatayat (Matatirtha -> Kalanki -> Tripureshwor -> Ratnapark -> Jamal -> Lainchaur -> Maharajgunj -> Golfutar)
     'O': [
-        [(6114, 6169), (5824, 5836), (5614, 5636), (5175, 5270), (5068, 5632), (4803, 5109), (4516, 5182), (4537, 4565), (4410, 4145)]
+        [(1783, 5386), (2119, 4825), (2731, 4825), (3119, 4691), (4474, 4565), (4310, 4323), (4535, 3991), (4906, 3749), (4939, 3549), (5558, 2652), (6807, 1142)]
     ]
 }
 
@@ -203,13 +210,21 @@ def is_operator_allowed(op, px, py, name_lower):
     if any(k in name_lower for k in ['bungamati', 'bhainsepati', 'chyasikot', 'sainbu', 'adarsha saula yubak', 'wai wai noodles']):
         return op == 'S'
 
-    # Rule 0C: Northwest outer suburbs (Goldhunga, Lolang, Phutung, Bohoratar, Raniban) -> ONLY Tarakeshwor (T)
-    if any(k in name_lower for k in ['goldhunga', 'lolang', 'phutung', 'bohoratar', 'raniban', 'dharmasthali', 'kavresthali']):
+    # Rule 0B2: Raniban corridor -> ONLY Balaju Yatayat (F)
+    if any(k in name_lower for k in ['raniban', 'radha krishna temple', 'bijayanagar', 'svetah', 'nagarjun futsal', 'army rehabilitation']):
+        return op == 'F'
+    if 1700 <= px <= 2200 and 2300 <= py <= 2900:
+        return op == 'F'
+
+    # Rule 0C: Northwest outer suburbs (Goldhunga, Lolang, Phutung, Bohoratar) -> ONLY Tarakeshwor (T)
+    if any(k in name_lower for k in ['goldhunga', 'lolang', 'phutung', 'bohoratar', 'dharmasthali', 'kavresthali', 'sundar basti', 'oxford driving', 'jana jagriti', 'sanskriti shikshya', 'dhinchen samten', 'fulbari gate']):
+        return op == 'T'
+    if px < 2500 and py < 2250:
         return op == 'T'
 
-    # Rule 0D: Matatirtha -> ONLY Chandragiri (C)
+    # Rule 0D: Matatirtha -> ONLY Om Janata (O)
     if 'matatirtha' in name_lower:
-        return op == 'C'
+        return op == 'O'
 
     # Rule 0E: Panga / Kirtipur inner -> Kirtipur (K) & Bagmati (I)
     if any(k in name_lower for k in ['panga', 'bagh bhairab', 'deukhel', 'nayabazar gate', 'langol']):
@@ -224,8 +239,34 @@ def is_operator_allowed(op, px, py, name_lower):
         return op == 'N'
 
     # Rule 0H: Danchhi / Indrayani -> Gokarneshwar (L) & Panchpokhari (P)
-    if any(k in name_lower for k in ['danchhi', 'indrayani exchange', 'brahmakhel']):
+    if any(k in name_lower for k in ['danchhi', 'indrayani exchange', 'ntc indrayani', 'brahmakhel', 'bagdhara']):
+        if 'gokarneshwor' in name_lower or 'bagdhara' in name_lower:
+            return op == 'L'
+        if 'panchpokhari' in name_lower:
+            return op == 'P'
         return op in ('L', 'P')
+    if px > 8500 and 2800 <= py <= 3300:
+        return op in ('L', 'P')
+
+    # Rule 0I: Budhanilkantha / Chapali / Sahajmarga / Deuba Chowk -> ONLY Budhanilkantha (A) and Sajha (S)
+    if any(k in name_lower for k in ['budhanilkantha', 'narayanthan', 'sahajmarga', 'deuba chowk', 'chapali', 'tridevi mandir']):
+        return op in ('A', 'S')
+    if 6200 <= px <= 6700 and 950 <= py <= 1400:
+        return op in ('A', 'S')
+    if 6700 < px <= 7100 and 900 <= py <= 1600:
+        return op in ('Y', 'O')
+
+    # Rule 0J: Tokha / Bhatkekopul / Taleju Bhawani -> Samakhusi Yatayat (Z)
+    if any(k in name_lower for k in ['bhatkekopul', 'taleju bhawani', 'ganesh english', 'indrayani bridge']):
+        return op == 'Z'
+    if 4100 <= px <= 5300 and 1400 <= py <= 2250:
+        return op == 'Z'
+
+    # Rule 0K: Specific landmark assignments
+    if 'halesi mahadev' in name_lower:
+        return op == 'T'
+    if 'halesi driving center' in name_lower:
+        return op == 'B'
 
     # Rule 1: Chyamasingh, Kamalbinayak, Khwopa, Dekocha, Byasi (East / Ancient Bhaktapur)
     # ONLY Bhaktapur Buses (B) serve these inner Bhaktapur places!
@@ -278,9 +319,12 @@ def is_operator_allowed(op, px, py, name_lower):
         if px > 4600:
             return False
 
-    # Rule 8: Balaju (F) & Samakhusi (Z) strictly Balaju/Samakhusi into Ratnapark
-    if op in ('F', 'Z'):
-        if px > 5300 or px < 3400 or py > 4400:
+    # Rule 8: Balaju (F) & Samakhusi (Z)
+    if op == 'F':
+        if px > 4600 or px < 1700 or py > 4400 or py < 2200:
+            return False
+    if op == 'Z':
+        if px > 5300 or px < 3800 or py > 4400 or py < 1500:
             return False
 
     # Rule 9: Gokarneshwar (L), Panchpokhari (P), Basuki (H), Juneli (J) strictly North-East into Ratnapark
@@ -290,9 +334,18 @@ def is_operator_allowed(op, px, py, name_lower):
         if px > 7200 and py > 4000:  # Never in Bhaktapur
             return False
 
-    # Rule 10: Om Janata (O) strictly South-East (Lubhu / Imadol / Gwarko / Lagankhel / Ratnapark)
+    # Rule 10: Om Janata (O) runs Matatirtha -> Kalanki -> Ratnapark -> Maharajgunj -> Golfutar
     if op == 'O':
-        if px < 4300 or py < 3800 or (px > 6800 and py < 5000):
+        if px > 7000 or (py > 5400 and px > 2500):
+            return False
+        if px > 5200 and py > 3500:
+            return False
+
+    # Rule 10B: Digo Yatayat (D) strictly Gongabu - Lainchaur - Ratnapark - Maitidevi - Sinamangal
+    if op == 'D':
+        if py < 2800 or py > 4500:
+            return False
+        if px < 3900 or px > 6200:
             return False
 
     # Rule 11: Bode is Bhaktapur Buses (B) only
@@ -307,9 +360,9 @@ def is_operator_allowed(op, px, py, name_lower):
     if 'sankhu' in name_lower:
         return op in ('P', 'H')
 
-    # Rule 15: Lubhu is Om Janata (O) only
+    # Rule 15: Lubhu is Sajha (S) only
     if 'lubhu' in name_lower:
-        return op == 'O'
+        return op == 'S'
 
     # Rule 16: Godawari / Toukhel is Sajha (S) only
     if 'godawari' in name_lower or 'toukhel' in name_lower or 'badegaun' in name_lower:
@@ -319,9 +372,9 @@ def is_operator_allowed(op, px, py, name_lower):
     if 'harisiddhi' in name_lower:
         return op in ('S', 'R')
 
-    # Rule 18: Budhanilkantha is Sajha (S), Budhanilkantha (A), Digo (D)
+    # Rule 18: Budhanilkantha is Sajha (S) and Budhanilkantha (A) only
     if 'budhanilkantha' in name_lower:
-        return op in ('S', 'A', 'D')
+        return op in ('S', 'A')
 
     # Rule 19: Thulo Bharyang / Sano Bharyang on West Ring Road
     if 'thulo bharyang' in name_lower or 'sano bharyang' in name_lower:
@@ -356,9 +409,9 @@ for p in places:
         elif d <= 320 and len(matched) < 4:
             matched.append(op)
 
-    # If still empty, match the single closest allowed operator if under 650px
+    # If still empty, match the single closest allowed operator if under 1200px
     if len(matched) == 0 and len(op_dists) > 0:
-        if op_dists[0][1] < 650:
+        if op_dists[0][1] < 1200:
             matched.append(op_dists[0][0])
 
     updated_index.append({
@@ -376,24 +429,66 @@ js_bus_index = f"""/**
 
 export const ALL_PLACES_BUS_INDEX = {json.dumps(updated_index, indent=2, ensure_ascii=False)};
 
+const GENERIC_STOP_WORDS = new Set(['temple', 'chowk', 'bus park', 'bus stop', 'gate', 'hospital', 'school', 'center', 'centre', 'store', 'station', 'microbus station', 'park', 'road', 'marga', 'tole']);
+
 // Quick lookup helper: Returns list of bus operator codes that serve any place matching query
 export function findBusesForPlaceQuery(query) {{
   if (!query || !query.trim()) return {{ codes: [], matchedPlaces: [] }};
-  const q = query.trim().toLowerCase();
-  
-  const matchedCodes = new Set();
-  const matchedPlaces = [];
+  const normalize = (s) => s.toLowerCase().replace(/budanilk/g, 'budhanilk');
+  const q = normalize(query.trim());
+  const queryWords = q.split(/\\s+/).filter(w => w.length > 2);
+
+  const matches = [];
 
   for (const item of ALL_PLACES_BUS_INDEX) {{
-    if (item.name.toLowerCase().includes(q) || (item.nepali && item.nepali.includes(q))) {{
-      matchedPlaces.push(item.name);
-      item.buses.forEach(b => matchedCodes.add(b));
+    const rawName = item.name.toLowerCase();
+    const name = normalize(rawName);
+    const nepali = item.nepali || '';
+
+    // 1. Exact match
+    if (name === q || nepali === q) {{
+      matches.push({{ item, score: 100 }});
+      continue;
     }}
+
+    // 2. Name contains full query (e.g. 'radha krishna' in 'radha krishna temple')
+    if (name.includes(q) || (nepali && nepali.includes(q))) {{
+      matches.push({{ item, score: 80 }});
+      continue;
+    }}
+
+    // 3. Query contains full specific place name (e.g. 'radha krishna temple raniban' contains 'radha krishna temple')
+    // Exclude generic words like 'temple' or 'chowk' from matching full query
+    if (!GENERIC_STOP_WORDS.has(name) && name.length >= 5 && q.includes(name)) {{
+      matches.push({{ item, score: 70 }});
+      continue;
+    }}
+
+    // 4. Multi-word intersection: for multi-word queries, all non-generic words must be present in name
+    if (queryWords.length >= 2) {{
+      const nonGenericWords = queryWords.filter(w => !GENERIC_STOP_WORDS.has(w));
+      const matchedCount = nonGenericWords.filter(w => name.includes(w)).length;
+      if (nonGenericWords.length > 0 && matchedCount === nonGenericWords.length) {{
+        matches.push({{ item, score: 60 }});
+      }}
+    }}
+  }}
+
+  // Filter to highest score tier to prevent pollution from lower-scoring broad matches
+  matches.sort((a, b) => b.score - a.score);
+  const topScore = matches.length > 0 ? matches[0].score : 0;
+  const filtered = matches.filter(m => m.score >= topScore - 10);
+
+  const matchedCodes = new Set();
+  const matchedNames = [];
+  for (const m of filtered) {{
+    matchedNames.push(m.item.name);
+    m.item.buses.forEach(b => matchedCodes.add(b));
   }}
 
   return {{
     codes: Array.from(matchedCodes),
-    matchedPlaces: matchedPlaces.slice(0, 10)
+    matchedPlaces: matchedNames.slice(0, 10)
   }};
 }}
 """

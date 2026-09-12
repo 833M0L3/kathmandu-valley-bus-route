@@ -107,9 +107,9 @@ export const BUS_SERVICES = [
     nepali: "तारकेश्वर यातायात",
     color: "#7183c5",
     routes: ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"],
-    corridor: "Tarakeshwor / Balaju – Thamel – Ratnapark – Swayambhu – Kalanki",
+    corridor: "Tarakeshwor / Goldhunga / Lolang / Bohoratar / Balaju – Thamel – Ratnapark – Swayambhu – Kalanki",
     stops: [
-      "Tarakeshwor", "Dharmasthali", "Kavresthali", "Goldhunga", "Balaju", "Machhapokhari",
+      "Tarakeshwor", "Dharmasthali", "Kavresthali", "Goldhunga", "Lolang", "Bohoratar", "Balaju", "Machhapokhari",
       "Gongabu (New Bus Park)", "Sorhakhutte", "ASCOL", "Thamel", "Jamal", "Ratnapark",
       "Swayambhu", "Thulo Bharyang", "Sano Bharyang", "Sitapaila", "Bafal", "Kalanki"
     ]
@@ -122,7 +122,7 @@ export const BUS_SERVICES = [
     routes: ["A1", "A2", "A3"],
     corridor: "Budhanilkantha – Maharajgunj – Thamel – Ratnapark – Swayambhu – Kalanki",
     stops: [
-      "Budhanilkantha", "Narayanthan", "Hattigauda", "Golfutar", "Maharajgunj",
+      "Budhanilkantha", "Narayanthan", "Chapali", "Sahajmarga", "Hattigauda", "Golfutar", "Maharajgunj",
       "Teaching Hospital", "Panipokhari", "Lazimpat", "Lainchaur", "Thamel", "Jamal",
       "Ratnapark", "Swayambhu", "Kalanki"
     ]
@@ -133,10 +133,10 @@ export const BUS_SERVICES = [
     nepali: "दिगो यातायात",
     color: "#5b8378",
     routes: ["D1"],
-    corridor: "Budhanilkantha – Maharajgunj – Lazimpat – Ratnapark – Kalanki",
+    corridor: "Gongabu (New Bus Park) – Samakhusi – Lainchaur – Ratnapark – Maitidevi – Sinamangal (Airport Gate)",
     stops: [
-      "Budhanilkantha", "Hattigauda", "Maharajgunj", "Teaching Hospital", "Panipokhari",
-      "Lazimpat", "Lainchaur", "Thamel", "Ratnapark", "Teku", "Kalimati", "Bafal", "Kalanki"
+      "Gongabu (New Bus Park)", "Town Planning", "Samakhusi", "Kapurdhara", "Galkopakha", "Lainchaur",
+      "Jamal", "Ratnapark", "Baghbazar", "Dillibazar", "Maitidevi", "Purano Baneshwor", "Sinamangal (Airport Gate)"
     ]
   },
   {
@@ -145,8 +145,9 @@ export const BUS_SERVICES = [
     nepali: "बालाजु यातायात",
     color: "#9572cc",
     routes: ["F1"],
-    corridor: "Balaju – Sorhakhutte – Thamel – Ratnapark",
+    corridor: "Raniban – Balaju – Sorhakhutte – Thamel – Ratnapark",
     stops: [
+      "Raniban Bus Park", "Raniban", "Radha Krishna Temple", "Buddha Chowk", "Army Rehabilitation Center",
       "Balaju", "Bypass", "Machhapokhari", "Sorhakhutte", "ASCOL", "Thamel", "Jamal", "Ratnapark"
     ]
   },
@@ -156,9 +157,9 @@ export const BUS_SERVICES = [
     nepali: "सामाखुसी यातायात",
     color: "#878883",
     routes: ["Z1", "Z2", "Z3"],
-    corridor: "Samakhusi / Gongabu (New Bus Park) – Lainchaur – Ratnapark",
+    corridor: "Tokha / Samakhusi / Gongabu (New Bus Park) – Lainchaur – Ratnapark",
     stops: [
-      "Gongabu (New Bus Park)", "Samakhusi", "Town Planning", "Lainchaur", "ASCOL",
+      "Tokha", "Bhatkekopul", "Gongabu (New Bus Park)", "Samakhusi", "Town Planning", "Lainchaur", "ASCOL",
       "Thamel", "Jamal", "Ratnapark"
     ]
   },
@@ -168,9 +169,9 @@ export const BUS_SERVICES = [
     nepali: "गोकर्णेश्वर यातायात",
     color: "#19b38d",
     routes: ["L1", "L2"],
-    corridor: "Sundarijal – Gokarna – Jorpati – Chabahil – Ratnapark – Swayambhu",
+    corridor: "Sundarijal / Danchhi – Gokarna – Jorpati – Chabahil – Ratnapark – Swayambhu",
     stops: [
-      "Sundarijal", "Gokarna", "Jorpati", "Boudha", "Mitra Park", "Chabahil",
+      "Sundarijal", "Danchhi", "Gokarna", "Jorpati", "Boudha", "Mitra Park", "Chabahil",
       "Gaushala", "Maitidevi", "Dillibazar", "Putalisadak", "Ratnapark", "Swayambhu"
     ]
   },
@@ -202,13 +203,13 @@ export const BUS_SERVICES = [
   },
   {
     code: "P",
-    "name": "Panchpokhari Yatayat",
+    name: "Panchpokhari Yatayat",
     nepali: "पाँचपोखरी यातायात",
     color: "#de6c9f",
     routes: ["P1", "P2"],
-    corridor: "Sankhu – Jorpati – Chabahil – Ratnapark – Satdobato – Swayambhu",
+    corridor: "Sankhu / Danchhi – Jorpati – Chabahil – Ratnapark – Satdobato – Swayambhu",
     stops: [
-      "Sankhu", "Mulpani", "Jorpati", "Boudha", "Mitra Park", "Chabahil", "Gaushala",
+      "Sankhu", "Danchhi", "Brahmakhel", "Mulpani", "Jorpati", "Boudha", "Mitra Park", "Chabahil", "Gaushala",
       "Maitidevi", "Ratnapark", "Tripureshwor", "Jawalakhel", "Lagankhel", "Satdobato", "Swayambhu"
     ]
   },
@@ -218,11 +219,11 @@ export const BUS_SERVICES = [
     nepali: "संयुक्त यातायात",
     color: "#925844",
     routes: ["Y1", "Y2"],
-    corridor: "Kalanki – Tripureshwor – Ratnapark – Baneshwor – Tribhuvan Int’l Airport",
+    corridor: "Hattigauda / Budhanilkantha East – Chabahil – Maitidevi – Ratnapark – Kalanki – Balaju Loop",
     stops: [
-      "Kalanki", "Bafal", "Kuleshwor", "Kalimati", "Teku", "Tripureshwor", "Sundhara",
-      "Ratnapark", "Putalisadak", "Maitighar", "Babar Mahal", "New Baneshwor", "Minbhawan",
-      "Tinkune", "Sinamangal", "Tribhuvan Int’l Airport"
+      "Pradesh Park", "Hattigauda", "Golfutar", "Sukedhara", "Chabahil", "Mitrapark",
+      "Gaushala", "Maitidevi", "Dillibazar", "Ratnapark", "Tripureshwor", "Kalimati",
+      "Kalanki", "Swayambhu", "Balaju", "Gongabu"
     ]
   },
   {
@@ -266,10 +267,10 @@ export const BUS_SERVICES = [
     nepali: "धुम्रबराह यातायात",
     color: "#e16a30",
     routes: ["E1"],
-    corridor: "Dhumbarahi – Chabahil – Ratnapark – Tripureshwor",
+    corridor: "Kapan / Aakashedhara – Dhumbarahi – Chabahil – Maitidevi – Ratnapark",
     stops: [
-      "Dhumbarahi", "Chabahil", "Boudha", "Mitra Park", "Gaushala", "Maitidevi",
-      "Ratnapark", "Tripureshwor"
+      "Aakashedhara", "Kapan", "Bishalnagar", "Dhumbarahi", "Chabahil", "Gaushala", "Maitidevi",
+      "Ratnapark", "Sahid Gate"
     ]
   },
   {
@@ -278,10 +279,10 @@ export const BUS_SERVICES = [
     nepali: "ओम जनता यातायात",
     color: "#a7733a",
     routes: ["O1"],
-    corridor: "Lubhu / Mahalaxmi – Gwarko – Lagankhel – Satdobato – Ratnapark",
+    corridor: "Matatirtha – Kalanki – Tripureshwor – Ratnapark – Maharajgunj – Golfutar / Budhanilkantha East",
     stops: [
-      "Lubhu", "Mahalaxmi", "Imadol", "Gwarko", "B and B Hospital", "Satdobato",
-      "Lagankhel", "Jawalakhel", "Pulchowk", "Kupandole", "Thapathali", "Tripureshwor", "Ratnapark", "Koteshwor"
+      "Matatirtha", "Balambu", "Naikap", "Kalanki", "Kalimati", "Tripureshwor", "Ratnapark",
+      "Jamal", "Lainchaur", "Lazimpat", "Panipokhari", "Maharajgunj", "Golfutar", "Budhanilkantha East"
     ]
   }
 ];

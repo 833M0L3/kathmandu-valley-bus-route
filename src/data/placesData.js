@@ -207,8 +207,8 @@ export const ALL_MAP_PLACES = [
     "id": "budhanilkantha",
     "name": "Budhanilkantha",
     "nepali": "बुढानीलकण्ठ",
-    "x": 6626,
-    "y": 2212,
+    "x": 6602,
+    "y": 1018,
     "tier": "local",
     "category": "Northern Valley"
   },
@@ -1032,8 +1032,8 @@ export const ALL_MAP_PLACES = [
   {
     "id": "budhanilkantha_temple",
     "name": "Budhanilkantha Temple",
-    "x": 6732.8,
-    "y": 2338.0,
+    "x": 6580.0,
+    "y": 1015.0,
     "tier": "landmark",
     "category": "Religious Landmark"
   },

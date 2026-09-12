@@ -204,8 +204,8 @@ export const MAP_LABELS = [
     id: 'budhanilkantha',
     name: 'Budhanilkantha',
     nepali: 'बुढानीलकण्ठ',
-    x: 6626,
-    y: 2212,
+    x: 6602,
+    y: 1018,
     tier: 'local',
   },
   {

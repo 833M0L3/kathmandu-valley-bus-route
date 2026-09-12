@@ -30,7 +30,7 @@ export default function App() {
 
   const handleNavigateToLocation = (location) => {
     setIsLegendOpen(false);
-    mapControlsRef.current?.flyToLocation(location.x, location.y, 6.5, {
+    mapControlsRef.current?.flyToLocation(location.x, location.y, 5.8, {
       name: location.name,
       subtitle: location.subtitle,
       color: location.color,

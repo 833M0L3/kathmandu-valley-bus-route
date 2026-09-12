@@ -71,12 +71,12 @@ export default function MapViewer({ registerMapControls }) {
       }
     });
 
-    // Deep Zoom tile layer (native tiles up to Level 6)
+    // Deep Zoom tile layer (native tiles up to Level 6, allow scaling up to 7.5 to prevent blank screen)
     const tileLayer = L.tileLayer('./tiles/{z}/{x}/{y}.png', {
       tileSize: TILE_SIZE,
       minZoom: 0,
-      maxZoom: MAX_ZOOM,
-      maxNativeZoom: MAX_ZOOM,
+      maxZoom: 7.5,
+      maxNativeZoom: NATIVE_MAX_ZOOM,
       bounds: imageBounds,
       noWrap: true,
       keepBuffer: 8,
@@ -262,8 +262,14 @@ export default function MapViewer({ registerMapControls }) {
     // Register external control hooks
     if (registerMapControls) {
       registerMapControls({
-        zoomIn: () => map.zoomIn(),
-        zoomOut: () => map.zoomOut(),
+        zoomIn: () => {
+          const next = Math.min(map.getZoom() + 0.4, MAX_ZOOM);
+          map.setZoom(next);
+        },
+        zoomOut: () => {
+          const next = Math.max(map.getZoom() - 0.4, map.getMinZoom());
+          map.setZoom(next);
+        },
         resetView: () => {
           if (targetPinMarkerRef.current) {
             targetPinMarkerRef.current.remove();
@@ -272,9 +278,10 @@ export default function MapViewer({ registerMapControls }) {
           const currentCoverZoom = calculateCoverZoom();
           map.flyTo(valleyCenter, currentCoverZoom, { duration: 0.8 });
         },
-        flyToLocation: (x, y, zoom = 6.5, placeInfo = null) => {
+        flyToLocation: (x, y, zoom = 5.8, placeInfo = null) => {
+          const targetZoom = Math.min(zoom, MAX_ZOOM);
           const latLng = map.unproject([x, y], NATIVE_MAX_ZOOM);
-          map.flyTo(latLng, zoom, { duration: 0.8 });
+          map.flyTo(latLng, targetZoom, { duration: 0.8 });
           if (placeInfo) {
             setNavigatedMarker(latLng, placeInfo);
           }

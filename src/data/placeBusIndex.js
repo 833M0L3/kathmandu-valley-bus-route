@@ -9,26 +9,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kathmandu",
     "nepali": "काठमाडौँ",
     "buses": [
+      "E",
+      "O",
+      "D",
       "N",
       "S",
       "I",
-      "D",
+      "Y",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "L",
       "T",
       "F",
       "Z",
       "A",
       "R",
-      "Y",
       "B",
       "C",
-      "K",
-      "O"
+      "K"
     ]
   },
   {
@@ -37,7 +37,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "N",
-      "O",
       "P",
       "X",
       "M",
@@ -64,9 +63,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "C",
       "T",
       "A",
-      "D",
       "R",
-      "Y"
+      "Y",
+      "O"
     ]
   },
   {
@@ -89,18 +88,19 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "M",
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
     "name": "Tribhuvan Int’l Airport",
     "nepali": "विमानस्थल",
     "buses": [
-      "Y",
       "G",
       "B",
       "S",
-      "M"
+      "M",
+      "D"
     ]
   },
   {
@@ -116,6 +116,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "J",
       "G",
       "N",
+      "Y",
       "E"
     ]
   },
@@ -148,17 +149,17 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "Z",
       "A",
-      "D",
       "L",
       "P",
       "H",
       "J",
       "G",
       "R",
-      "Y",
       "N",
       "E",
-      "O"
+      "O",
+      "Y",
+      "D"
     ]
   },
   {
@@ -168,7 +169,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "R",
-      "Y",
       "N"
     ]
   },
@@ -180,7 +180,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "T",
-      "F"
+      "F",
+      "Y"
     ]
   },
   {
@@ -192,7 +193,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "I",
       "A",
-      "D"
+      "O",
+      "E"
     ]
   },
   {
@@ -216,10 +218,10 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "Z",
       "A",
+      "D",
       "H",
       "S",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
@@ -230,7 +232,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "X",
       "M",
       "N",
-      "O",
       "B"
     ]
   },
@@ -242,7 +243,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "P",
       "N",
-      "O",
       "X",
       "M"
     ]
@@ -256,8 +256,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "X",
       "M",
       "P",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
@@ -268,9 +267,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "C",
       "K",
       "I",
-      "D",
-      "Y",
       "N",
+      "Y",
+      "O",
       "R"
     ]
   },
@@ -284,9 +283,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "P",
-      "Y",
       "N",
-      "E",
+      "Y",
       "O"
     ]
   },
@@ -297,8 +295,10 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "T",
+      "F",
       "A",
-      "H"
+      "H",
+      "Y"
     ]
   },
   {
@@ -306,8 +306,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "बुढानीलकण्ठ",
     "buses": [
       "S",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
@@ -347,7 +346,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Shivapuri Peak (2,732m)",
     "nepali": "शिवपुरी डाँडा",
-    "buses": []
+    "buses": [
+      "S"
+    ]
   },
   {
     "name": "Phulchowki Peak (2,782m)",
@@ -367,7 +368,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Nagarjun Hill (2,128m)",
     "nepali": "नागार्जुन डाँडा",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Shree Khandeshwor Mahadev Temple",
@@ -386,7 +389,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Oxford Driving Training Center",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Tarakeshwor",
@@ -398,7 +403,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Naya Basti Entrance Bohoratar",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Jor Ganesh Temple Entrance Gate",
@@ -417,7 +424,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Friendship Colony Bohoratar",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Bangalamukhi Mai Temple Entrance Gate",
@@ -443,7 +452,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Goldhunga",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Tarakeshwor",
@@ -476,7 +487,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Jana Jagriti Chowk",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Lolang Pipalbot",
@@ -495,7 +508,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Sanskriti Shikshya Sadan School",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Swarnim Basti Entrance Gate",
@@ -521,7 +536,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Dhinchen Samten Choyeling Gumba",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Goldhunga",
@@ -554,12 +571,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Shivapuri Nagarjun National Park Entrance",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Fulbari Gate Army Camp",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Srijana Gyansagal Secondary School",
@@ -578,7 +599,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Raniban Bus Park",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Asta Naray Cinen",
@@ -590,27 +613,29 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Savyata Pathshala Buddha Chowk, Raniban",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Siddhartha Bank",
     "nepali": "",
     "buses": [
-      "T"
+      "F"
     ]
   },
   {
     "name": "NIC Asia Bank",
     "nepali": "",
     "buses": [
-      "T"
+      "F"
     ]
   },
   {
     "name": "Nur Chowk",
     "nepali": "",
     "buses": [
-      "T"
+      "F"
     ]
   },
   {
@@ -673,21 +698,21 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Manamaiju Micro Station",
     "nepali": "",
     "buses": [
-      "T"
+      "Z"
     ]
   },
   {
     "name": "Mansingh College",
     "nepali": "",
     "buses": [
-      "T"
+      "Z"
     ]
   },
   {
     "name": "Angels' Heart Secondary School",
     "nepali": "",
     "buses": [
-      "B"
+      "Z"
     ]
   },
   {
@@ -717,7 +742,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -733,7 +759,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Nursery Chowk",
     "nepali": "",
     "buses": [
-      "T"
+      "F"
     ]
   },
   {
@@ -746,12 +772,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Bhatkekopul Bus Stop",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "Z"
+    ]
   },
   {
     "name": "Taleju Bhawani Petrol Pump",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "Z"
+    ]
   },
   {
     "name": "Manorath Tirtha Dham",
@@ -778,7 +808,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Greenland Int'l Boarding High School",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
@@ -792,7 +823,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Lord Palace Banquet",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
@@ -801,7 +833,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -809,6 +842,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "Z",
+      "Y",
       "B",
       "S"
     ]
@@ -817,6 +851,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Basundhara Chowk",
     "nepali": "",
     "buses": [
+      "Y",
       "M",
       "Z",
       "B",
@@ -826,25 +861,37 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Deuba Chowk",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "S",
+      "A"
+    ]
   },
   {
     "name": "Sahajmarga Microbus Station",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "S",
+      "A"
+    ]
   },
   {
     "name": "Hakucha Bridge",
     "nepali": "",
     "buses": [
-      "S"
+      "S",
+      "A",
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Anita Milan Kindergarten",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O",
+      "S",
+      "A"
     ]
   },
   {
@@ -853,21 +900,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Naulin Sports Villa",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "S",
+      "A",
+      "O"
     ]
   },
   {
     "name": "Sundarbasti Kapan",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
       "S",
       "A"
     ]
@@ -878,34 +930,37 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Baluwakhani (Kapan)",
     "nepali": "",
     "buses": [
-      "D",
       "S",
-      "A"
+      "A",
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Sweet Science Boxing and Fitness",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
     "name": "Municipality Hospital Bhadra Fuel",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
       "L"
     ]
   },
@@ -913,9 +968,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Bhadra Fuel Concern",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
       "L"
     ]
   },
@@ -923,25 +978,27 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kapan Sekuwa Restaurant",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
     "name": "Neuro Hospital",
     "nepali": "",
     "buses": [
-      "D"
+      "O",
+      "Y"
     ]
   },
   {
     "name": "Aakashedhar Kapan",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
       "L"
     ]
   },
@@ -949,7 +1006,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Gangalal Hospital",
     "nepali": "",
     "buses": [
-      "D"
+      "O",
+      "Y"
     ]
   },
   {
@@ -958,7 +1016,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "Y",
+      "E"
     ]
   },
   {
@@ -967,23 +1026,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "National Media Development Center",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D"
+      "Y"
     ]
   },
   {
     "name": "Narayan Gopal Chowk (Chakrapath",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
       "S",
       "A"
     ]
@@ -992,6 +1054,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Hem Ganga Kala Sahitya Pratisthan",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
       "A"
     ]
@@ -1000,19 +1064,20 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Chappal Karkhana",
     "nepali": "",
     "buses": [
-      "D",
       "S",
-      "A"
+      "A",
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Aakashedhara Micro Bus Park",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -1020,19 +1085,20 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "ience nd Fitness",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
     "name": "Kapan Handball Sports Ground",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -1041,8 +1107,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
@@ -1057,9 +1122,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Aakashedhara Kapan",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
       "L"
     ]
   },
@@ -1079,7 +1144,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "M",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -1090,7 +1156,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "M",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -1098,7 +1165,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
-      "T"
+      "T",
+      "F",
+      "Y"
     ]
   },
   {
@@ -1106,9 +1175,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
+      "F",
       "T",
-      "B",
-      "S"
+      "Y"
     ]
   },
   {
@@ -1116,7 +1185,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
-      "T"
+      "T",
+      "F"
     ]
   },
   {
@@ -1124,7 +1194,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
-      "T"
+      "T",
+      "F"
     ]
   },
   {
@@ -1135,7 +1206,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "I",
-      "D",
       "A"
     ]
   },
@@ -1147,34 +1217,35 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "I",
-      "D",
-      "A"
+      "A",
+      "O",
+      "E"
     ]
   },
   {
     "name": "Kanti Children's Hospital",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
-      "D",
       "B",
       "M",
-      "I",
-      "E"
+      "E",
+      "I"
     ]
   },
   {
     "name": "Bishal Nagar",
     "nepali": "",
     "buses": [
+      "O",
       "B",
       "S",
       "M",
+      "E",
       "A",
-      "D",
-      "I",
-      "E"
+      "I"
     ]
   },
   {
@@ -1184,9 +1255,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "M",
-      "A",
+      "O",
       "E",
-      "D",
+      "A",
       "I"
     ]
   },
@@ -1194,24 +1265,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Baluwatar Embassyof China",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
       "I",
-      "D",
       "B",
-      "M"
+      "M",
+      "E"
     ]
   },
   {
     "name": "Baluwatar China",
     "nepali": "",
     "buses": [
+      "O",
       "B",
       "S",
       "M",
       "A",
       "I",
-      "D"
+      "E"
     ]
   },
   {
@@ -1222,14 +1295,15 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "E",
-      "A",
-      "D"
+      "O",
+      "A"
     ]
   },
   {
     "name": "Aatma Gyan Prachar Sangh (AGPS",
     "nepali": "",
     "buses": [
+      "D",
       "Z"
     ]
   },
@@ -1237,12 +1311,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Bishal Basti Gate",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E",
+      "O",
       "A",
-      "D",
       "I"
     ]
   },
@@ -1250,12 +1324,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Bishal Basti Big Mart",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E",
+      "O",
       "A",
-      "D",
       "I"
     ]
   },
@@ -1263,12 +1337,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Gate Big Mart",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E",
+      "O",
       "A",
-      "D",
       "I"
     ]
   },
@@ -1276,12 +1350,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Gate Bishalnagar",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E",
+      "O",
       "A",
-      "D",
       "I"
     ]
   },
@@ -1289,12 +1363,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Big Mart Bishalnagar",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E",
+      "O",
       "A",
-      "D",
       "I"
     ]
   },
@@ -1302,10 +1376,11 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Naxal Bhatbhateni",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
       "I",
-      "D",
       "M",
       "B"
     ]
@@ -1314,82 +1389,88 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Naxal hateni",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
       "B",
       "M",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Bodhi Books and Bistro",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "B",
       "S",
-      "M",
-      "E"
+      "M"
     ]
   },
   {
     "name": "Tangal Secondary School",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E"
+      "O"
     ]
   },
   {
     "name": "Samakhusi Town Planning",
     "nepali": "",
     "buses": [
+      "D",
       "Z",
       "T",
-      "F",
-      "A"
+      "F"
     ]
   },
   {
     "name": "Goma Ganesh Temple",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Siddhartha Bank Head Ofice",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Head Ofice Nepal Police",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
-      "A",
-      "I",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Narayan Chaur",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
@@ -1398,14 +1479,17 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
+      "O",
       "I",
-      "D"
+      "E"
     ]
   },
   {
     "name": "Nepal Police Headquarters",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A"
     ]
@@ -1414,19 +1498,21 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ncell Head Ofice",
     "nepali": "",
     "buses": [
+      "D",
       "Z",
       "A",
       "T",
       "F",
       "S",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Traffic Police Circle Maligaun",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "P",
       "H",
       "J",
@@ -1440,23 +1526,26 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "A",
       "I",
-      "D"
+      "E",
+      "O"
     ]
   },
   {
     "name": "Sanima Bank Head Office",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
-      "A",
-      "I",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Head Office Naxal Vegetable",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A"
     ]
@@ -1467,56 +1556,63 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "I",
-      "D"
+      "E",
+      "O",
+      "I"
     ]
   },
   {
     "name": "Naxal Vegetable Market",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
-      "A",
-      "N"
+      "A"
     ]
   },
   {
     "name": "Maligaun Ganesh Mandir",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "P",
       "H",
       "J",
-      "G"
+      "G",
+      "O"
     ]
   },
   {
     "name": "Ocean Mart Naag",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Naag Pokhari",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
-      "A",
-      "I",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Nandi Ratri Secondary School",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "N",
-      "S",
-      "A"
+      "S"
     ]
   },
   {
@@ -1525,15 +1621,20 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "I",
-      "D",
       "A",
-      "Z"
+      "Z",
+      "D",
+      "E",
+      "O"
     ]
   },
   {
     "name": "Brihaspati Vidyasadan School",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
+      "O",
       "N",
       "P",
       "H",
@@ -1545,6 +1646,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Brihaspati yasadan School",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
+      "O",
       "N",
       "P",
       "H",
@@ -1556,44 +1660,50 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Vidyasadan School Kathmandu",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "N",
+      "O",
       "P",
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
     "name": "Vidyasadan School hmandu",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "N",
+      "O",
       "P",
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
     "name": "NIC Asia Siddhartha Bank",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
     "name": "Jai Nepal Hall",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
       "I",
       "D",
@@ -1604,12 +1714,14 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Hilton Hotel",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "N",
+      "Y",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "L"
     ]
   },
@@ -1617,25 +1729,29 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Hotel Shree Naxal",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y"
     ]
   },
   {
     "name": "Kathmandu English School",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
+      "E",
       "P",
       "H",
       "J",
       "G",
-      "E",
+      "O",
       "L"
     ]
   },
@@ -1643,19 +1759,23 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kathmandu rlish School",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
+      "E",
       "L",
-      "E"
+      "O"
     ]
   },
   {
     "name": "Durbar Marg",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
       "I",
       "D",
@@ -1666,13 +1786,15 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Shree Naxal Bhagwati Temple",
     "nepali": "",
     "buses": [
+      "O",
       "N",
+      "E",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y"
     ]
   },
   {
@@ -1680,25 +1802,31 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "O",
+      "E",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y",
+      "D"
     ]
   },
   {
     "name": "Nepal Mountaineering Association",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y",
+      "D"
     ]
   },
   {
@@ -1710,8 +1838,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "Y",
+      "N",
+      "D"
     ]
   },
   {
@@ -1722,100 +1851,116 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "Y",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
     "name": "Sano Gaucharan",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
+      "L",
+      "D",
       "E",
-      "L"
+      "O"
     ]
   },
   {
     "name": "Sano Football Field",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
+      "L",
+      "D",
       "E",
-      "L"
+      "O"
     ]
   },
   {
     "name": "Sano botball Field",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
+      "L",
+      "D",
       "E",
-      "L"
+      "O"
     ]
   },
   {
     "name": "Sano potball Field",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
+      "L",
+      "D",
       "E",
-      "L"
+      "O"
     ]
   },
   {
     "name": "Electricity Regulatory",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
     "name": "Electricity Commission",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
     "name": "Regulatory Commission",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
@@ -1827,47 +1972,51 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "L",
+      "Y",
+      "O",
       "E",
-      "L"
+      "D"
     ]
   },
   {
     "name": "Embassy of Germany",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
       "L",
-      "E"
+      "D"
     ]
   },
   {
     "name": "Tri-Chandra Muttiple Campus",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
+      "D",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "L",
+      "Y",
       "S",
       "I",
-      "D",
       "R",
-      "Y",
       "T",
       "F",
       "Z",
       "A",
       "B",
       "C",
-      "K",
-      "O"
+      "K"
     ]
   },
   {
@@ -1879,18 +2028,17 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "O",
       "E",
+      "D",
       "L",
+      "Y",
       "S",
       "R",
-      "Y",
       "I",
-      "D",
       "B",
-      "F",
       "Z",
-      "A",
-      "O"
+      "A"
     ]
   },
   {
@@ -1902,18 +2050,17 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "E",
       "L",
+      "D",
+      "Y",
+      "O",
+      "E",
       "S",
       "R",
-      "Y",
       "I",
-      "D",
       "B",
-      "F",
       "Z",
-      "A",
-      "O"
+      "A"
     ]
   },
   {
@@ -1926,7 +2073,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "E"
+      "Y",
+      "D"
     ]
   },
   {
@@ -1938,18 +2086,17 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "E",
       "L",
+      "D",
+      "Y",
+      "O",
+      "E",
       "S",
       "R",
-      "Y",
       "I",
-      "D",
       "B",
-      "F",
       "Z",
-      "A",
-      "O"
+      "A"
     ]
   },
   {
@@ -1961,17 +2108,17 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "E",
+      "D",
+      "Y",
       "L",
+      "E",
+      "O",
       "S",
       "R",
-      "Y",
       "I",
-      "D",
       "B",
       "C",
       "K",
-      "O",
       "T",
       "F",
       "Z",
@@ -1982,22 +2129,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Queen's Palace and Events",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Sat Talley Kapan",
     "nepali": "",
     "buses": [
-      "S"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Sukedhara Chowk",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
       "A"
     ]
@@ -2006,31 +2157,36 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kathmandu Unified City School",
     "nepali": "",
     "buses": [
-      "L"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Kathmandu Unified Yangtaru Sekuwa Corner",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "L",
-      "J",
-      "N"
+      "J"
     ]
   },
   {
     "name": "City School Yangtaru Sekuwa Corner",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "L",
-      "J",
-      "N"
+      "J"
     ]
   },
   {
     "name": "Italian Bakery Shiva Panchayan Mandir",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "L",
       "J",
       "N",
@@ -2045,9 +2201,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "M",
-      "A",
+      "O",
       "E",
-      "D",
+      "A",
       "I"
     ]
   },
@@ -2055,12 +2211,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Dhumbarahi Chowk",
     "nepali": "",
     "buses": [
-      "E",
       "B",
       "S",
       "M",
-      "A",
-      "D"
+      "E",
+      "O",
+      "A"
     ]
   },
   {
@@ -2089,20 +2245,21 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Chhapro Restro",
     "nepali": "",
     "buses": [
-      "E",
       "B",
       "S",
-      "M"
+      "M",
+      "E",
+      "O"
     ]
   },
   {
     "name": "Dhumbarahi Chowk",
     "nepali": "",
     "buses": [
-      "E",
       "B",
       "S",
-      "M"
+      "M",
+      "E"
     ]
   },
   {
@@ -2125,6 +2282,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Trafic Police Circle Maligaun",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "P",
       "H",
       "J",
@@ -2139,12 +2298,12 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "Y",
       "B",
       "S",
       "M",
       "L",
-      "N",
-      "E"
+      "N"
     ]
   },
   {
@@ -2155,8 +2314,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "Y",
+      "L"
     ]
   },
   {
@@ -2195,6 +2354,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "nedset Vidyasadan School",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
+      "O",
       "N",
       "P",
       "H",
@@ -2206,13 +2368,15 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "nedset yasadan School",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
+      "O",
       "P",
       "H",
       "J",
       "G",
       "N",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
@@ -2263,22 +2427,23 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Purano Baneshwor",
     "nepali": "",
     "buses": [
+      "D",
       "L",
-      "E",
       "P",
       "H",
       "J",
       "G",
-      "N"
+      "N",
+      "Y"
     ]
   },
   {
     "name": "Sinamangal (Airport Gate)",
     "nepali": "",
     "buses": [
+      "D",
       "N",
       "L",
-      "E",
       "P"
     ]
   },
@@ -2287,13 +2452,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "D",
       "B",
       "S",
       "M",
       "G",
-      "L",
-      "E",
-      "Y"
+      "L"
     ]
   },
   {
@@ -2533,6 +2697,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kageshwori Manohara",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
@@ -2540,63 +2705,86 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kageshwori Ward 4 Office",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
   {
     "name": "NTC Indrayani",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "NTC Exchange",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Manohara Ward 4 Office",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
   {
     "name": "Gokarneshwor Yatayat Bus Park, Danchhi",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L"
+    ]
   },
   {
     "name": "NIC Asia Bank Danchhi",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Indrayani Exchange",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Kageshwori Manohara Municipality",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
   {
     "name": "Brahmakhel Chowk",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Panchpokhari Yatayat Bus Park, Danchhi",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "P"
+    ]
   },
   {
     "name": "Saraswotikhel Bus Park",
     "nepali": "",
     "buses": [
-      "L"
+      "L",
+      "P"
     ]
   },
   {
@@ -2617,6 +2805,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Nepal Telecom Balambu",
     "nepali": "",
     "buses": [
+      "O",
       "C"
     ]
   },
@@ -2631,7 +2820,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Chandragiri Cable Car Bottom Station",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
@@ -2645,7 +2835,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sahari Swasthya Kendra",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
@@ -2673,6 +2864,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Panchpokhari Bus Park",
     "nepali": "",
     "buses": [
+      "O",
       "C"
     ]
   },
@@ -2680,16 +2872,16 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Police Circle Kalimati",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "K",
       "I",
       "N",
+      "Y",
       "B",
       "X",
       "M",
-      "C",
-      "D",
-      "Y"
+      "C"
     ]
   },
   {
@@ -2700,12 +2892,12 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "N",
+      "O",
+      "Y",
       "B",
       "X",
       "M",
-      "D",
-      "C",
-      "Y"
+      "C"
     ]
   },
   {
@@ -2800,25 +2992,27 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Dillibazar",
     "nepali": "",
     "buses": [
+      "D",
+      "Y",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "B",
       "N",
       "S",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
     "name": "Bir Hospital NAC",
     "nepali": "",
     "buses": [
-      "D",
       "R",
+      "E",
+      "O",
+      "Y",
       "A",
       "H",
       "B",
@@ -2827,16 +3021,14 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "P",
-      "Y",
       "N",
-      "E",
-      "O",
       "T",
       "F",
       "Z",
       "L",
       "J",
-      "G"
+      "G",
+      "D"
     ]
   },
   {
@@ -2844,32 +3036,34 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
+      "D",
+      "Y",
       "B",
       "C",
       "K",
       "I",
       "N",
+      "E",
       "O",
       "T",
       "F",
       "Z",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
     "name": "NAC Sundhara",
     "nepali": "",
     "buses": [
-      "D",
+      "E",
+      "O",
+      "Y",
       "R",
       "B",
       "S",
@@ -2877,10 +3071,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "P",
-      "Y",
       "N",
-      "E",
-      "O",
       "A",
       "H",
       "T",
@@ -2888,7 +3079,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "Z",
       "L",
       "J",
-      "G"
+      "G",
+      "D"
     ]
   },
   {
@@ -2896,7 +3088,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "B",
       "C",
@@ -2904,17 +3095,18 @@ export const ALL_PLACES_BUS_INDEX = [
       "I",
       "P",
       "N",
-      "E",
-      "O",
+      "Y",
       "L",
       "H",
       "J",
       "G",
+      "E",
+      "O",
+      "D",
       "T",
       "F",
       "Z",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
@@ -2924,13 +3116,13 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "R",
+      "D",
       "Y",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "N"
     ]
   },
@@ -2938,17 +3130,16 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sundhara Sahid",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "E",
+      "O",
       "B",
       "S",
       "C",
       "K",
       "I",
       "P",
-      "Y",
       "N",
-      "E",
-      "O",
       "R",
       "A",
       "H",
@@ -2957,24 +3148,24 @@ export const ALL_PLACES_BUS_INDEX = [
       "Z",
       "L",
       "J",
-      "G"
+      "G",
+      "D"
     ]
   },
   {
     "name": "Sahid Gate",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
+      "E",
       "B",
       "S",
       "C",
       "K",
       "I",
       "P",
-      "Y",
       "N",
-      "E",
-      "O",
       "R",
       "A",
       "H",
@@ -2983,7 +3174,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "Z",
       "L",
       "J",
-      "G"
+      "G",
+      "D"
     ]
   },
   {
@@ -2992,13 +3184,12 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "B",
       "R",
-      "Y",
       "S",
+      "D",
+      "Y",
       "I",
       "P",
       "N",
-      "E",
-      "O",
       "L"
     ]
   },
@@ -3007,7 +3198,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "B",
       "N"
@@ -3019,13 +3209,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "B",
       "R",
-      "Y",
       "S",
       "I",
       "P",
-      "N",
-      "E",
-      "O"
+      "N"
     ]
   },
   {
@@ -3456,7 +3643,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Rata Chowk",
     "nepali": "",
     "buses": [
-      "O",
       "B",
       "X",
       "M",
@@ -3472,8 +3658,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "X",
       "M",
-      "P",
-      "O"
+      "P"
     ]
   },
   {
@@ -3510,7 +3695,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Rata Makai Chowk",
     "nepali": "",
     "buses": [
-      "O",
       "B",
       "X",
       "M",
@@ -3521,14 +3705,13 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Mahalaxmi Municipality Office",
     "nepali": "",
     "buses": [
-      "O"
+      "S"
     ]
   },
   {
     "name": "Bhatbhateni (Siddhipur)",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -3538,8 +3721,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
@@ -3555,8 +3737,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
@@ -3606,7 +3787,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Sundar Basti Entrance",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Shree Khandeshwor",
@@ -3625,7 +3808,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Lolang",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Mahadev Temple",
@@ -3651,12 +3836,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Oxford Driving",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Training Center",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Paiyatar Height",
@@ -3668,7 +3857,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Naya Basti Entrance",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Ward 6 Office",
@@ -3687,7 +3878,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Bohoratar",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Entrance Gate",
@@ -3706,7 +3899,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Friendship Colony",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Bangalamukhi Mai",
@@ -3732,12 +3927,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Bohoratar",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "ole",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Temple Entrance Gate",
@@ -3749,12 +3948,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Goldhunga",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Bohoratar",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Diamond Chowk",
@@ -3766,7 +3969,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Times Academy",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Sunflower",
@@ -3778,7 +3983,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Crystal Store",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Secondary School",
@@ -3790,17 +3997,23 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Nepal Yoga Home",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Deepshikha High School",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Lolang Pharmacy",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Sunflower Bridge",
@@ -3812,7 +4025,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Housing Society",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Balapan Pre-School",
@@ -3831,7 +4046,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Summer Angels'School",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Milan Basti",
@@ -3850,12 +4067,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Chowk",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Goldhunga",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "J.S.Driving Center",
@@ -3867,7 +4088,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Sanskriti Shikshya",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Chowk",
@@ -3879,17 +4102,23 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "New Life",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Sadan School",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Rehabilitation Center",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Swarnim Basti",
@@ -3901,7 +4130,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Lolang Ratopul",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Entrance Gate",
@@ -3920,12 +4151,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Dhinchen Samten",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Choyeling Gumba",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Lolang",
@@ -3944,7 +4179,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Goldhunga",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Purano Guheshwori",
@@ -3956,12 +4193,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Shivapuri Nagarjun",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "National Park Entrance",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Aagaman Academy",
@@ -3980,12 +4221,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Fulbari Gate",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Army Camp",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Srijana Gyansagal",
@@ -4032,7 +4277,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Savyata Pathshala",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Cinen",
@@ -4044,42 +4291,58 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Buddha Chowk, Raniban",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Svetah Bhawan",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Nagarjun Futsal",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Bijayanagar Chowk",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Radha Krishna Temple",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Raniban",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Army Rehabilitation",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "Center",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "F"
+    ]
   },
   {
     "name": "pdnispunnng",
@@ -4091,7 +4354,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Halesi Mahadev Temple",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "T"
+    ]
   },
   {
     "name": "Khadka Bhanjyang",
@@ -4293,7 +4558,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Micro Station",
     "nepali": "",
     "buses": [
-      "T"
+      "Z"
     ]
   },
   {
@@ -4321,7 +4586,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Angels' Heart",
     "nepali": "",
     "buses": [
-      "B"
+      "Z"
     ]
   },
   {
@@ -4342,7 +4607,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Secondary School",
     "nepali": "",
     "buses": [
-      "B"
+      "Z"
     ]
   },
   {
@@ -4409,7 +4674,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -4426,7 +4692,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -4436,7 +4703,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -4454,7 +4722,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "M",
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
@@ -4556,7 +4825,9 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Bus Stop",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "Z"
+    ]
   },
   {
     "name": "Saibaba Chowk",
@@ -4568,12 +4839,16 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Taleju Bhawani",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "Z"
+    ]
   },
   {
     "name": "Petrol Pump",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "Z"
+    ]
   },
   {
     "name": "Dhalmal",
@@ -4656,14 +4931,16 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ganesh Mandir",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
     "name": "Greenland Int'l",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
@@ -4677,7 +4954,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Boarding High School",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
@@ -4693,14 +4971,16 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Fruits and Vegetable Market",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
     "name": "Banquet",
     "nepali": "",
     "buses": [
-      "Z"
+      "Z",
+      "Y"
     ]
   },
   {
@@ -4708,6 +4988,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "Z",
+      "Y",
       "B",
       "S"
     ]
@@ -4716,7 +4997,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Basundhara Chowk",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O"
     ]
   },
   {
@@ -4725,7 +5007,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
@@ -4733,6 +5016,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "Z",
+      "Y",
       "B",
       "S"
     ]
@@ -4742,6 +5026,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "Z",
+      "Y",
       "M"
     ]
   },
@@ -4752,7 +5037,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "Z",
       "S",
-      "B"
+      "B",
+      "Y"
     ]
   },
   {
@@ -4760,6 +5046,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "Z",
+      "Y",
       "M"
     ]
   },
@@ -4768,6 +5055,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "Z",
+      "Y",
       "M",
       "B",
       "S"
@@ -4779,6 +5067,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "M",
       "Z",
+      "Y",
       "B",
       "S"
     ]
@@ -4787,6 +5076,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Aakash Jogini Enterprises",
     "nepali": "",
     "buses": [
+      "Y",
       "Z",
       "M",
       "B",
@@ -4799,6 +5089,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "M",
+      "Y",
       "B",
       "S"
     ]
@@ -4810,13 +5101,15 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "Z",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
     "name": "Petrol Pump",
     "nepali": "",
     "buses": [
+      "Y",
       "M",
       "Z",
       "B",
@@ -4827,6 +5120,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Talim Kendra",
     "nepali": "",
     "buses": [
+      "Y",
       "M",
       "Z",
       "B",
@@ -4837,6 +5131,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Chauki",
     "nepali": "",
     "buses": [
+      "Y",
       "M",
       "Z",
       "B",
@@ -4846,82 +5141,121 @@ export const ALL_PLACES_BUS_INDEX = [
   {
     "name": "Tridevi Mandir",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "S",
+      "A"
+    ]
   },
   {
     "name": "Sahajmarga",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "S",
+      "A"
+    ]
   },
   {
     "name": "Microbus Station",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "O",
+      "S",
+      "A",
+      "Y"
+    ]
   },
   {
     "name": "Rhythm Bakery",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "O",
+      "S",
+      "A",
+      "Y"
+    ]
   },
   {
     "name": "Chapali",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "S",
+      "A"
+    ]
   },
   {
     "name": "Happy Chowk",
     "nepali": "",
     "buses": [
-      "S"
+      "Y",
+      "S",
+      "A",
+      "O"
     ]
   },
   {
     "name": "Ganesh Chowk",
     "nepali": "",
     "buses": [
-      "D"
+      "O",
+      "Y"
     ]
   },
   {
     "name": "Lokeshwor Park",
     "nepali": "",
     "buses": [
-      "S"
+      "Y",
+      "O",
+      "S",
+      "A"
     ]
   },
   {
     "name": "Nursery Chowk",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O",
+      "S",
+      "A"
     ]
   },
   {
     "name": "Sukunda Banquet",
     "nepali": "",
     "buses": [
-      "S"
+      "S",
+      "A",
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Hattigauda Chowk",
     "nepali": "",
     "buses": [
-      "D"
+      "O",
+      "Y"
     ]
   },
   {
     "name": "Anita Milan",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O",
+      "S",
+      "A"
     ]
   },
   {
     "name": "Kindergarten",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O",
+      "S",
+      "A"
     ]
   },
   {
@@ -4930,28 +5264,34 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Naulin",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "S",
+      "A",
+      "O"
     ]
   },
   {
     "name": "Panchashil Marga",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Kapan Monastery / Chowk",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
       "S",
       "A"
     ]
@@ -4960,7 +5300,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ananta Studio Cafe",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O"
     ]
   },
   {
@@ -4969,7 +5310,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
@@ -4985,14 +5327,16 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Hariyo Pul",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
       "S",
       "A"
     ]
@@ -5008,14 +5352,16 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Tallo Bhangal",
     "nepali": "",
     "buses": [
-      "D"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Pahelo Pul",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
       "S",
       "A"
     ]
@@ -5026,41 +5372,46 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Special Chowk",
     "nepali": "",
     "buses": [
-      "D"
+      "O",
+      "Y"
     ]
   },
   {
     "name": "Kapan Monastery / Chowk",
     "nepali": "",
     "buses": [
-      "D",
       "S",
-      "A"
+      "A",
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Sweet Science",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
     "name": "Boxing and Fitness",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
@@ -5069,7 +5420,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D",
+      "E",
       "L"
     ]
   },
@@ -5077,16 +5428,17 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Golfutar Basketball Court",
     "nepali": "",
     "buses": [
-      "D"
+      "O",
+      "Y"
     ]
   },
   {
     "name": "Concern",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
       "L"
     ]
   },
@@ -5094,36 +5446,39 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kapan Sekuwa",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "O"
     ]
   },
   {
     "name": "Restaurant",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
     "name": "Kantipur Futsal",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "E"
     ]
   },
   {
     "name": "Kapan Monastery / Chowk",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
       "L"
     ]
   },
@@ -5131,25 +5486,28 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ekatabasti Mode",
     "nepali": "",
     "buses": [
-      "D",
       "S",
-      "A"
+      "A",
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Big Mart",
     "nepali": "",
     "buses": [
-      "D",
       "S",
-      "A"
+      "A",
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Bansbari",
     "nepali": "",
     "buses": [
-      "D",
+      "O",
+      "Y",
       "S",
       "A"
     ]
@@ -5158,19 +5516,20 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Rudramati Chowk",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
-      "L"
+      "Y"
     ]
   },
   {
     "name": "National Media",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D"
+      "Y"
     ]
   },
   {
@@ -5179,24 +5538,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Development Center",
     "nepali": "",
     "buses": [
+      "E",
       "S",
       "A",
-      "D",
-      "L"
+      "Y"
     ]
   },
   {
     "name": "Narayan Gopal",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
+      "O",
       "S",
       "A"
     ]
@@ -5205,15 +5566,18 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Chowk (Chakrapath",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "O"
     ]
   },
   {
     "name": "Hem Ganga Kala",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
       "A"
     ]
@@ -5224,22 +5588,26 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Nilopul",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Sahitya Pratisthan",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
       "A"
     ]
@@ -5248,7 +5616,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Shivapuri Chowk",
     "nepali": "",
     "buses": [
-      "L"
+      "E",
+      "Y"
     ]
   },
   {
@@ -5257,88 +5626,111 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Pvt. Ltd",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "Y",
+      "O"
+    ]
   },
   {
     "name": "Pradesh Park",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Riverside Sports",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Furniture Chautari",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Chunikhel - Mahankal",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Bridge",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Chiya Mantra Tea Shop",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Green City Colony",
     "nepali": "",
     "buses": [
-      "N"
+      "Y",
+      "S",
+      "A",
+      "O"
     ]
   },
   {
     "name": "Happy Kids Kindergarten",
     "nepali": "",
     "buses": [
-      "N"
+      "S",
+      "A",
+      "Y"
     ]
   },
   {
     "name": "Chunikhel",
     "nepali": "",
     "buses": [
-      "N"
+      "S",
+      "A",
+      "Y",
+      "O"
     ]
   },
   {
     "name": "Hakucha Bridge",
     "nepali": "",
     "buses": [
-      "N"
+      "S",
+      "A",
+      "Y"
     ]
   },
   {
     "name": "Shrestha Skate Park",
     "nepali": "",
     "buses": [
+      "S",
+      "A",
+      "Y",
       "L"
     ]
   },
@@ -5346,7 +5738,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Swarupa Tole",
     "nepali": "",
     "buses": [
-      "L"
+      "S",
+      "A",
+      "Y"
     ]
   },
   {
@@ -5385,9 +5779,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "basti",
     "nepali": "",
     "buses": [
-      "D",
+      "Y",
       "S",
-      "A"
+      "A",
+      "O"
     ]
   },
   {
@@ -5402,10 +5797,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Aakashedhara",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -5413,10 +5808,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Micro Bus Park",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -5432,10 +5827,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kapan Handball",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -5443,10 +5838,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sports Ground",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -5462,10 +5857,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ward No.10Ofice",
     "nepali": "",
     "buses": [
+      "E",
       "L",
       "S",
       "A",
-      "D",
       "N"
     ]
   },
@@ -5506,7 +5901,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Bank",
     "nepali": "",
     "buses": [
-      "T"
+      "F"
     ]
   },
   {
@@ -5517,6 +5912,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "T",
+      "Y",
       "F"
     ]
   },
@@ -5535,7 +5931,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Corona Pre-School",
     "nepali": "",
     "buses": [
-      "M"
+      "F"
     ]
   },
   {
@@ -5546,7 +5942,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "B",
       "S",
-      "M"
+      "M",
+      "Y"
     ]
   },
   {
@@ -5557,13 +5954,15 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "M",
       "B",
-      "S"
+      "S",
+      "Y"
     ]
   },
   {
     "name": "Big Mart Supermarket",
     "nepali": "",
     "buses": [
+      "F",
       "M",
       "T"
     ]
@@ -5572,8 +5971,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Yerahity",
     "nepali": "",
     "buses": [
+      "F",
       "M",
-      "T"
+      "T",
+      "Y"
     ]
   },
   {
@@ -5581,7 +5982,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
-      "T"
+      "T",
+      "F",
+      "Y"
     ]
   },
   {
@@ -5589,9 +5992,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
+      "F",
       "T",
-      "B",
-      "S"
+      "Y"
     ]
   },
   {
@@ -5599,15 +6002,19 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "M",
-      "T"
+      "T",
+      "F",
+      "Y"
     ]
   },
   {
     "name": "Vibhuti Secondary School",
     "nepali": "",
     "buses": [
+      "F",
       "M",
-      "T"
+      "T",
+      "Y"
     ]
   },
   {
@@ -5616,6 +6023,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "M",
       "T",
+      "F",
+      "Y",
       "B",
       "S"
     ]
@@ -5627,6 +6036,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "T",
       "F",
+      "Y",
       "B",
       "S"
     ]
@@ -5636,7 +6046,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "F",
-      "T"
+      "T",
+      "D"
     ]
   },
   {
@@ -5645,6 +6056,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "F",
       "T",
+      "D",
       "Z",
       "A"
     ]
@@ -5653,6 +6065,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sitapaila Chowk",
     "nepali": "",
     "buses": [
+      "Y",
       "S",
       "M",
       "T",
@@ -5663,9 +6076,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Teaching Hospital",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
-      "D",
       "B",
       "M",
       "E",
@@ -5680,7 +6093,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "I",
-      "D",
       "A"
     ]
   },
@@ -5692,21 +6104,22 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "M",
       "I",
-      "D",
-      "A"
+      "A",
+      "O",
+      "E"
     ]
   },
   {
     "name": "Hospital",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
-      "D",
       "B",
       "M",
-      "I",
-      "E"
+      "E",
+      "I"
     ]
   },
   {
@@ -5716,7 +6129,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "I",
-      "D",
       "M",
       "A"
     ]
@@ -5729,8 +6141,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "M",
       "E",
+      "O",
       "A",
-      "D",
       "I"
     ]
   },
@@ -5739,7 +6151,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "I",
-      "D",
       "B",
       "S",
       "A"
@@ -5749,6 +6160,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Aatma Gyan",
     "nepali": "",
     "buses": [
+      "D",
       "Z"
     ]
   },
@@ -5756,10 +6168,11 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Embassyof China",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
       "I",
-      "D",
+      "E",
       "B",
       "M"
     ]
@@ -5768,6 +6181,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Prachar Sangh (AGPS",
     "nepali": "",
     "buses": [
+      "D",
       "Z"
     ]
   },
@@ -5776,7 +6190,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "I",
-      "D",
       "Z",
       "S",
       "A"
@@ -5786,6 +6199,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kapurdhara",
     "nepali": "",
     "buses": [
+      "D",
       "Z",
       "T"
     ]
@@ -5796,7 +6210,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "I",
-      "D",
       "S",
       "A"
     ]
@@ -5805,32 +6218,35 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Gairidhara",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
-      "I",
-      "D"
+      "E",
+      "I"
     ]
   },
   {
     "name": "Tangal",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
       "B",
       "M",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Bodhi Books",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "B",
       "S",
-      "M",
-      "E"
+      "M"
     ]
   },
   {
@@ -5839,7 +6255,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "I",
-      "D",
       "S",
       "A"
     ]
@@ -5848,26 +6263,29 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Tangal",
     "nepali": "",
     "buses": [
+      "E",
       "B",
       "S",
       "M",
-      "E"
+      "O"
     ]
   },
   {
     "name": "and Bistro",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "B",
       "S",
-      "M",
-      "E"
+      "M"
     ]
   },
   {
     "name": "Children Park",
     "nepali": "",
     "buses": [
+      "D",
       "Z",
       "T",
       "F",
@@ -5878,10 +6296,11 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Temple",
     "nepali": "",
     "buses": [
+      "O",
       "S",
       "A",
-      "I",
-      "D"
+      "E",
+      "I"
     ]
   },
   {
@@ -5890,29 +6309,31 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "I",
-      "D",
       "S",
-      "A"
+      "A",
+      "D"
     ]
   },
   {
     "name": "Siddhartha Bank",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Head Ofice",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
@@ -5921,32 +6342,32 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "Z",
       "I",
-      "D",
       "S",
-      "A"
+      "A",
+      "D"
     ]
   },
   {
     "name": "Nepal Police",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
-      "A",
-      "I",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Galkopakha M",
     "nepali": "",
     "buses": [
+      "D",
       "T",
       "F",
       "Z",
       "A",
       "S",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
@@ -5955,14 +6376,17 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
+      "O",
       "I",
-      "D"
+      "E"
     ]
   },
   {
     "name": "Headquarters",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
       "A"
     ]
@@ -5971,6 +6395,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Naxal",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
       "A"
     ]
@@ -5979,13 +6405,13 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ncell",
     "nepali": "",
     "buses": [
+      "D",
       "Z",
       "A",
       "T",
       "F",
       "S",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
@@ -5995,7 +6421,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "A",
       "I",
-      "D",
+      "O",
+      "E",
       "Z"
     ]
   },
@@ -6006,13 +6433,16 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "A",
       "I",
-      "D"
+      "O",
+      "E"
     ]
   },
   {
     "name": "Maligaun",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "P",
       "H",
       "J",
@@ -6023,26 +6453,29 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sanima Bank",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
-      "A",
-      "I",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Head Office",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "S",
-      "A",
-      "I",
-      "D"
+      "A"
     ]
   },
   {
     "name": "Maligaun",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
+      "O",
       "P",
       "H",
       "J",
@@ -6053,9 +6486,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Market",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "N",
-      "S",
-      "A"
+      "S"
     ]
   },
   {
@@ -6064,9 +6498,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "I",
-      "D",
       "Z",
       "A",
+      "D",
       "T",
       "F"
     ]
@@ -6075,18 +6509,20 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Nandi Ratri",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "N",
-      "S",
-      "A"
+      "S"
     ]
   },
   {
     "name": "Secondary School",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "N",
-      "S",
-      "A"
+      "S"
     ]
   },
   {
@@ -6095,15 +6531,20 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "I",
-      "D",
       "A",
-      "Z"
+      "Z",
+      "D",
+      "E",
+      "O"
     ]
   },
   {
     "name": "Brihaspati",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
+      "O",
       "N",
       "P",
       "H",
@@ -6119,27 +6560,29 @@ export const ALL_PLACES_BUS_INDEX = [
       "A",
       "T",
       "F",
+      "D",
       "S",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
     "name": "Bank",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
     "name": "Hall",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "S",
       "I",
       "D",
@@ -6157,30 +6600,34 @@ export const ALL_PLACES_BUS_INDEX = [
       "Z",
       "A",
       "T",
-      "F"
+      "F",
+      "E",
+      "O"
     ]
   },
   {
     "name": "Marriot Hotel",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "N",
-      "P",
-      "H",
-      "J"
+      "P"
     ]
   },
   {
     "name": "English School",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
       "E",
-      "L"
+      "L",
+      "O"
     ]
   },
   {
@@ -6188,25 +6635,30 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "O",
+      "E",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y"
     ]
   },
   {
     "name": "Nepal Mountaineering",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y",
+      "D"
     ]
   },
   {
@@ -6217,35 +6669,40 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "Y",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
     "name": "Sano",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
-      "P",
-      "H",
-      "J",
-      "G",
-      "E",
-      "L"
-    ]
-  },
-  {
-    "name": "Electricity",
-    "nepali": "",
-    "buses": [
       "P",
       "H",
       "J",
       "G",
       "L",
       "E",
-      "N"
+      "O",
+      "D"
+    ]
+  },
+  {
+    "name": "Electricity",
+    "nepali": "",
+    "buses": [
+      "Y",
+      "P",
+      "H",
+      "J",
+      "G",
+      "L",
+      "N",
+      "D"
     ]
   },
   {
@@ -6253,38 +6710,43 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "O",
+      "E",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y",
+      "D"
     ]
   },
   {
     "name": "Regulatory",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
     "name": "Commission",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "N",
+      "D"
     ]
   },
   {
@@ -6296,21 +6758,25 @@ export const ALL_PLACES_BUS_INDEX = [
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "Y",
+      "N",
+      "D"
     ]
   },
   {
     "name": "Hattisar",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "D",
+      "Y"
     ]
   },
   {
@@ -6318,27 +6784,33 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "O",
       "P",
       "H",
       "J",
       "G",
       "E",
-      "L"
+      "L",
+      "Y",
+      "D"
     ]
   },
   {
     "name": "Jamal (Rani Pokhari)",
     "nepali": "",
     "buses": [
+      "D",
       "S",
       "I",
-      "D",
       "T",
       "F",
       "Z",
       "A",
+      "E",
+      "O",
       "H",
       "N",
+      "Y",
       "B",
       "C",
       "K",
@@ -6346,23 +6818,21 @@ export const ALL_PLACES_BUS_INDEX = [
       "P",
       "J",
       "G",
-      "R",
-      "Y",
-      "E",
-      "O"
+      "R"
     ]
   },
   {
     "name": "Embassy",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
       "N",
       "L",
-      "E"
+      "D"
     ]
   },
   {
@@ -6370,38 +6840,39 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "L",
-      "E",
       "P",
       "H",
       "J",
       "G",
-      "N"
+      "Y",
+      "N",
+      "D"
     ]
   },
   {
     "name": "Tri-Chandra",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
+      "D",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
+      "Y",
       "L",
       "S",
       "I",
-      "D",
       "R",
-      "Y",
       "T",
       "F",
       "Z",
       "A",
       "B",
       "C",
-      "K",
-      "O"
+      "K"
     ]
   },
   {
@@ -6413,8 +6884,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "J",
       "G",
       "L",
-      "E",
-      "N"
+      "Y",
+      "N",
+      "D"
     ]
   },
   {
@@ -6425,9 +6897,11 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "E",
       "L",
-      "N"
+      "N",
+      "Y",
+      "D",
+      "O"
     ]
   },
   {
@@ -6440,33 +6914,34 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "E"
+      "Y",
+      "D"
     ]
   },
   {
     "name": "Ghantaghar",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
+      "D",
       "N",
       "S",
       "I",
-      "D",
+      "Y",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "L",
       "T",
       "F",
       "Z",
       "A",
       "R",
-      "Y",
       "B",
       "C",
-      "K",
-      "O"
+      "K"
     ]
   },
   {
@@ -6479,7 +6954,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "F",
       "Z",
       "R",
-      "D",
       "S",
       "I",
       "B",
@@ -6489,9 +6963,11 @@ export const ALL_PLACES_BUS_INDEX = [
       "P",
       "J",
       "G",
-      "Y",
       "N",
-      "E"
+      "D",
+      "E",
+      "O",
+      "Y"
     ]
   },
   {
@@ -6500,49 +6976,53 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Bibek Chowk",
     "nepali": "",
     "buses": [
-      "L"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Narayan Chowk",
     "nepali": "",
     "buses": [
-      "L"
+      "E"
     ]
   },
   {
     "name": "Queen's Palace",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
     "name": "U.S.Embassy",
     "nepali": "",
     "buses": [
-      "D",
+      "O",
       "S",
       "A",
-      "B"
+      "Y"
     ]
   },
   {
     "name": "and Events",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
-      "A",
-      "D"
+      "A"
     ]
   },
   {
@@ -6551,20 +7031,24 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "A",
-      "D"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Kapan Monastery / Chowk",
     "nepali": "",
     "buses": [
-      "S"
+      "E",
+      "Y"
     ]
   },
   {
     "name": "Grande School",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "S",
       "A"
     ]
@@ -6583,6 +7067,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Police Sector",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
       "S",
       "A"
     ]
@@ -6591,46 +7077,53 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kathmandu Unified",
     "nepali": "",
     "buses": [
-      "L"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "City School",
     "nepali": "",
     "buses": [
-      "L"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Yangtaru Sekuwa Corner",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "N",
-      "L",
-      "J"
+      "L"
     ]
   },
   {
     "name": "Sukedhara Chowk",
     "nepali": "",
     "buses": [
-      "L"
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Italian Bakery",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "L",
       "J",
-      "N",
-      "P"
+      "N"
     ]
   },
   {
     "name": "Shiva Panchayan Mandir",
     "nepali": "",
     "buses": [
+      "Y",
+      "E",
       "L",
       "J",
       "N",
@@ -6645,18 +7138,21 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "M",
+      "O",
       "A",
       "I",
-      "D"
+      "E"
     ]
   },
   {
     "name": "Film Board Chowk",
     "nepali": "",
     "buses": [
+      "Y",
       "L",
       "J",
       "N",
+      "E",
       "P",
       "H"
     ]
@@ -6675,12 +7171,13 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "China",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "B",
       "S",
       "M",
       "A",
-      "I",
-      "D"
+      "I"
     ]
   },
   {
@@ -6708,10 +7205,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Secondary School",
     "nepali": "",
     "buses": [
-      "E",
       "B",
       "S",
-      "M"
+      "M",
+      "E"
     ]
   },
   {
@@ -6761,9 +7258,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Tangal Marga",
     "nepali": "",
     "buses": [
+      "E",
+      "O",
       "B",
-      "S",
-      "A"
+      "S"
     ]
   },
   {
@@ -6776,16 +7274,18 @@ export const ALL_PLACES_BUS_INDEX = [
       "L",
       "G",
       "N",
-      "E",
       "P",
       "H",
-      "J"
+      "J",
+      "Y",
+      "E"
     ]
   },
   {
     "name": "Chabahil Chowk",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "L",
@@ -6797,7 +7297,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "jexe",
     "nepali": "",
     "buses": [
-      "S"
+      "E",
+      "O"
     ]
   },
   {
@@ -6808,6 +7309,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "Y",
       "B",
       "S",
       "M",
@@ -6824,25 +7326,25 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
+      "Y",
       "B",
       "S",
       "M",
       "L",
-      "N",
-      "E"
+      "N"
     ]
   },
   {
     "name": "Mitrapark",
     "nepali": "",
     "buses": [
+      "Y",
       "B",
       "S",
       "M",
       "L",
       "G",
       "N",
-      "E",
       "P",
       "H",
       "J"
@@ -6856,8 +7358,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "Y",
+      "L"
     ]
   },
   {
@@ -6877,14 +7379,16 @@ export const ALL_PLACES_BUS_INDEX = [
       "M",
       "L",
       "G",
-      "N",
-      "E"
+      "N"
     ]
   },
   {
     "name": "nedset",
     "nepali": "",
     "buses": [
+      "E",
+      "Y",
+      "O",
       "N",
       "P",
       "H",
@@ -6900,41 +7404,42 @@ export const ALL_PLACES_BUS_INDEX = [
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "Y",
+      "L"
     ]
   },
   {
     "name": "Kalopul",
     "nepali": "",
     "buses": [
+      "Y",
       "P",
       "H",
       "J",
       "G",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
     "name": "rlish School",
     "nepali": "",
     "buses": [
+      "Y",
       "N",
       "P",
       "H",
       "J",
       "G",
+      "E",
       "L",
-      "E"
+      "O"
     ]
   },
   {
     "name": "Dotel Dairy",
     "nepali": "",
     "buses": [
-      "G",
-      "Y"
+      "G"
     ]
   },
   {
@@ -6950,7 +7455,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "G",
-      "Y",
       "R"
     ]
   },
@@ -6958,11 +7462,11 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Gaushala (Pashupatinath)",
     "nepali": "",
     "buses": [
-      "Y",
       "G",
       "B",
       "S",
-      "M"
+      "M",
+      "D"
     ]
   },
   {
@@ -6970,7 +7474,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "G",
-      "Y",
       "R"
     ]
   },
@@ -6995,21 +7498,21 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "G",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
     "name": "Purano",
     "nepali": "",
     "buses": [
+      "D",
       "L",
-      "E",
       "P",
       "H",
       "J",
       "G",
-      "N"
+      "N",
+      "Y"
     ]
   },
   {
@@ -7056,8 +7559,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Milan Chowk",
     "nepali": "",
     "buses": [
-      "P",
-      "L"
+      "L",
+      "P"
     ]
   },
   {
@@ -7380,47 +7883,62 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Manohara",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
   {
     "name": "Gokarneshwor Yatayat",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "NEA Jorpati",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
   {
     "name": "Bagdhara",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L"
+    ]
   },
   {
     "name": "Danchhi",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
   {
     "name": "Danchhi",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Bus Park, Danchhi",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Kageshwori Manohara",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
@@ -7428,6 +7946,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Municipality",
     "nepali": "",
     "buses": [
+      "L",
       "P"
     ]
   },
@@ -7435,30 +7954,40 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Thali Chowk",
     "nepali": "",
     "buses": [
-      "P",
-      "L"
+      "L",
+      "P"
     ]
   },
   {
     "name": "Chowk",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Panchpokhari Yatayat",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Bus Park, Danchhi",
     "nepali": "",
-    "buses": []
+    "buses": [
+      "L",
+      "P"
+    ]
   },
   {
     "name": "Bus Park",
     "nepali": "",
     "buses": [
-      "L"
+      "L",
+      "P"
     ]
   },
   {
@@ -7501,21 +8030,24 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Gurjudhara",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
     "name": "Satungal Chowk",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
     "name": "Naikap",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
@@ -7529,6 +8061,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Balambu",
     "nepali": "",
     "buses": [
+      "O",
       "C"
     ]
   },
@@ -7543,7 +8076,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Ward 5 Office",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
@@ -7557,7 +8091,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Kendra",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
@@ -7585,7 +8120,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Yashaswi Shiksha Sadan",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
@@ -7599,41 +8135,45 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "School",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
     "name": "Matatirtha Police Station",
     "nepali": "",
     "buses": [
-      "C"
+      "O"
     ]
   },
   {
     "name": "Shree Mahalaxmi Adharbhut",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
     "name": "School",
     "nepali": "",
     "buses": [
-      "C"
+      "C",
+      "O"
     ]
   },
   {
     "name": "Matatirtha Football Ground",
     "nepali": "",
     "buses": [
-      "C"
+      "O"
     ]
   },
   {
     "name": "Bus Park",
     "nepali": "",
     "buses": [
+      "O",
       "C"
     ]
   },
@@ -7641,6 +8181,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Soltidobato",
     "nepali": "",
     "buses": [
+      "Y",
       "S",
       "M",
       "T",
@@ -7651,6 +8192,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Bafal (Ring Road)",
     "nepali": "",
     "buses": [
+      "Y",
       "S",
       "M",
       "T",
@@ -7658,9 +8200,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "C",
       "B",
       "X",
-      "D",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
@@ -7668,15 +8208,15 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "C",
+      "Y",
+      "O",
       "S",
       "M",
       "T",
       "A",
       "B",
       "X",
-      "D",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
@@ -7684,8 +8224,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "C",
-      "D",
       "Y",
+      "O",
       "R",
       "B",
       "S",
@@ -7701,12 +8241,12 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "N",
+      "O",
+      "Y",
       "B",
       "X",
       "M",
-      "C",
-      "D",
-      "Y"
+      "C"
     ]
   },
   {
@@ -7719,7 +8259,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "N",
       "B",
       "X",
-      "M"
+      "M",
+      "O"
     ]
   },
   {
@@ -7739,7 +8280,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Khasibazar",
     "nepali": "",
     "buses": [
-      "B"
+      "O"
     ]
   },
   {
@@ -7860,39 +8401,42 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Association",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
-      "L"
+      "L",
+      "Y",
+      "D"
     ]
   },
   {
     "name": "Muttiple Campus",
     "nepali": "",
     "buses": [
+      "O",
+      "E",
+      "D",
       "N",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "L",
+      "Y",
       "S",
       "I",
-      "D",
       "R",
-      "Y",
       "T",
       "F",
       "Z",
       "A",
       "B",
       "C",
-      "K",
-      "O"
+      "K"
     ]
   },
   {
@@ -7900,21 +8444,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "D",
+      "Y",
       "L",
-      "P",
-      "H",
-      "J",
-      "G",
-      "E"
-    ]
-  },
-  {
-    "name": "Setopul",
-    "nepali": "",
-    "buses": [
-      "L",
-      "E",
-      "N",
       "P",
       "H",
       "J",
@@ -7922,24 +8454,37 @@ export const ALL_PLACES_BUS_INDEX = [
     ]
   },
   {
+    "name": "Setopul",
+    "nepali": "",
+    "buses": [
+      "D",
+      "L",
+      "N",
+      "P",
+      "H",
+      "J",
+      "G",
+      "Y"
+    ]
+  },
+  {
     "name": "Baghbazar Sadak",
     "nepali": "",
     "buses": [
+      "D",
+      "Y",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "N",
       "S",
       "R",
-      "Y",
+      "E",
+      "O",
       "B",
       "I",
-      "O",
-      "D",
-      "F",
       "Z",
       "A"
     ]
@@ -7948,34 +8493,34 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Dillibazar",
     "nepali": "",
     "buses": [
+      "D",
+      "Y",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "N",
       "B",
       "S",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
     "name": "Pipalbot",
     "nepali": "",
     "buses": [
+      "D",
+      "Y",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "B",
       "N",
       "S",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
@@ -7984,14 +8529,14 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "R",
-      "Y",
       "B",
+      "D",
+      "Y",
       "L",
       "P",
       "H",
       "J",
       "G",
-      "E",
       "N"
     ]
   },
@@ -7999,7 +8544,9 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sundhara (Dharahara)",
     "nepali": "",
     "buses": [
-      "D",
+      "E",
+      "O",
+      "Y",
       "R",
       "B",
       "S",
@@ -8007,10 +8554,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "P",
-      "Y",
       "N",
-      "E",
-      "O",
       "A",
       "H",
       "T",
@@ -8018,7 +8562,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "Z",
       "L",
       "J",
-      "G"
+      "G",
+      "D"
     ]
   },
   {
@@ -8031,11 +8576,10 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "P",
-      "Y",
       "N",
+      "Y",
       "E",
       "O",
-      "D",
       "R",
       "L",
       "T",
@@ -8044,7 +8588,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "A",
       "H",
       "J",
-      "G"
+      "G",
+      "D"
     ]
   },
   {
@@ -8054,14 +8599,14 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "R",
-      "Y",
+      "D",
       "N",
+      "Y",
       "L",
       "P",
       "H",
       "J",
-      "G",
-      "E"
+      "G"
     ]
   },
   {
@@ -8071,8 +8616,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "B",
       "R",
-      "Y",
-      "N"
+      "N",
+      "D",
+      "Y"
     ]
   },
   {
@@ -8080,7 +8626,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "B",
       "N"
@@ -8092,7 +8637,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "R",
-      "Y",
       "B",
       "N"
     ]
@@ -8104,7 +8648,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "R",
       "N",
-      "Y",
       "B"
     ]
   },
@@ -8115,10 +8658,11 @@ export const ALL_PLACES_BUS_INDEX = [
       "C",
       "K",
       "I",
-      "Y",
       "N",
       "S",
-      "D"
+      "Y",
+      "O",
+      "E"
     ]
   },
   {
@@ -8126,7 +8670,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "B",
       "N"
@@ -8137,7 +8680,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "B",
       "N"
@@ -8150,8 +8692,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "N",
       "R",
-      "B",
-      "Y"
+      "B"
     ]
   },
   {
@@ -8159,7 +8700,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "B",
-      "Y",
       "S",
       "R",
       "N"
@@ -8171,8 +8711,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "P",
       "S",
-      "O",
-      "B"
+      "B",
+      "I"
     ]
   },
   {
@@ -8182,7 +8722,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "S",
       "R",
       "N",
-      "Y"
+      "B"
     ]
   },
   {
@@ -8200,12 +8740,12 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "N",
+      "O",
+      "Y",
       "B",
       "X",
       "M",
-      "C",
-      "D",
-      "Y"
+      "C"
     ]
   },
   {
@@ -8216,9 +8756,9 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "N",
-      "C",
+      "O",
       "Y",
-      "D"
+      "C"
     ]
   },
   {
@@ -8229,12 +8769,12 @@ export const ALL_PLACES_BUS_INDEX = [
       "K",
       "I",
       "N",
+      "O",
+      "Y",
       "B",
       "X",
       "M",
-      "C",
-      "D",
-      "Y"
+      "C"
     ]
   },
   {
@@ -8243,8 +8783,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "P",
       "S",
-      "O",
-      "N"
+      "N",
+      "B"
     ]
   },
   {
@@ -8257,7 +8797,8 @@ export const ALL_PLACES_BUS_INDEX = [
       "N",
       "B",
       "X",
-      "M"
+      "M",
+      "O"
     ]
   },
   {
@@ -8265,7 +8806,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "O",
       "P",
       "N",
       "X",
@@ -8276,7 +8816,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Hariharbhawan",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "N",
       "X",
@@ -8301,7 +8840,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Pulchowk (Engineering Campus)",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "N",
       "X",
@@ -8315,7 +8853,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "S",
       "N",
-      "O",
       "X",
       "M",
       "P",
@@ -8329,15 +8866,13 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "X",
       "M",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
     "name": "Gwarko Chowk",
     "nepali": "",
     "buses": [
-      "O",
       "B",
       "X",
       "M",
@@ -8351,22 +8886,21 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "N",
+      "D",
       "B",
       "S",
       "M",
       "G",
-      "L",
-      "E",
-      "Y"
+      "L"
     ]
   },
   {
     "name": "Bagmati Bridge",
     "nepali": "",
     "buses": [
+      "D",
       "N",
-      "L",
-      "E"
+      "L"
     ]
   },
   {
@@ -8374,8 +8908,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "G",
-      "R",
-      "Y"
+      "R"
     ]
   },
   {
@@ -8383,10 +8916,10 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "G",
-      "Y",
       "B",
       "S",
       "M",
+      "D",
       "R"
     ]
   },
@@ -8441,8 +8974,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "R",
       "B",
       "S",
-      "M",
-      "Y"
+      "M"
     ]
   },
   {
@@ -8483,8 +9015,8 @@ export const ALL_PLACES_BUS_INDEX = [
     "buses": [
       "N",
       "B",
-      "Y",
-      "M"
+      "M",
+      "D"
     ]
   },
   {
@@ -8492,7 +9024,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "B",
-      "Y",
       "N",
       "M",
       "S",
@@ -8504,7 +9035,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "R",
-      "Y",
       "S",
       "B",
       "N"
@@ -8530,8 +9060,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "S",
       "X",
-      "M",
-      "Y"
+      "M"
     ]
   },
   {
@@ -8704,9 +9233,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Halesi Driving Center",
     "nepali": "",
     "buses": [
-      "X",
-      "B",
-      "S"
+      "B"
     ]
   },
   {
@@ -9162,7 +9689,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Matatirtha Temple",
     "nepali": "",
     "buses": [
-      "C"
+      "O"
     ]
   },
   {
@@ -9523,7 +10050,6 @@ export const ALL_PLACES_BUS_INDEX = [
       "X",
       "M",
       "R",
-      "O",
       "B",
       "S",
       "P"
@@ -9581,8 +10107,7 @@ export const ALL_PLACES_BUS_INDEX = [
       "B",
       "X",
       "M",
-      "P",
-      "O"
+      "P"
     ]
   },
   {
@@ -9717,7 +10242,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Imadol Pipalbot",
     "nepali": "",
     "buses": [
-      "O",
       "B"
     ]
   },
@@ -9725,35 +10249,34 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Krishna Mandir",
     "nepali": "",
     "buses": [
-      "O"
+      "S"
     ]
   },
   {
     "name": "Imadol Kharibot",
     "nepali": "",
     "buses": [
-      "O"
+      "S"
     ]
   },
   {
     "name": "Mahalaxmi",
     "nepali": "",
     "buses": [
-      "O"
+      "S"
     ]
   },
   {
     "name": "Municipality Office",
     "nepali": "",
     "buses": [
-      "O"
+      "S"
     ]
   },
   {
     "name": "Kamalpokhari",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9762,7 +10285,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Imadol Tempo Park",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9771,7 +10293,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Bhatbhateni",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9788,7 +10309,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Siddhipur",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9797,7 +10317,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Sana Gaun",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9807,15 +10326,13 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
     "name": "Narkate Chowk",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9824,14 +10341,13 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Lubhu",
     "nepali": "",
     "buses": [
-      "O"
+      "S"
     ]
   },
   {
     "name": "Mahalaxmi Multiple",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9841,15 +10357,13 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
     "name": "Campus",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9866,7 +10380,6 @@ export const ALL_PLACES_BUS_INDEX = [
     "name": "Pani Tanki",
     "nepali": "",
     "buses": [
-      "O",
       "S",
       "R"
     ]
@@ -9876,8 +10389,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
@@ -9885,8 +10397,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
@@ -9910,8 +10421,7 @@ export const ALL_PLACES_BUS_INDEX = [
     "nepali": "",
     "buses": [
       "S",
-      "R",
-      "O"
+      "R"
     ]
   },
   {
@@ -10073,23 +10583,65 @@ export const ALL_PLACES_BUS_INDEX = [
   }
 ];
 
+const GENERIC_STOP_WORDS = new Set(['temple', 'chowk', 'bus park', 'bus stop', 'gate', 'hospital', 'school', 'center', 'centre', 'store', 'station', 'microbus station', 'park', 'road', 'marga', 'tole']);
+
 // Quick lookup helper: Returns list of bus operator codes that serve any place matching query
 export function findBusesForPlaceQuery(query) {
   if (!query || !query.trim()) return { codes: [], matchedPlaces: [] };
-  const q = query.trim().toLowerCase();
-  
-  const matchedCodes = new Set();
-  const matchedPlaces = [];
+  const normalize = (s) => s.toLowerCase().replace(/budanilk/g, 'budhanilk');
+  const q = normalize(query.trim());
+  const queryWords = q.split(/\s+/).filter(w => w.length > 2);
+
+  const matches = [];
 
   for (const item of ALL_PLACES_BUS_INDEX) {
-    if (item.name.toLowerCase().includes(q) || (item.nepali && item.nepali.includes(q))) {
-      matchedPlaces.push(item.name);
-      item.buses.forEach(b => matchedCodes.add(b));
+    const rawName = item.name.toLowerCase();
+    const name = normalize(rawName);
+    const nepali = item.nepali || '';
+
+    // 1. Exact match
+    if (name === q || nepali === q) {
+      matches.push({ item, score: 100 });
+      continue;
     }
+
+    // 2. Name contains full query (e.g. 'radha krishna' in 'radha krishna temple')
+    if (name.includes(q) || (nepali && nepali.includes(q))) {
+      matches.push({ item, score: 80 });
+      continue;
+    }
+
+    // 3. Query contains full specific place name (e.g. 'radha krishna temple raniban' contains 'radha krishna temple')
+    // Exclude generic words like 'temple' or 'chowk' from matching full query
+    if (!GENERIC_STOP_WORDS.has(name) && name.length >= 5 && q.includes(name)) {
+      matches.push({ item, score: 70 });
+      continue;
+    }
+
+    // 4. Multi-word intersection: for multi-word queries, all non-generic words must be present in name
+    if (queryWords.length >= 2) {
+      const nonGenericWords = queryWords.filter(w => !GENERIC_STOP_WORDS.has(w));
+      const matchedCount = nonGenericWords.filter(w => name.includes(w)).length;
+      if (nonGenericWords.length > 0 && matchedCount === nonGenericWords.length) {
+        matches.push({ item, score: 60 });
+      }
+    }
+  }
+
+  // Filter to highest score tier to prevent pollution from lower-scoring broad matches
+  matches.sort((a, b) => b.score - a.score);
+  const topScore = matches.length > 0 ? matches[0].score : 0;
+  const filtered = matches.filter(m => m.score >= topScore - 10);
+
+  const matchedCodes = new Set();
+  const matchedNames = [];
+  for (const m of filtered) {
+    matchedNames.push(m.item.name);
+    m.item.buses.forEach(b => matchedCodes.add(b));
   }
 
   return {
     codes: Array.from(matchedCodes),
-    matchedPlaces: matchedPlaces.slice(0, 10)
+    matchedPlaces: matchedNames.slice(0, 10)
   };
 }
