@@ -1,0 +1,19 @@
+# Dependencies & Environment
+node_modules/
+.venv/
+
+# Build artifacts
+dist/
+dist-ssr/
+*.local
+
+# Master rasterized image & root junction (public/tiles is tracked for deployment)
+master.png
+/tiles/
+*.tmp
+
+# System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
