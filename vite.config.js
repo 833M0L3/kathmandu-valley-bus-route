@@ -10,6 +10,6 @@ export default defineConfig({
   ],
   base: './', // Ensures relative assets for GitHub Pages and Cloudflare Pages
   build: {
-    copyPublicDir: false, // Tiles are directly junctioned to dist/tiles
+    copyPublicDir: true, // Copy public/tiles/ into dist/ during build (required for Cloudflare deployment)
   },
 })
