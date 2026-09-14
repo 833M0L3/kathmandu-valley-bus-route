@@ -9,7 +9,7 @@ import { getOperatorRoutes } from './data/dedicatedRoutesData';
 export default function App() {
   const [isLegendOpen, setIsLegendOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(null);
-  const [selectedSubRouteIds, setSelectedSubRouteIds] = useState([]);
+  const [selectedSubRouteCodes, setSelectedSubRouteCodes] = useState([]);
   const mapControlsRef = useRef(null);
 
   const registerMapControls = useCallback((controls) => {
@@ -34,31 +34,45 @@ export default function App() {
 
   const handleClearActiveRoute = () => {
     setActiveRoute(null);
-    setSelectedSubRouteIds([]);
+    setSelectedSubRouteCodes([]);
     mapControlsRef.current?.clearRouteHighlight();
   };
 
   const handleToggleSubRoute = (subRoute) => {
     if (!activeRoute) return;
 
-    let next;
+    let nextCodes;
     // If currently showing all branches, clicking one isolates to just that branch
-    if (selectedSubRouteIds.length === 0) {
-      next = [subRoute.svgId];
-    } else if (selectedSubRouteIds.includes(subRoute.svgId)) {
+    if (selectedSubRouteCodes.length === 0) {
+      nextCodes = [subRoute.code];
+    } else if (selectedSubRouteCodes.includes(subRoute.code)) {
       // Toggle off
-      next = selectedSubRouteIds.filter((id) => id !== subRoute.svgId);
+      nextCodes = selectedSubRouteCodes.filter((code) => code !== subRoute.code);
     } else {
       // Toggle on (multi-select)
-      next = [...selectedSubRouteIds, subRoute.svgId];
+      nextCodes = [...selectedSubRouteCodes, subRoute.code];
     }
 
-    setSelectedSubRouteIds(next);
-    mapControlsRef.current?.highlightRoute(activeRoute.name, next.length > 0 ? next : null);
+    setSelectedSubRouteCodes(nextCodes);
+
+    if (nextCodes.length === 0) {
+      mapControlsRef.current?.highlightRoute(activeRoute.name, null);
+    } else {
+      const allOperatorRoutes = getOperatorRoutes(activeRoute.name);
+      const activeSvgIds = [
+        ...new Set(
+          allOperatorRoutes
+            .filter((sr) => nextCodes.includes(sr.code))
+            .map((sr) => sr.svgId)
+            .filter(Boolean)
+        ),
+      ];
+      mapControlsRef.current?.highlightRoute(activeRoute.name, activeSvgIds.length > 0 ? activeSvgIds : null);
+    }
   };
 
   const handleSelectAllRoutes = () => {
-    setSelectedSubRouteIds([]);
+    setSelectedSubRouteCodes([]);
     if (activeRoute) {
       mapControlsRef.current?.highlightRoute(activeRoute.name, null);
     }
@@ -76,18 +90,18 @@ export default function App() {
     if (location.service) {
       setActiveRoute(location.service);
       if (location.subRoute) {
-        setSelectedSubRouteIds([location.subRoute.svgId]);
+        setSelectedSubRouteCodes([location.subRoute.code]);
         mapControlsRef.current?.highlightRoute(location.service.name, [location.subRoute.svgId]);
       } else {
-        setSelectedSubRouteIds([]);
+        setSelectedSubRouteCodes([]);
         mapControlsRef.current?.highlightRoute(location.service.name, null);
       }
     }
   };
 
   const subRoutes = activeRoute ? getOperatorRoutes(activeRoute.name) : [];
-  const isAllSelected = selectedSubRouteIds.length === 0;
-  const selectedSubRoutes = subRoutes.filter((sr) => selectedSubRouteIds.includes(sr.svgId));
+  const isAllSelected = selectedSubRouteCodes.length === 0;
+  const selectedSubRoutes = subRoutes.filter((sr) => selectedSubRouteCodes.includes(sr.code));
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-slate-900 select-none">
@@ -152,10 +166,10 @@ export default function App() {
 
               {/* Individual Dedicated Route Branch Pills (Click to toggle multiple) */}
               {subRoutes.map((sr) => {
-                const isSelected = selectedSubRouteIds.includes(sr.svgId);
+                const isSelected = selectedSubRouteCodes.includes(sr.code);
                 return (
                   <button
-                    key={sr.svgId}
+                    key={sr.code}
                     onClick={() => handleToggleSubRoute(sr)}
                     title={`${sr.name} — ${sr.description}\n(Click to select/toggle this route)`}
                     className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 ${

@@ -79,15 +79,21 @@ export const DEDICATED_ROUTES_MAP = {
   "Mahanagar Yatayat": [
     {
       code: "M1",
-      name: "Route M1: Ring Road Circular Expressway",
+      name: "Route M1: Ring Road Circular Expressway (Clockwise)",
       svgId: "Mahanagar_Yatayat_Ringroad_",
-      description: "Full 27km Ring Road Loop (Kalanki • Balaju • Maharajgunj • Koteshwor • Satdobato)",
+      description: "Full 27km Ring Road Loop Clockwise (Kalanki • Balaju • Maharajgunj • Koteshwor • Satdobato)",
     },
     {
       code: "M2",
-      name: "Route M2: Thankot – Kalanki – Banepa – Dhulikhel",
+      name: "Route M2: Ring Road Circular Expressway (Counter-Clockwise)",
+      svgId: "Mahanagar_Yatayat_Ringroad_",
+      description: "Full 27km Ring Road Loop Counter-Clockwise (Kalanki • Satdobato • Koteshwor • Maharajgunj • Balaju)",
+    },
+    {
+      code: "M3",
+      name: "Route M3: Thankot – Kalanki – Banepa – Dhulikhel Expressway",
       svgId: "Mahanagar_Yatayat_Thankot_-_Dhulikhel_",
-      description: "Thankot • Kalanki • Koteshwor • Bhaktapur • Banepa • Dhulikhel",
+      description: "Thankot • Kalanki • Koteshwor • Suryabinayak • Banepa • Dhulikhel",
     },
   ],
 
@@ -121,6 +127,36 @@ export const DEDICATED_ROUTES_MAP = {
       name: "Route B5: New Route Gate Cheu",
       svgId: "Bhaktapur_Mini_Bus_Park_New_Route_Gate_Cheu_Ko_",
       description: "Gate Cheu • Sallaghari • Jadibuti • Baneshwor • Ratnapark",
+    },
+    {
+      code: "B6",
+      name: "Route B6: Gate Cheu – Sallaghari – Lagankhel",
+      svgId: "Bhaktapur_Mini_Bus_Park_New_Route_Gate_Cheu_Ko_",
+      description: "Gate Cheu • Sallaghari • Jadibuti • Koteshwor • Lagankhel",
+    },
+    {
+      code: "B7",
+      name: "Route B7: Tallo Bus Park – Naya Bus Park (Gongabu)",
+      svgId: "Bhaktapur_Mini_Bus_Park_Old_Route_Tallo_Bus_Park_Near_Siddha_Pokhari_",
+      description: "Tallo Bus Park • Sallaghari • Koteshwor • Airport • Gongabu",
+    },
+    {
+      code: "B8",
+      name: "Route B8: Gate Cheu – Koteshwor – Lagankhel Express",
+      svgId: "Bhaktapur_Mini_Bus_Park_New_Route_Gate_Cheu_Ko_",
+      description: "Gate Cheu • Suryabinayak • Koteshwor • Gwarko • Lagankhel",
+    },
+    {
+      code: "B9",
+      name: "Route B9: Tallo Bus Park – Ring Road Express – Gongabu",
+      svgId: "Bhaktapur_Mini_Bus_Park_Old_Route_Tallo_Bus_Park_Near_Siddha_Pokhari_",
+      description: "Tallo Bus Park • Sallaghari • Koteshwor • Chabahil • Gongabu",
+    },
+    {
+      code: "B10",
+      name: "Route B10: Chyamasingh – Sallaghari – Kalanki Express",
+      svgId: "Bhaktapur_Chyamasingh_",
+      description: "Chyamasingh • Jagati • Suryabinayak • Koteshwor • Balkhu • Kalanki",
     },
   ],
 
@@ -188,20 +224,20 @@ export const DEDICATED_ROUTES_MAP = {
 
   "Samakhusi Yatayat": [
     {
-      code: "SK1",
-      name: "Route SK1: Manamaiju – RNAC",
+      code: "Z1",
+      name: "Route Z1 (SK1): Manamaiju – RNAC",
       svgId: "Samakhusi_Yatayat_Manamaiju_-_RNAC_",
       description: "Manamaiju • Gongabu • Samakhusi • Lainchaur • RNAC",
     },
     {
-      code: "SK2",
-      name: "Route SK2: Jhor Waterfall – Bhotahiti",
+      code: "Z2",
+      name: "Route Z2 (SK2): Jhor Waterfall – Bhotahiti",
       svgId: "Samakhusi_Yatayat_Jhor_Waterfall_-_Bhotahiti_",
       description: "Jhor Mahankal Waterfall • Tokha • Samakhusi • Bhotahiti",
     },
     {
-      code: "SK3",
-      name: "Route SK3: Bhatkekopul – RNAC",
+      code: "Z3",
+      name: "Route Z3 (SK3): Bhatkekopul – RNAC",
       svgId: "Samakhusi_Yatayat_Bhatkekopul_-_RNAC_",
       description: "Bhatkekopul • Tokha Road • Samakhusi • RNAC",
     },
@@ -253,6 +289,100 @@ export const DEDICATED_ROUTES_MAP = {
   get "Budhanilkantah Yatayat"() {
     return this["Budhanilkantha Yatayat"];
   },
+
+  "Riddhi Siddhi Yatayat": [
+    {
+      code: "R1",
+      name: "Route R1: Piplamode (Nagdhunga) – Kalanki – Mulpani (Bode)",
+      svgId: "Riddhi_Siddhi_Yatayat_R1_Piplamode_Bode",
+      description: "Piplamode • Nagdhunga • Kalanki • Maitighar • Koteshwor • Gothatar • Mulpani • Bode",
+    },
+    {
+      code: "R2",
+      name: "Route R2: Ratnapark / Maitighar – Lagankhel – Harisiddhi",
+      svgId: "Riddhi_Siddhi_Yatayat_R2_Ratnapark_Harisiddhi",
+      description: "Ratnapark • Maitighar • Thapathali • Lagankhel • Gwarko • Harisiddhi (Lakhur Chowk)",
+    },
+  ],
+
+  "Gothatar Yatayat": [
+    {
+      code: "G1",
+      name: "Route G1: Ratnapark – Baneshwor – Koteshwor – Gothatar",
+      svgId: "Gothatar_Yatayat_G1_Ratnapark_Gothatar",
+      description: "Ratnapark • Maitighar • Baneshwor • Tinkune • Koteshwor • Jadibuti • Gothatar",
+    },
+    {
+      code: "G2",
+      name: "Route G2: Gongabu (New Bus Park) – Chabahil – Gothatar",
+      svgId: "Gothatar_Yatayat_G2_Gongabu_Gothatar",
+      description: "Gongabu • Maharajgunj • Chabahil • Sinamangal • Koteshwor • Gothatar",
+    },
+  ],
+
+  "Panchpokhari Yatayat": [
+    {
+      code: "P1",
+      name: "Route P1: Sankhu – Chabahil – Ratnapark – Matatirtha",
+      svgId: "Panchpokhari_Yatayat_P1_Sankhu_Matatirtha",
+      description: "Sankhu • Danchhi • Jorpati • Chabahil • Ratnapark • Kalanki • Matatirtha",
+    },
+    {
+      code: "P2",
+      name: "Route P2: Satdobato / Lagankhel – Koteshwor – Sankhu",
+      svgId: "Panchpokhari_Yatayat_P2_Satdobato_Sankhu",
+      description: "Satdobato • Lagankhel • Koteshwor • Airport • Chabahil • Jorpati • Sankhu",
+    },
+  ],
+
+  "Samyukta Yatayat": [
+    {
+      code: "Y1",
+      name: "Route Y1: Hattigauda – Ratnapark – Kalanki",
+      svgId: "Samyukta_Yatayat_Y1_Ratnapark_Kalanki",
+      description: "Hattigauda • Bansbari • Maharajgunj • Thamel • Ratnapark • Kalimati • Kalanki",
+    },
+    {
+      code: "Y2",
+      name: "Route Y2: Hattigauda – Ring Road – Kalanki",
+      svgId: "Samyukta_Yatayat_Y2_Ringroad_Kalanki",
+      description: "Hattigauda • Bansbari • Gongabu • Balaju • Swayambhu • Kalanki",
+    },
+  ],
+
+  "Gokarneshwar Yatayat": [
+    {
+      code: "L1",
+      name: "Route L1: Ring Road Circular Expressway",
+      svgId: "Gokarneshwor_Yatayat_L1_Ringroad",
+      description: "Full Ring Road Circuit (Gokarneshwar corridor)",
+    },
+    {
+      code: "L2",
+      name: "Route L2: Sundarijal / Danchhi – Gokarna – Chabahil",
+      svgId: "Gokarneshwor_Yatayat_L2_Sundarijal_Chabahil",
+      description: "Sundarijal • Danchhi • Gokarna • Jorpati • Chabahil",
+    },
+  ],
+
+  get "Gokarneshwor Yatayat"() {
+    return this["Gokarneshwar Yatayat"];
+  },
+
+  "Basuki Yatayat": [
+    {
+      code: "H1",
+      name: "Route H1: Ring Road Circular Expressway",
+      svgId: "Basuki_Yatayat_H1_Ringroad",
+      description: "Full Ring Road Circuit (Basuki transit corridor)",
+    },
+    {
+      code: "H2",
+      name: "Route H2: Sankhu / Danchhi – Jorpati – Chabahil",
+      svgId: "Basuki_Yatayat_H2_Chabahil_Danchhi",
+      description: "Sankhu • Danchhi • Jorpati • Boudha • Chabahil",
+    },
+  ],
 };
 
 /**

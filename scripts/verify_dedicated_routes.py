@@ -21,12 +21,18 @@ test_ids = [
     
     ('Mahanagar Yatayat', 'M1', 'Mahanagar_Yatayat_Ringroad_', 'Ring Road Circular Expressway (Clockwise & Counter-Clockwise)'),
     ('Mahanagar Yatayat', 'M2', 'Mahanagar_Yatayat_Thankot_-_Dhulikhel_', 'Thankot – Kalanki – Koteshwor – Banepa – Dhulikhel'),
+    ('Mahanagar Yatayat', 'M3', 'Mahanagar_Yatayat_Thankot_-_Dhulikhel_', 'Kalanki – Koteshwor – Banepa – Dhulikhel'),
     
     ('Bhaktapur Buses', 'B1', 'Bhaktapur_Kamalbinayak_', 'Kamalbinayak – Thimi – Ratnapark / Gongabu'),
     ('Bhaktapur Buses', 'B2', 'Bhaktapur_Chyamasingh_', 'Chyamasingh – Kalanki & Ratnapark'),
     ('Bhaktapur Buses', 'B3', 'Bhaktapur_Bode_', 'Bode – Thimi – Ratnapark'),
     ('Bhaktapur Buses', 'B4', 'Bhaktapur_Mini_Bus_Park_Old_Route_Tallo_Bus_Park_Near_Siddha_Pokhari_', 'Old Route Tallo Bus Park (Siddha Pokhari)'),
     ('Bhaktapur Buses', 'B5', 'Bhaktapur_Mini_Bus_Park_New_Route_Gate_Cheu_Ko_', 'New Route Gate Cheu'),
+    ('Bhaktapur Buses', 'B6', 'Bhaktapur_Mini_Bus_Park_New_Route_Gate_Cheu_Ko_', 'Gate Cheu – Sallaghari – Lagankhel'),
+    ('Bhaktapur Buses', 'B7', 'Bhaktapur_Mini_Bus_Park_Old_Route_Tallo_Bus_Park_Near_Siddha_Pokhari_', 'Tallo Bus Park – Naya Bus Park (Gongabu)'),
+    ('Bhaktapur Buses', 'B8', 'Bhaktapur_Mini_Bus_Park_New_Route_Gate_Cheu_Ko_', 'Gate Cheu – Koteshwor – Lagankhel Express'),
+    ('Bhaktapur Buses', 'B9', 'Bhaktapur_Mini_Bus_Park_Old_Route_Tallo_Bus_Park_Near_Siddha_Pokhari_', 'Tallo Bus Park – Ring Road Express – Gongabu'),
+    ('Bhaktapur Buses', 'B10', 'Bhaktapur_Chyamasingh_', 'Chyamasingh – Sallaghari – Kalanki Express'),
     
     ('Tarakeshwor Yatayat', 'T1', 'Tarakeshor_Yatayat_Kavresthali_T1_and_T10', 'Kavresthali – RNAC (T1 / T10)'),
     ('Tarakeshwor Yatayat', 'T2', 'Tarakeshwor_Yatayat_Phutung_Sangla_', 'Phutung / Sangla – RNAC'),
@@ -38,9 +44,9 @@ test_ids = [
     ('Tarakeshwor Yatayat', 'T8', 'Tarakeshwor_Yatayat_Dhital_Chowk_Lolang_02', 'Dhital Chowk / Lolang 02 – RNAC'),
     ('Tarakeshwor Yatayat', 'T9', 'Tarakeshwor_Yatayat_Goldhunga_', 'Goldhunga – RNAC'),
     
-    ('Samakhusi Yatayat', 'SK1', 'Samakhusi_Yatayat_Manamaiju_-_RNAC_', 'Manamaiju – RNAC'),
-    ('Samakhusi Yatayat', 'SK2', 'Samakhusi_Yatayat_Jhor_Waterfall_-_Bhotahiti_', 'Jhor Waterfall – Bhotahiti'),
-    ('Samakhusi Yatayat', 'SK3', 'Samakhusi_Yatayat_Bhatkekopul_-_RNAC_', 'Bhatkekopul – RNAC'),
+    ('Samakhusi Yatayat', 'Z1', 'Samakhusi_Yatayat_Manamaiju_-_RNAC_', 'Manamaiju – RNAC'),
+    ('Samakhusi Yatayat', 'Z2', 'Samakhusi_Yatayat_Jhor_Waterfall_-_Bhotahiti_', 'Jhor Waterfall – Bhotahiti'),
+    ('Samakhusi Yatayat', 'Z3', 'Samakhusi_Yatayat_Bhatkekopul_-_RNAC_', 'Bhatkekopul – RNAC'),
     
     ('Digo Yatayat', 'D1-Go', 'Digo_Yatayat_Go', 'Digo Yatayat Outbound'),
     ('Digo Yatayat', 'D1-Ret', 'Digo_Yatayat_Return', 'Digo Yatayat Inbound'),
@@ -49,6 +55,24 @@ test_ids = [
     ('Budhanilkantha Yatayat', 'A1', 'Budhanilkantha_Yatayat_A1_Jadibuti', 'Budhanilkantha – Chabahil – Jadibuti'),
     ('Budhanilkantha Yatayat', 'A2', 'Budhanilkantha_Yatayat_A2_Kalanki', 'Budhanilkantha – Balaju – Kalanki'),
     ('Budhanilkantha Yatayat', 'A3', 'Budhanilkantha_Yatayat_A3_Jamal', 'Budhanilkantha – Lazimpat – Ratnapark (Jamal)'),
+
+    ('Riddhi Siddhi Yatayat', 'R1', 'Riddhi_Siddhi_Yatayat_R1_Piplamode_Bode', 'Piplamode – Kalanki – Mulpani / Bode'),
+    ('Riddhi Siddhi Yatayat', 'R2', 'Riddhi_Siddhi_Yatayat_R2_Ratnapark_Harisiddhi', 'Ratnapark – Lagankhel – Harisiddhi'),
+
+    ('Gothatar Yatayat', 'G1', 'Gothatar_Yatayat_G1_Ratnapark_Gothatar', 'Ratnapark – Baneshwor – Koteshwor – Gothatar'),
+    ('Gothatar Yatayat', 'G2', 'Gothatar_Yatayat_G2_Gongabu_Gothatar', 'Gongabu – Maharajgunj – Chabahil – Gothatar'),
+
+    ('Panchpokhari Yatayat', 'P1', 'Panchpokhari_Yatayat_P1_Sankhu_Matatirtha', 'Sankhu – Chabahil – Ratnapark – Matatirtha'),
+    ('Panchpokhari Yatayat', 'P2', 'Panchpokhari_Yatayat_P2_Satdobato_Sankhu', 'Satdobato – Koteshwor – Chabahil – Sankhu'),
+
+    ('Samyukta Yatayat', 'Y1', 'Samyukta_Yatayat_Y1_Ratnapark_Kalanki', 'Hattigauda – Ratnapark – Kalanki'),
+    ('Samyukta Yatayat', 'Y2', 'Samyukta_Yatayat_Y2_Ringroad_Kalanki', 'Hattigauda – Ring Road – Kalanki'),
+
+    ('Gokarneshwar Yatayat', 'L1', 'Gokarneshwor_Yatayat_L1_Ringroad', 'Ring Road Circular Expressway'),
+    ('Gokarneshwar Yatayat', 'L2', 'Gokarneshwor_Yatayat_L2_Sundarijal_Chabahil', 'Sundarijal – Gokarna – Chabahil'),
+
+    ('Basuki Yatayat', 'H1', 'Basuki_Yatayat_H1_Ringroad', 'Ring Road Circular Expressway'),
+    ('Basuki Yatayat', 'H2', 'Basuki_Yatayat_H2_Chabahil_Danchhi', 'Sankhu – Jorpati – Chabahil'),
 ]
 
 valid = 0
