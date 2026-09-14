@@ -312,6 +312,7 @@ export default function MapViewer({ registerMapControls }) {
 
       if (!operatorName) {
         tileLayer.setOpacity(1.0);
+        map.getContainer().classList.remove('route-highlight-active');
         return;
       }
 
@@ -350,9 +351,7 @@ export default function MapViewer({ registerMapControls }) {
       if (targetElements.length > 0) {
         // Subtle, minimalist base map dimming and desaturation (clean transit style)
         tileLayer.setOpacity(0.42);
-        if (map.getPanes()?.tilePane) {
-          map.getPanes().tilePane.style.filter = 'saturate(0.55) brightness(0.98)';
-        }
+        map.getContainer().classList.add('route-highlight-active');
 
         // Create an isolated SVG overlay containing ONLY the target route paths (zero layout lag)
         const highlightSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -409,9 +408,7 @@ export default function MapViewer({ registerMapControls }) {
 
     const clearRouteHighlight = () => {
       tileLayer.setOpacity(1.0);
-      if (map.getPanes()?.tilePane) {
-        map.getPanes().tilePane.style.filter = 'none';
-      }
+      map.getContainer().classList.remove('route-highlight-active');
       if (activeHighlightOverlay) {
         map.removeLayer(activeHighlightOverlay);
         activeHighlightOverlay = null;
