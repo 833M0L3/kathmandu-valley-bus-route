@@ -120,11 +120,12 @@ export const BUS_SERVICES = [
     nepali: "बुढानीलकण्ठ यातायात",
     color: "#9cc11c",
     routes: ["A1", "A2", "A3"],
-    corridor: "Budhanilkantha – Maharajgunj – Thamel – Ratnapark – Swayambhu – Kalanki",
+    corridor: "Budhanilkantha – Chabahil – Jadibuti (A1) | Balaju – Kalanki (A2) | Lazimpat – Ratnapark (A3)",
     stops: [
-      "Budhanilkantha", "Narayanthan", "Chapali", "Sahajmarga", "Hattigauda", "Golfutar", "Maharajgunj",
-      "Teaching Hospital", "Panipokhari", "Lazimpat", "Lainchaur", "Thamel", "Jamal",
-      "Ratnapark", "Swayambhu", "Kalanki"
+      "Budhanilkantha", "Narayanthan", "Chapali", "Sahajmarga", "Hattigauda", "Golfutar", "Bansbari", "Maharajgunj",
+      "Teaching Hospital", "Panipokhari", "Lazimpat", "Lainchaur", "Thamel", "Jamal", "Ratnapark",
+      "Gongabu (New Bus Park)", "Balaju", "Machhapokhari", "Banasthali", "Swayambhu", "Kalanki", "Khasibazar",
+      "Gopikrishna", "Chabahil", "Mitrapark", "Gaushala", "Airport", "Sinamangal", "Tinkune", "Koteshwor", "Jadibuti"
     ]
   },
   {

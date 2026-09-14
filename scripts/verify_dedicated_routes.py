@@ -45,6 +45,10 @@ test_ids = [
     ('Digo Yatayat', 'D1-Go', 'Digo_Yatayat_Go', 'Digo Yatayat Outbound'),
     ('Digo Yatayat', 'D1-Ret', 'Digo_Yatayat_Return', 'Digo Yatayat Inbound'),
     ('Digo Yatayat', 'D1-Loop', 'Galkopakha', 'Digo Yatayat Galkopakha Loop'),
+    
+    ('Budhanilkantha Yatayat', 'A1', 'Budhanilkantha_Yatayat_A1_Jadibuti', 'Budhanilkantha – Chabahil – Jadibuti'),
+    ('Budhanilkantha Yatayat', 'A2', 'Budhanilkantha_Yatayat_A2_Kalanki', 'Budhanilkantha – Balaju – Kalanki'),
+    ('Budhanilkantha Yatayat', 'A3', 'Budhanilkantha_Yatayat_A3_Jamal', 'Budhanilkantha – Lazimpat – Ratnapark (Jamal)'),
 ]
 
 valid = 0

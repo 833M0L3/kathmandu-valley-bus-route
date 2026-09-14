@@ -227,6 +227,32 @@ export const DEDICATED_ROUTES_MAP = {
       description: "Galkopakha City Loop Connector",
     },
   ],
+
+  "Budhanilkantha Yatayat": [
+    {
+      code: "A1",
+      name: "Route A1: Budhanilkantha – Chabahil – Jadibuti",
+      svgId: "Budhanilkantha_Yatayat_A1_Jadibuti",
+      description: "Budhanilkantha • Chapali • Hattigauda • Bansbari • Chabahil • Gaushala (Airport) • Sinamangal • Koteshwor • Jadibuti",
+    },
+    {
+      code: "A2",
+      name: "Route A2: Budhanilkantha – Balaju – Kalanki (Khasibazar)",
+      svgId: "Budhanilkantha_Yatayat_A2_Kalanki",
+      description: "Budhanilkantha • Chapali • Hattigauda • Bansbari • Gongabu • Balaju • Banasthali • Swayambhu • Kalanki (Khasibazar)",
+    },
+    {
+      code: "A3",
+      name: "Route A3: Budhanilkantha – Lazimpat – Ratnapark (Jamal)",
+      svgId: "Budhanilkantha_Yatayat_A3_Jamal",
+      description: "Budhanilkantha • Chapali • Hattigauda • Maharajgunj • Lazimpat • Lainchaur • Thamel • Kaiser Mahal • Jamal • Ratnapark",
+    },
+  ],
+
+  // Alias for transliteration
+  get "Budhanilkantah Yatayat"() {
+    return this["Budhanilkantha Yatayat"];
+  },
 };
 
 /**
