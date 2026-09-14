@@ -109,7 +109,7 @@ export const BUS_SERVICES = [
     routes: ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10"],
     corridor: "Tarakeshwor / Goldhunga / Lolang / Bohoratar / Balaju – Thamel – Ratnapark – Swayambhu – Kalanki",
     stops: [
-      "Tarakeshwor", "Dharmasthali", "Kavresthali", "Goldhunga", "Lolang", "Bohoratar", "Balaju", "Machhapokhari",
+      "Tarakeshwor", "Tarakeshwar", "Tarkeshwor", "Tarkeshwar", "Dharmasthali", "Kavresthali", "Goldhunga", "Lolang", "Bohoratar", "Balaju", "Machhapokhari",
       "Gongabu (New Bus Park)", "Sorhakhutte", "ASCOL", "Thamel", "Jamal", "Ratnapark",
       "Swayambhu", "Thulo Bharyang", "Sano Bharyang", "Sitapaila", "Bafal", "Kalanki"
     ]

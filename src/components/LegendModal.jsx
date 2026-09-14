@@ -3,6 +3,7 @@ import { X, Search, BookOpen, ArrowRight, ArrowLeft, MapPin, Bus, Route, RotateC
 import { BUS_SERVICES, POPULAR_HUBS, ROUTE_NOTATION_EXAMPLES, ABBREVIATIONS } from '../data/legendData';
 import { findBusesForPlaceQuery } from '../data/placeBusIndex';
 import { ALL_MAP_PLACES, getPlaceCoordinates } from '../data/placesData';
+import { getOperatorRoutes } from '../data/dedicatedRoutesData';
 
 export default function LegendModal({ isOpen, onClose, onNavigateToLocation }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -47,7 +48,7 @@ export default function LegendModal({ isOpen, onClose, onNavigateToLocation }) {
     return false;
   });
 
-  const handleNavigateToMap = (targetName, service) => {
+  const handleNavigateToMap = (targetName, service, subRoute = null) => {
     if (!onNavigateToLocation) return;
 
     // 1. Try finding coordinates for the specific query or target name
@@ -74,8 +75,18 @@ export default function LegendModal({ isOpen, onClose, onNavigateToLocation }) {
         x: coords.x,
         y: coords.y,
         name: coords.name,
-        subtitle: `${service.name} (${service.code})`,
+        subtitle: subRoute ? subRoute.name : `${service.name} (${service.code})`,
         color: service.color,
+        service: service,
+        subRoute: subRoute,
+      });
+    } else {
+      onNavigateToLocation({
+        name: subRoute ? subRoute.name : service.name,
+        subtitle: subRoute ? subRoute.description : service.corridor,
+        color: service.color,
+        service: service,
+        subRoute: subRoute,
       });
     }
   };
@@ -345,18 +356,32 @@ export default function LegendModal({ isOpen, onClose, onNavigateToLocation }) {
                           {service.corridor}
                         </div>
 
-                        {/* Route Code Tags */}
+                        {/* Route Code Tags (Clickable for Dedicated Sub-Route Highlighting) */}
                         <div className="flex flex-wrap items-center gap-1">
                           <span className="text-[10px] font-semibold text-slate-400 mr-0.5">Routes:</span>
-                          {service.routes.map((rt) => (
-                            <span
-                              key={rt}
-                              className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-white shadow-2xs"
-                              style={{ backgroundColor: service.color }}
-                            >
-                              {rt}
-                            </span>
-                          ))}
+                          {service.routes.map((rt) => {
+                            const operatorSubRoutes = getOperatorRoutes(service.name);
+                            const matchedSubRoute = operatorSubRoutes.find(
+                              (sr) =>
+                                sr.code.toLowerCase() === rt.toLowerCase() ||
+                                sr.code.toLowerCase().startsWith(rt.toLowerCase()) ||
+                                sr.code.toLowerCase().includes(rt.toLowerCase())
+                            );
+                            return (
+                              <button
+                                key={rt}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleNavigateToMap(navTarget, service, matchedSubRoute || null);
+                                }}
+                                className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-white shadow-2xs hover:scale-110 hover:ring-2 hover:ring-slate-900 transition-all cursor-pointer"
+                                style={{ backgroundColor: service.color }}
+                                title={matchedSubRoute ? `Highlight ${matchedSubRoute.name}` : `Highlight ${rt} route`}
+                              >
+                                {rt}
+                              </button>
+                            );
+                          })}
                         </div>
 
                         {/* Matched Landmark Notice (if matched via comprehensive places index) */}
