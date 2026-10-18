@@ -81,6 +81,31 @@ npm run preview
 
 ---
 
+## 📴 Offline, Installable App & Shareable Links
+
+### Offline (service worker)
+- `src/service-worker.js` is a template. At build time the `ktm-offline` plugin in `vite.config.js` fills in the hashed bundle file list and emits `dist/sw.js` and `dist/tiles-manifest.json`. The service worker only registers in production builds (`npm run build && npm run preview` to test it).
+- On install it precaches the app shell, the route SVG and tile zoom levels 0–3 (~1.5 MB). Every tile the user views after that is cached as they browse.
+- The **Save map offline** button (cloud icon) downloads the full tile pyramid (~18 MB) into the same cache, so every zoom level works without data. The download can resume, skips tiles already cached, and asks the browser for persistent storage.
+- Cache names include a content hash: regenerating tiles or changing the build automatically replaces old caches.
+
+### Installable app (PWA)
+- `public/manifest.webmanifest` and `public/icons/` make the site installable (standalone window, home-screen icon). Regenerate the icons with `python scripts/generate_app_icons.py`.
+- The offline panel shows **Install as app** when the browser offers it (Chrome/Edge/Android), and an *Add to Home Screen* hint on iOS.
+
+### Shareable links
+The selected operator, route branches and pinned place are kept in the URL, so the share button (or the address bar) gives a link that reopens the same view:
+
+| Param | Meaning | Example |
+|-------|---------|---------|
+| `op` | Operator code from `legendData.js` | `op=S` (Sajha Yatayat) |
+| `r` | Comma-separated branch codes from `dedicatedRoutesData.js` | `r=S1,S2` |
+| `p` | Place name from `placesData.js` | `p=Lagankhel` |
+
+Example: `/?op=S&r=S2&p=Lagankhel`. Unknown values are ignored. See `src/shareLink.js`.
+
+---
+
 ## 🌐 Deployment Instructions
 
 ### 1. Push to GitHub

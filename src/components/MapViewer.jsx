@@ -36,8 +36,10 @@ const OPERATOR_SVG_MAP = {
   'Om Janata Yatayat': 'Om_Janata_Yatayat',
 };
 
-export default function MapViewer({ registerMapControls }) {
+export default function MapViewer({ registerMapControls, onPlaceCleared }) {
   const mapContainerRef = useRef(null);
+  const onPlaceClearedRef = useRef(onPlaceCleared);
+  onPlaceClearedRef.current = onPlaceCleared;
   const mapInstanceRef = useRef(null);
   const targetPinMarkerRef = useRef(null);
   const svgOverlayRef = useRef(null);
@@ -120,6 +122,7 @@ export default function MapViewer({ registerMapControls }) {
     // 2. VECTOR ROUTE REPOSITORY: Preload SVG for on-demand 100% accurate vector route highlighting
     let svgDoc = null;
     let activeHighlightOverlay = null;
+    let pendingHighlight = null; // Highlight requested before the SVG finished loading (e.g. from a shared link)
 
     fetch('./Kathmandu_Bus_Route_Map.svg')
       .then((res) => {
@@ -129,6 +132,10 @@ export default function MapViewer({ registerMapControls }) {
       .then((svgText) => {
         const parser = new DOMParser();
         svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+        if (pendingHighlight) {
+          highlightRoute(...pendingHighlight);
+          pendingHighlight = null;
+        }
       })
       .catch((err) => {
         console.error('Failed to preload SVG vector routes:', err);
@@ -231,6 +238,7 @@ export default function MapViewer({ registerMapControls }) {
       marker.on('click', () => {
         marker.remove();
         targetPinMarkerRef.current = null;
+        onPlaceClearedRef.current?.();
       });
     };
 
@@ -309,6 +317,7 @@ export default function MapViewer({ registerMapControls }) {
         map.removeLayer(activeHighlightOverlay);
         activeHighlightOverlay = null;
       }
+      pendingHighlight = null;
 
       if (!operatorName) {
         tileLayer.setOpacity(1.0);
@@ -316,7 +325,10 @@ export default function MapViewer({ registerMapControls }) {
         return;
       }
 
-      if (!svgDoc) return;
+      if (!svgDoc) {
+        pendingHighlight = [operatorName, specificRouteSvgIds];
+        return;
+      }
 
       const targetElements = [];
 
@@ -407,6 +419,7 @@ export default function MapViewer({ registerMapControls }) {
     };
 
     const clearRouteHighlight = () => {
+      pendingHighlight = null;
       tileLayer.setOpacity(1.0);
       map.getContainer().classList.remove('route-highlight-active');
       if (activeHighlightOverlay) {
@@ -430,6 +443,7 @@ export default function MapViewer({ registerMapControls }) {
           if (targetPinMarkerRef.current) {
             targetPinMarkerRef.current.remove();
             targetPinMarkerRef.current = null;
+            onPlaceClearedRef.current?.();
           }
           const currentCoverZoom = calculateCoverZoom();
           map.flyTo(valleyCenter, currentCoverZoom, { duration: 0.8 });

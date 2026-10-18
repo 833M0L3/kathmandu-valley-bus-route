@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Minus, RotateCcw, Maximize, Minimize, BookOpen, Sun, Moon } from 'lucide-react';
+import { Plus, Minus, RotateCcw, Maximize, Minimize, BookOpen, Sun, Moon, Share2, Check } from 'lucide-react';
+import OfflineButton from './OfflineButton';
 
 export default function Controls({
   onZoomIn,
@@ -19,6 +20,30 @@ export default function Controls({
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
+
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  useEffect(() => {
+    if (!isLinkCopied) return;
+    const timer = setTimeout(() => setIsLinkCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [isLinkCopied]);
+
+  // The URL always reflects the selected route & place (see shareLink.js), so share it as-is
+  const shareCurrentView = async () => {
+    const url = window.location.href;
+    const isTouchDevice = window.matchMedia?.('(pointer: coarse)').matches;
+    if (navigator.share && isTouchDevice) {
+      navigator.share({ title: document.title, url }).catch(() => {});
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setIsLinkCopied(true);
+    } catch {
+      window.prompt('Copy this link:', url);
+    }
+  };
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -61,6 +86,24 @@ export default function Controls({
           <Moon className="w-4 h-4 stroke-[2.2] pointer-events-none text-slate-700 animate-in spin-in-180 duration-300" />
         )}
       </button>
+
+      {/* Share Link */}
+      <button
+        onClick={shareCurrentView}
+        title={isLinkCopied ? 'Link copied' : 'Share link to this view'}
+        aria-label="Share link to this view"
+        style={{ cursor: 'pointer' }}
+        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
+      >
+        {isLinkCopied ? (
+          <Check className="w-4 h-4 stroke-[2.6] pointer-events-none text-emerald-600 dark:text-emerald-400" />
+        ) : (
+          <Share2 className="w-4 h-4 stroke-[2.2] pointer-events-none" />
+        )}
+      </button>
+
+      {/* Save Map Offline */}
+      <OfflineButton />
 
       {/* Zoom In */}
       <button

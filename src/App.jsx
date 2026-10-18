@@ -5,11 +5,24 @@ import Controls from './components/Controls';
 import LegendModal from './components/LegendModal';
 import AttributionBar from './components/AttributionBar';
 import { getOperatorRoutes } from './data/dedicatedRoutesData';
+import { readShareLink, writeShareLink } from './shareLink';
+
+// SVG element IDs for the selected branch codes of an operator
+const getSubRouteSvgIds = (operatorName, codes) => [
+  ...new Set(
+    getOperatorRoutes(operatorName)
+      .filter((sr) => codes.includes(sr.code))
+      .map((sr) => sr.svgId)
+      .filter(Boolean)
+  ),
+];
 
 export default function App() {
+  const [initialLink] = useState(readShareLink);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
-  const [activeRoute, setActiveRoute] = useState(null);
-  const [selectedSubRouteCodes, setSelectedSubRouteCodes] = useState([]);
+  const [activeRoute, setActiveRoute] = useState(initialLink.service);
+  const [selectedSubRouteCodes, setSelectedSubRouteCodes] = useState(initialLink.subRouteCodes);
+  const [activePlace, setActivePlace] = useState(initialLink.place);
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem('ktm_transit_theme');
@@ -42,6 +55,30 @@ export default function App() {
   const registerMapControls = useCallback((controls) => {
     mapControlsRef.current = controls;
   }, []);
+
+  // Restore the map view from a shared link (MapViewer registers its controls before this runs)
+  useEffect(() => {
+    const { service, subRouteCodes, place } = initialLink;
+    if (place) {
+      const subRoute = service && subRouteCodes.length === 1
+        ? getOperatorRoutes(service.name).find((sr) => sr.code === subRouteCodes[0])
+        : null;
+      mapControlsRef.current?.flyToLocation(place.x, place.y, 5.8, {
+        name: place.name,
+        subtitle: subRoute ? subRoute.name : service ? `${service.name} (${service.code})` : place.category,
+        color: service?.color,
+      });
+    }
+    if (service) {
+      const svgIds = getSubRouteSvgIds(service.name, subRouteCodes);
+      mapControlsRef.current?.highlightRoute(service.name, svgIds.length > 0 ? svgIds : null);
+    }
+  }, [initialLink]);
+
+  // Keep the URL in sync so the current view can be shared
+  useEffect(() => {
+    writeShareLink({ service: activeRoute, subRouteCodes: selectedSubRouteCodes, place: activePlace });
+  }, [activeRoute, selectedSubRouteCodes, activePlace]);
 
   const handleZoomIn = () => {
     mapControlsRef.current?.zoomIn();
@@ -85,15 +122,7 @@ export default function App() {
     if (nextCodes.length === 0) {
       mapControlsRef.current?.highlightRoute(activeRoute.name, null);
     } else {
-      const allOperatorRoutes = getOperatorRoutes(activeRoute.name);
-      const activeSvgIds = [
-        ...new Set(
-          allOperatorRoutes
-            .filter((sr) => nextCodes.includes(sr.code))
-            .map((sr) => sr.svgId)
-            .filter(Boolean)
-        ),
-      ];
+      const activeSvgIds = getSubRouteSvgIds(activeRoute.name, nextCodes);
       mapControlsRef.current?.highlightRoute(activeRoute.name, activeSvgIds.length > 0 ? activeSvgIds : null);
     }
   };
@@ -113,6 +142,7 @@ export default function App() {
         subtitle: location.subtitle,
         color: location.color,
       });
+      setActivePlace({ name: location.name, x: location.x, y: location.y });
     }
     if (location.service) {
       setActiveRoute(location.service);
@@ -133,7 +163,7 @@ export default function App() {
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-white dark:bg-slate-950 select-none">
       {/* Pure Vector Map with Topographic Valley Relief Base */}
-      <MapViewer registerMapControls={registerMapControls} />
+      <MapViewer registerMapControls={registerMapControls} onPlaceCleared={() => setActivePlace(null)} />
 
       {/* Active Route Floating Banner with Dedicated Route Branches & Multi-Route Selection */}
       {activeRoute && (
