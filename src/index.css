@@ -436,3 +436,34 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 
 
 
+
+/* --- Trip planner: "you are here" dot and board / change / get-off pins --- */
+.gmap-user-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+.gmap-user-dot span {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.25);
+  animation: gmap-user-pulse 2s ease-out infinite;
+}
+@keyframes gmap-user-pulse {
+  from { transform: scale(0.4); opacity: 1; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gmap-user-dot span { animation: none; }
+}
+.gmap-trip-board .gmap-stop-dot { background-color: #16a34a; }
+.gmap-trip-change .gmap-stop-dot { background-color: #f59e0b; }
+.gmap-trip-alight .gmap-stop-dot { background-color: #e11d48; }
+.gmap-trip-change .gmap-pin-badge { background: #78350f; }
+.gmap-trip-alight .gmap-pin-badge { background: #881337; }

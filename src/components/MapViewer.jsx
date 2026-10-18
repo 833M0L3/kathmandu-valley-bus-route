@@ -95,7 +95,11 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
     map.setMaxBounds(imageBounds);
 
     // Dynamically update minZoom on window resize
+    // While a trip is shown the view limits are relaxed so the whole trip can be framed (see fitPoints)
+    let isViewRelaxed = false;
+
     map.on('resize', () => {
+      if (isViewRelaxed) return;
       const newCoverZoom = calculateCoverZoom();
       map.setMinZoom(newCoverZoom);
       if (map.getZoom() < newCoverZoom) {
@@ -428,6 +432,83 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
       }
     };
 
+    // --- Trip planner: "you are here" dot and board / change / get-off pins ---
+    let userMarker = null;
+    const tripLayer = L.layerGroup().addTo(map);
+    const escapeHtml = (text) =>
+      String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+    const setUserLocation = (point) => {
+      if (!point) {
+        userMarker?.remove();
+        userMarker = null;
+        return;
+      }
+      const latLng = map.unproject([point.x, point.y], NATIVE_MAX_ZOOM);
+      if (userMarker) {
+        userMarker.setLatLng(latLng);
+        return;
+      }
+      userMarker = L.marker(latLng, {
+        icon: L.divIcon({
+          className: 'leaflet-gmap-user-layer',
+          html: '<div class="gmap-user-dot" title="You are here (approximate on this schematic map)"><span></span></div>',
+          iconSize: [0, 0],
+          iconAnchor: [0, 0],
+        }),
+        zIndexOffset: 11000,
+        interactive: false,
+      }).addTo(map);
+    };
+
+    // markers: [{ x, y, kind: 'board' | 'change' | 'alight', title, subtitle }]
+    const restoreView = () => {
+      if (!isViewRelaxed) return;
+      isViewRelaxed = false;
+      map.setMaxBounds(imageBounds);
+      map.setMinZoom(calculateCoverZoom());
+    };
+
+    const setTripMarkers = (markers) => {
+      tripLayer.clearLayers();
+      if (markers.length === 0) restoreView();
+      for (const m of markers) {
+        const html = `
+          <div class="gmap-pin-root gmap-trip-pin gmap-trip-${m.kind}">
+            <div class="gmap-pin-pulse-container">
+              <div class="gmap-stop-dot"></div>
+              <div class="gmap-pin-badge">
+                <span class="gmap-pin-badge-name">${escapeHtml(m.title)}</span>
+                ${m.subtitle ? `<span class="gmap-pin-badge-category">${escapeHtml(m.subtitle)}</span>` : ''}
+              </div>
+            </div>
+          </div>`;
+        L.marker(map.unproject([m.x, m.y], NATIVE_MAX_ZOOM), {
+          icon: L.divIcon({ className: 'leaflet-gmap-pin-layer', html, iconSize: [0, 0], iconAnchor: [0, 0] }),
+          zIndexOffset: 10500,
+        }).addTo(tripLayer);
+      }
+    };
+
+    // Fit canvas points into view, keeping clear of panels (padding in screen px)
+    const fitPoints = (points, { paddingTopLeft = [60, 60], paddingBottomRight = [60, 60], maxZoom = 5.4 } = {}) => {
+      if (!points.length) return;
+      const bounds = L.latLngBounds(points.map((p) => map.unproject([p.x, p.y], NATIVE_MAX_ZOOM)));
+      // On a tall phone the cover zoom shows the full map height, and the bounds lock vertical panning, so a long
+      // trip cannot be framed above the bottom sheet. Allow zooming out and panning past the edges for now.
+      // Zoom that fits the points (map.getBoundsZoom would clamp it to the current minimum)
+      const zoom = map.getZoom();
+      const span = map.project(bounds.getSouthEast(), zoom).subtract(map.project(bounds.getNorthWest(), zoom));
+      const room = map.getSize().subtract(L.point(paddingTopLeft).add(paddingBottomRight));
+      const needed = zoom + Math.log2(Math.min(room.x / Math.max(span.x, 1), room.y / Math.max(span.y, 1)));
+      if (needed < map.getMinZoom() || paddingBottomRight[1] > map.getSize().y / 3) {
+        isViewRelaxed = true;
+        map.setMinZoom(Math.min(map.getMinZoom(), Math.floor(needed * 4) / 4));
+        map.setMaxBounds(null);
+      }
+      map.flyToBounds(bounds, { paddingTopLeft, paddingBottomRight, maxZoom, duration: 0.8 });
+    };
+
     // Register external control hooks
     if (registerMapControls) {
       registerMapControls({
@@ -458,6 +539,9 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
         },
         highlightRoute,
         clearRouteHighlight,
+        setUserLocation,
+        setTripMarkers,
+        fitPoints,
       });
     }
 

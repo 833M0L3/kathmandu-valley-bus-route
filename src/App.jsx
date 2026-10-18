@@ -4,6 +4,7 @@ import MapViewer from './components/MapViewer';
 import Controls from './components/Controls';
 import LegendModal from './components/LegendModal';
 import AttributionBar from './components/AttributionBar';
+import TripPanel from './components/TripPanel';
 import { getOperatorRoutes } from './data/dedicatedRoutesData';
 import { readShareLink, writeShareLink } from './shareLink';
 
@@ -20,6 +21,7 @@ const getSubRouteSvgIds = (operatorName, codes) => [
 export default function App() {
   const [initialLink] = useState(readShareLink);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
+  const [isTripOpen, setIsTripOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(initialLink.service);
   const [selectedSubRouteCodes, setSelectedSubRouteCodes] = useState(initialLink.subRouteCodes);
   const [activePlace, setActivePlace] = useState(initialLink.place);
@@ -96,6 +98,17 @@ export default function App() {
     setIsLegendOpen((prev) => !prev);
   };
 
+  // The trip planner draws its own highlight, so drop any operator highlight first
+  const handleToggleTrip = () => {
+    if (!isTripOpen) {
+      setIsLegendOpen(false);
+      setActiveRoute(null);
+      setSelectedSubRouteCodes([]);
+      mapControlsRef.current?.clearRouteHighlight();
+    }
+    setIsTripOpen((prev) => !prev);
+  };
+
   const handleClearActiveRoute = () => {
     setActiveRoute(null);
     setSelectedSubRouteCodes([]);
@@ -136,6 +149,7 @@ export default function App() {
 
   const handleNavigateToLocation = (location) => {
     setIsLegendOpen(false);
+    setIsTripOpen(false);
     if (location.x !== undefined && location.y !== undefined) {
       mapControlsRef.current?.flyToLocation(location.x, location.y, 5.8, {
         name: location.name,
@@ -265,9 +279,13 @@ export default function App() {
         onResetView={handleResetView}
         onToggleLegend={handleToggleLegend}
         isLegendOpen={isLegendOpen}
+        onToggleTrip={handleToggleTrip}
+        isTripOpen={isTripOpen}
         theme={theme}
         onToggleTheme={handleToggleTheme}
       />
+
+      {isTripOpen && <TripPanel mapControlsRef={mapControlsRef} onClose={() => setIsTripOpen(false)} />}
 
       {/* Attribution Bar */}
       <AttributionBar />

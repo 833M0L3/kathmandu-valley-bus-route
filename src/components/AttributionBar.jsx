@@ -34,6 +34,16 @@ export default function AttributionBar() {
         >
           Original Post
         </a>
+        <span className="text-slate-500">•</span>
+        <a
+          href="https://www.openstreetmap.org/copyright"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-slate-300 hover:text-white hover:underline transition-colors shrink-0"
+          title="Stop locations for the trip planner come from OpenStreetMap"
+        >
+          Stops © OpenStreetMap
+        </a>
       </div>
 
       <div className="hidden lg:flex items-center gap-2 text-slate-400 text-[10px]">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Minus, RotateCcw, Maximize, Minimize, BookOpen, Sun, Moon, Share2, Check } from 'lucide-react';
+import { Plus, Minus, RotateCcw, Maximize, Minimize, BookOpen, Sun, Moon, Share2, Check, Navigation } from 'lucide-react';
 import OfflineButton from './OfflineButton';
 
 export default function Controls({
@@ -8,6 +8,8 @@ export default function Controls({
   onResetView,
   onToggleLegend,
   isLegendOpen,
+  onToggleTrip,
+  isTripOpen,
   theme,
   onToggleTheme,
 }) {
@@ -57,6 +59,22 @@ export default function Controls({
 
   return (
     <div className="absolute bottom-8 right-3.5 sm:right-5 z-[1000] flex flex-col gap-1.5 pointer-events-auto">
+      {/* Trip Planner (GPS -> nearest stop -> buses to destination) */}
+      <button
+        onClick={onToggleTrip}
+        title="Find your bus"
+        aria-label="Find your bus"
+        aria-pressed={isTripOpen}
+        style={{ cursor: 'pointer' }}
+        className={`w-9 h-9 rounded-lg backdrop-blur-md border transition-all flex items-center justify-center shadow-md cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95 ${
+          isTripOpen
+            ? 'bg-sky-600 text-white border-sky-600 shadow-sky-600/30'
+            : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 text-sky-700 dark:text-sky-300 hover:bg-white dark:hover:bg-slate-800 shadow-slate-200/60 dark:shadow-black/40'
+        }`}
+      >
+        <Navigation className="w-4 h-4 stroke-[2.2] pointer-events-none" />
+      </button>
+
       {/* Legend Toggle Button */}
       <button
         onClick={onToggleLegend}
