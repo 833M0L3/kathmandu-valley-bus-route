@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Minus, RotateCcw, Maximize, Minimize, BookOpen, Sun, Moon, Share2, Check, Navigation } from 'lucide-react';
+import { Plus, Minus, Maximize, Minimize, BookOpen, Sun, Moon, Share2, Check, Navigation } from 'lucide-react';
 import OfflineButton from './OfflineButton';
 
 export default function Controls({
@@ -56,16 +56,45 @@ export default function Controls({
   };
 
   const isDark = theme === 'dark';
+  const canFullscreen = Boolean(document.fullscreenEnabled);
 
   return (
-    <div className="absolute bottom-8 right-3.5 sm:right-5 z-[1000] flex flex-col items-end gap-2 pointer-events-auto">
+    <>
+    {/* Zoom and reset: bottom centre, in thumb reach on phones. Hidden on smaller screens while the trip panel is open
+        (bottom sheet on phones, side panel that would overlap it on tablets). */}
+    <div
+      role="group"
+      aria-label="Zoom"
+      className={`surface absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-[1000] items-center rounded-full p-0.5 ${
+        isTripOpen ? 'hidden lg:flex' : 'flex'
+      }`}
+    >
+      <button onClick={onZoomOut} title="Zoom out" aria-label="Zoom out" className="map-tool rounded-full">
+        <Minus className="w-4 h-4 stroke-[2] pointer-events-none" />
+      </button>
+      <div className="w-px h-4 bg-neutral-200 dark:bg-white/10" />
+      <button
+        onClick={onResetView}
+        title="Show the whole map"
+        aria-label="Reset map view"
+        className="h-8 [@media(pointer:coarse)]:h-10 px-3 rounded-full text-xs font-medium text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:text-white dark:hover:bg-white/[0.07] transition-colors cursor-pointer"
+      >
+        Reset
+      </button>
+      <div className="w-px h-4 bg-neutral-200 dark:bg-white/10" />
+      <button onClick={onZoomIn} title="Zoom in" aria-label="Zoom in" className="map-tool rounded-full">
+        <Plus className="w-4 h-4 stroke-[2] pointer-events-none" />
+      </button>
+    </div>
+
+    <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] right-3.5 sm:right-5 z-[1000] flex flex-col items-end gap-2 pointer-events-auto">
       {/* Primary action: trip planner (stop or GPS -> buses to the destination) */}
       <button
         onClick={onToggleTrip}
         title="Find your bus"
         aria-label="Find your bus"
         aria-pressed={isTripOpen}
-        className={`btn-primary w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer ${
+        className={`btn-primary w-9 h-9 [@media(pointer:coarse)]:w-10 [@media(pointer:coarse)]:h-10 rounded-xl flex items-center justify-center cursor-pointer ${
           isTripOpen ? 'ring-2 ring-offset-2 ring-neutral-900/40 ring-offset-white dark:ring-white/50 dark:ring-offset-neutral-950' : ''
         }`}
       >
@@ -104,28 +133,16 @@ export default function Controls({
         >
           {isDark ? <Sun className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Moon className="w-4 h-4 stroke-[2] pointer-events-none" />}
         </button>
-      </div>
-
-      {/* Zoom */}
-      <div className="surface rounded-xl flex flex-col p-0.5" role="group" aria-label="Zoom">
-        <button onClick={onZoomIn} title="Zoom in" aria-label="Zoom in" className="map-tool">
-          <Plus className="w-4 h-4 stroke-[2] pointer-events-none" />
-        </button>
-        <div className="mx-2 h-px bg-neutral-200 dark:bg-white/10" />
-        <button onClick={onZoomOut} title="Zoom out" aria-label="Zoom out" className="map-tool">
-          <Minus className="w-4 h-4 stroke-[2] pointer-events-none" />
-        </button>
-      </div>
-
-      {/* View */}
-      <div className="surface rounded-xl flex flex-col p-0.5" role="group" aria-label="View">
-        <button onClick={onResetView} title="Reset map view" aria-label="Reset map view" className="map-tool">
-          <RotateCcw className="w-4 h-4 stroke-[2] pointer-events-none" />
-        </button>
-        <button onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label="Toggle fullscreen" className="map-tool">
-          {isFullscreen ? <Minimize className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Maximize className="w-4 h-4 stroke-[2] pointer-events-none" />}
-        </button>
+        {/* Fullscreen: desktop only (phones lack the API or are already full screen as an installed app) */}
+        {canFullscreen && (
+          <div className="hidden sm:block">
+            <button onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label="Toggle fullscreen" className="map-tool">
+              {isFullscreen ? <Minimize className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Maximize className="w-4 h-4 stroke-[2] pointer-events-none" />}
+            </button>
+          </div>
+        )}
       </div>
     </div>
+    </>
   );
 }

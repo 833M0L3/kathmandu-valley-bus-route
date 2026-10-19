@@ -57,7 +57,7 @@ export default function OfflineButton() {
     <>
       {/* Offline indicator */}
       {!isOnline && (
-        <div className="fixed bottom-8 left-3 sm:left-4 z-[1000] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-[11px] font-medium shadow-lg shadow-black/30 border border-white/10 pointer-events-none">
+        <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] md:bottom-8 left-3 sm:left-4 z-[1000] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-[11px] font-medium shadow-lg shadow-black/30 border border-white/10 pointer-events-none">
           <WifiOff className="w-3.5 h-3.5 text-amber-400" />
           <span>{status === 'ready' ? 'Offline · full map saved' : 'Offline · only viewed areas available'}</span>
         </div>

@@ -554,8 +554,10 @@ export default function MapViewer({ registerMapControls, onPlaceCleared, onMapTa
             targetPinMarkerRef.current = null;
             onPlaceClearedRef.current?.();
           }
-          const currentCoverZoom = calculateCoverZoom();
-          map.flyTo(valleyCenter, currentCoverZoom, { duration: 0.8 });
+          // Same zoom as the first view: setView snaps to zoomSnap steps, flyTo does not
+          const snap = map.options.zoomSnap;
+          const startZoom = Math.max(map.getMinZoom(), Math.round(calculateCoverZoom() / snap) * snap);
+          map.flyTo(valleyCenter, startZoom, { duration: 0.8 });
         },
         flyToLocation: (x, y, zoom = 5.8, placeInfo = null) => {
           const targetZoom = Math.min(zoom, MAX_ZOOM);
