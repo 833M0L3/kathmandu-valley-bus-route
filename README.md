@@ -101,16 +101,21 @@ The selected operator, route branches and pinned place are kept in the URL, so t
 | `op` | Operator code from `legendData.js` | `op=S` (Sajha Yatayat) |
 | `r` | Comma-separated branch codes from `dedicatedRoutesData.js` | `r=S1,S2` |
 | `p` | Place name from `placesData.js` | `p=Lagankhel` |
+| `from` | Trip planner: starting stop name | `from=Jawalakhel` |
+| `to` | Trip planner: destination stop name | `to=Ratnapark` |
+| `opt` | Trip planner: chosen option, counted from 1 (left out for the first) | `opt=2` |
 
-Example: `/?op=S&r=S2&p=Lagankhel`. Unknown values are ignored. See `src/shareLink.js`.
+Examples: `/?op=S&r=S2&p=Lagankhel` (a route), `/?from=Jawalakhel&to=Ratnapark&opt=2` (a trip, which opens the planner). A trip planned from your location shares the stop you board at, never your coordinates. Unknown values are ignored. See `src/shareLink.js`.
 
 ---
 
 ## 🧭 Trip Planner (GPS → nearest stop → buses)
 
+**Stop search** (top left of the map): type a stop name and pick a result. The map flies to the stop, and a card lists the buses that stop there; tap a bus to highlight its route. **Directions from here / to here** opens the planner with that stop filled in.
+
 The **Find your bus** button (navigation arrow) opens a planner:
 
-1. **From**: your GPS position, matched to the nearest stops by real walking distance, or a stop you choose (the fallback when location is blocked or unavailable).
+1. **From**: a stop you search for. Or tap the location button inside the field: only then does the browser ask for your location, and your position is matched to the nearest stops by real walking distance.
 2. **To**: any stop on the map.
 3. **Options**: up to four trips, fastest first, each listing the walk to the stop, the bus to board and the direction sign to look for ("towards RNAC"; ring-road buses show the next stop instead), the number of stops, where to get off, and any changes. Trips needing two or more buses are found too: routing is a Dijkstra search over (stop, bus) states with a transfer penalty, so it is not limited to direct buses.
 

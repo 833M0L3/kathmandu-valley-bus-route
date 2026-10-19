@@ -8,6 +8,16 @@ const NATIVE_MAX_ZOOM = 6;
 const MIN_ZOOM = 0;
 const MAX_ZOOM = 7.5; // Fluid continuous zoom up to 7.5
 
+// The route SVG (viewBox 1584 x 1224) sits on the 11667 x 8750 canvas at a uniform scale, cropped at the top and
+// bottom: canvas = scale * svg + offset. Measured by locating 58 SVG stop dots in clean-map.jpg (median error 0.6 px).
+// Stretching the viewBox over the canvas instead put southern routes up to ~240 px too high.
+const SVG_VIEW_W = 1584;
+const SVG_VIEW_H = 1224;
+const SVG_SCALE_X = 7.36622;
+const SVG_OFFSET_X = -1.19;
+const SVG_SCALE_Y = 7.36564;
+const SVG_OFFSET_Y = -23.53;
+
 // Exact 1-to-1 mapping from operator names to SVG element IDs in Kathmandu_Bus_Route_Map.svg
 const OPERATOR_SVG_MAP = {
   'Sajha Yatayat': 'Sajha_Yatayat',
@@ -68,10 +78,15 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
 
     mapInstanceRef.current = map;
 
-    // Coordinate mapping for 11667 x 8750 px canvas space (matches SVG 1584 x 1224 pt)
+    // Coordinate mapping for the 11667 x 8750 px canvas (tile pixels at zoom 6)
     const southWest = map.unproject([0, MAP_HEIGHT], NATIVE_MAX_ZOOM);
     const northEast = map.unproject([MAP_WIDTH, 0], NATIVE_MAX_ZOOM);
     const imageBounds = new L.LatLngBounds(southWest, northEast);
+    // Where the route SVG's viewBox lands on the canvas (extends past the image at the bottom)
+    const svgBounds = new L.LatLngBounds(
+      map.unproject([SVG_OFFSET_X, SVG_OFFSET_Y + SVG_VIEW_H * SVG_SCALE_Y], NATIVE_MAX_ZOOM),
+      map.unproject([SVG_OFFSET_X + SVG_VIEW_W * SVG_SCALE_X, SVG_OFFSET_Y], NATIVE_MAX_ZOOM)
+    );
 
     // Geographic center of Kathmandu Valley transit bowl
     const valleyCenter = map.unproject([4850, 4550], NATIVE_MAX_ZOOM);
@@ -371,7 +386,7 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
 
         // Create an isolated SVG overlay containing ONLY the target route paths (zero layout lag)
         const highlightSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        highlightSvg.setAttribute('viewBox', '0 0 1584 1224');
+        highlightSvg.setAttribute('viewBox', `0 0 ${SVG_VIEW_W} ${SVG_VIEW_H}`);
         highlightSvg.setAttribute('preserveAspectRatio', 'none');
         highlightSvg.setAttribute('class', 'active-route-vector-root');
 
@@ -405,7 +420,7 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
           }
         });
 
-        activeHighlightOverlay = L.svgOverlay(highlightSvg, imageBounds, {
+        activeHighlightOverlay = L.svgOverlay(highlightSvg, svgBounds, {
           interactive: false,
           zIndex: 1000,
         });
@@ -414,8 +429,8 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
 
         // Smoothly fly to center of route(s) if bounding box is accessible
         if (hasValidBBox) {
-          const cx = ((combinedMinX + combinedMaxX) / 2) * (MAP_WIDTH / 1584);
-          const cy = ((combinedMinY + combinedMaxY) / 2) * (MAP_HEIGHT / 1224);
+          const cx = ((combinedMinX + combinedMaxX) / 2) * SVG_SCALE_X + SVG_OFFSET_X;
+          const cy = ((combinedMinY + combinedMaxY) / 2) * SVG_SCALE_Y + SVG_OFFSET_Y;
           const targetLatLng = map.unproject([cx, cy], NATIVE_MAX_ZOOM);
           map.flyTo(targetLatLng, Math.max(map.getZoom(), 3.5), { duration: 0.8 });
         }
@@ -536,6 +551,10 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
           if (placeInfo) {
             setNavigatedMarker(latLng, placeInfo);
           }
+        },
+        clearPlacePin: () => {
+          targetPinMarkerRef.current?.remove();
+          targetPinMarkerRef.current = null;
         },
         highlightRoute,
         clearRouteHighlight,

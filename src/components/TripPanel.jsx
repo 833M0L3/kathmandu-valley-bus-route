@@ -1,25 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { X, LocateFixed, MapPin, Search, Footprints, Bus, ArrowRight, RefreshCw, LoaderCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { usePlanner } from '../usePlanner';
 
-// Trip planner: GPS (or a chosen stop) -> nearest stops -> buses to the destination, with changes if needed.
-// The planner and its ~100 KB network load on first open.
+// Trip planner: a chosen stop (or, on request, GPS -> nearest stops) -> buses to the destination, with changes if
+// needed. Location is only requested when the user taps the location button.
 
 const RECOMPUTE_AFTER_MOVE_M = 40;
 
 const formatDistance = (m) => (m < 950 ? `${Math.max(10, Math.round(m / 10) * 10)} m` : `${(m / 1000).toFixed(1)} km`);
 const formatMinutes = (min) => (min < 60 ? `${Math.round(min)} min` : `${Math.floor(min / 60)} h ${Math.round(min % 60)} min`);
-
-function usePlanner() {
-  const [planner, setPlanner] = useState(null);
-  useEffect(() => {
-    let cancelled = false;
-    import('../tripPlanner').then((mod) => !cancelled && setPlanner(mod));
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-  return planner;
-}
 
 // status: 'locating' | 'ok' | 'denied' | 'unavailable'
 function useGeolocation(enabled) {
@@ -41,7 +30,8 @@ function useGeolocation(enabled) {
   return state;
 }
 
-function StopSearch({ planner, placeholder, onSelect, autoFocus }) {
+// action: optional button shown inside the input (e.g. "use my location")
+function StopSearch({ planner, placeholder, onSelect, autoFocus, action }) {
   const [query, setQuery] = useState('');
   const results = planner && query.trim() ? planner.searchStations(query) : [];
   return (
@@ -57,6 +47,7 @@ function StopSearch({ planner, placeholder, onSelect, autoFocus }) {
           aria-label={placeholder}
           className="w-full bg-transparent text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none"
         />
+        {action}
       </div>
       {results.length > 0 && (
         <ul className="absolute left-0 right-0 mt-1 z-10 max-h-60 overflow-y-auto rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl divide-y divide-slate-100 dark:divide-slate-800">
@@ -153,14 +144,33 @@ function TripSteps({ trip, destination, fromGps }) {
   );
 }
 
-export default function TripPanel({ mapControlsRef, onClose }) {
+// initialOrigin / initialDestination: station objects, or stop names from a shared link
+export default function TripPanel({
+  mapControlsRef,
+  onClose,
+  onShareStateChange,
+  initialOrigin = null,
+  initialDestination = null,
+  initialOption = 0,
+}) {
   const planner = usePlanner();
-  const [useGps, setUseGps] = useState(true);
-  const [originStop, setOriginStop] = useState(null);
-  const [destination, setDestination] = useState(null);
+  const [useGps, setUseGps] = useState(false);
+  const [originStop, setOriginStop] = useState(typeof initialOrigin === 'string' ? null : initialOrigin);
+  const [destination, setDestination] = useState(typeof initialDestination === 'string' ? null : initialDestination);
+  const pendingOption = useRef(initialOption);
+
+  // Stop names from a shared link resolve once the stop network has loaded; unknown names are ignored
+  useEffect(() => {
+    if (!planner) return;
+    const byName = (name) => planner.stations.find((st) => st.name.toLowerCase() === name.toLowerCase()) || null;
+    if (typeof initialOrigin === 'string') setOriginStop(byName(initialOrigin));
+    if (typeof initialDestination === 'string') setDestination(byName(initialDestination));
+  }, [planner, initialOrigin, initialDestination]);
   const [selected, setSelected] = useState(0);
   // Phones: the panel is a bottom sheet that can shrink to a summary to uncover the map
   const [collapsed, setCollapsed] = useState(false);
+  // Focus the first empty field on desktop only: on phones it would pop the keyboard over the map
+  const [isWideScreen] = useState(() => window.matchMedia?.('(min-width: 640px)').matches);
   const geo = useGeolocation(useGps);
   const lastPlannedPosition = useRef(null);
   const [plannedPosition, setPlannedPosition] = useState(null);
@@ -191,7 +201,16 @@ export default function TripPanel({ mapControlsRef, onClose }) {
 
   const alreadyThere = destination && origins.some((o) => o.station.name === destination.name && o.walkM < 300);
 
-  useEffect(() => setSelected(0), [trips]);
+  // A shared link may pick an option; any later re-plan starts at the first one
+  useEffect(() => {
+    if (!trips) {
+      setSelected(0);
+      return;
+    }
+    const wanted = pendingOption.current;
+    pendingOption.current = 0;
+    setSelected(wanted < trips.length ? wanted : 0);
+  }, [trips]);
 
   // Map: user dot (approximate on the schematic map)
   useEffect(() => {
@@ -202,6 +221,18 @@ export default function TripPanel({ mapControlsRef, onClose }) {
 
   // Map: highlight the selected trip's buses and mark where to board, change and get off
   const trip = trips?.[selected];
+
+  // Report the trip for the share link. From GPS, share the boarding stop rather than the position. Until the
+  // planner loads, keep the stop names from the incoming link so the URL does not lose them.
+  const loadingFromLink = !planner;
+  const shareFrom = loadingFromLink && typeof initialOrigin === 'string'
+    ? initialOrigin
+    : useGps ? trip?.legs[0].from.name ?? nearest?.station.name : originStop?.name;
+  const shareTo = loadingFromLink && typeof initialDestination === 'string' ? initialDestination : destination?.name;
+  const shareOption = trip ? selected : loadingFromLink ? initialOption : 0;
+  useEffect(() => {
+    onShareStateChange?.({ from: shareFrom ?? null, to: shareTo ?? null, option: shareOption });
+  }, [shareFrom, shareTo, shareOption, onShareStateChange]);
   useEffect(() => {
     const controls = mapControlsRef.current;
     if (!controls) return;
@@ -342,11 +373,23 @@ export default function TripPanel({ mapControlsRef, onClose }) {
                   </button>
                 </div>
               ) : (
-                <StopSearch planner={planner} placeholder="Starting stop" onSelect={setOriginStop} autoFocus />
+                <StopSearch
+                  planner={planner}
+                  placeholder="Starting stop"
+                  onSelect={setOriginStop}
+                  autoFocus={isWideScreen && !initialOrigin && !initialDestination}
+                  action={
+                    <button
+                      onClick={() => setUseGps(true)}
+                      title="Use my location"
+                      aria-label="Use my location"
+                      className="p-1 -mr-1 rounded-lg text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/50 cursor-pointer shrink-0"
+                    >
+                      <LocateFixed className="w-4 h-4" />
+                    </button>
+                  }
+                />
               )}
-              <button onClick={() => setUseGps(true)} className="flex items-center gap-1.5 text-xs font-medium text-sky-700 dark:text-sky-300 hover:underline cursor-pointer">
-                <LocateFixed className="w-3.5 h-3.5" /> Use my location
-              </button>
             </div>
           )}
         </div>
@@ -365,7 +408,7 @@ export default function TripPanel({ mapControlsRef, onClose }) {
               </button>
             </div>
           ) : (
-            <StopSearch planner={planner} placeholder="Where do you want to go?" onSelect={setDestination} autoFocus={useGps} />
+            <StopSearch planner={planner} placeholder="Where do you want to go?" onSelect={setDestination} autoFocus={isWideScreen && !!initialOrigin} />
           )}
         </div>
 

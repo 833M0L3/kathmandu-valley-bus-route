@@ -5,7 +5,9 @@ import Controls from './components/Controls';
 import LegendModal from './components/LegendModal';
 import AttributionBar from './components/AttributionBar';
 import TripPanel from './components/TripPanel';
+import MapSearchBar from './components/MapSearchBar';
 import { getOperatorRoutes } from './data/dedicatedRoutesData';
+import { BUS_SERVICES } from './data/legendData';
 import { readShareLink, writeShareLink } from './shareLink';
 
 // SVG element IDs for the selected branch codes of an operator
@@ -21,10 +23,21 @@ const getSubRouteSvgIds = (operatorName, codes) => [
 export default function App() {
   const [initialLink] = useState(readShareLink);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
-  const [isTripOpen, setIsTripOpen] = useState(false);
-  const [activeRoute, setActiveRoute] = useState(initialLink.service);
-  const [selectedSubRouteCodes, setSelectedSubRouteCodes] = useState(initialLink.subRouteCodes);
-  const [activePlace, setActivePlace] = useState(initialLink.place);
+  // A shared trip link opens the planner; it takes precedence over a shared route or pin
+  const [isTripOpen, setIsTripOpen] = useState(initialLink.trip !== null);
+  // Prefilled stops for the trip planner; `key` remounts the panel for each new request
+  // origin / destination: station objects, or stop names from a shared link (resolved once the planner loads)
+  const [tripRequest, setTripRequest] = useState({
+    key: 0,
+    origin: initialLink.trip?.from ?? null,
+    destination: initialLink.trip?.to ?? null,
+    option: initialLink.trip?.option ?? 0,
+  });
+  const [tripShare, setTripShare] = useState(null); // { from, to, option } reported by the open trip panel
+  const [selectedStop, setSelectedStop] = useState(null); // { station, lines } from the stop search
+  const [activeRoute, setActiveRoute] = useState(initialLink.trip ? null : initialLink.service);
+  const [selectedSubRouteCodes, setSelectedSubRouteCodes] = useState(initialLink.trip ? [] : initialLink.subRouteCodes);
+  const [activePlace, setActivePlace] = useState(initialLink.trip ? null : initialLink.place);
   const [theme, setTheme] = useState(() => {
     try {
       const saved = localStorage.getItem('ktm_transit_theme');
@@ -60,7 +73,8 @@ export default function App() {
 
   // Restore the map view from a shared link (MapViewer registers its controls before this runs)
   useEffect(() => {
-    const { service, subRouteCodes, place } = initialLink;
+    const { service, subRouteCodes, place, trip } = initialLink;
+    if (trip) return; // the trip panel restores itself
     if (place) {
       const subRoute = service && subRouteCodes.length === 1
         ? getOperatorRoutes(service.name).find((sr) => sr.code === subRouteCodes[0])
@@ -79,8 +93,13 @@ export default function App() {
 
   // Keep the URL in sync so the current view can be shared
   useEffect(() => {
-    writeShareLink({ service: activeRoute, subRouteCodes: selectedSubRouteCodes, place: activePlace });
-  }, [activeRoute, selectedSubRouteCodes, activePlace]);
+    writeShareLink({
+      service: activeRoute,
+      subRouteCodes: selectedSubRouteCodes,
+      place: activePlace,
+      trip: isTripOpen ? tripShare : null,
+    });
+  }, [activeRoute, selectedSubRouteCodes, activePlace, isTripOpen, tripShare]);
 
   const handleZoomIn = () => {
     mapControlsRef.current?.zoomIn();
@@ -99,14 +118,47 @@ export default function App() {
   };
 
   // The trip planner draws its own highlight, so drop any operator highlight first
+  const openTrip = ({ origin = null, destination = null } = {}) => {
+    setIsLegendOpen(false);
+    setSelectedStop(null);
+    setActivePlace(null);
+    mapControlsRef.current?.clearPlacePin(); // the planner places its own pins
+    setActiveRoute(null);
+    setSelectedSubRouteCodes([]);
+    mapControlsRef.current?.clearRouteHighlight();
+    setTripShare(null);
+    setTripRequest((prev) => ({ key: prev.key + 1, origin, destination, option: 0 }));
+    setIsTripOpen(true);
+  };
+
   const handleToggleTrip = () => {
-    if (!isTripOpen) {
-      setIsLegendOpen(false);
-      setActiveRoute(null);
-      setSelectedSubRouteCodes([]);
-      mapControlsRef.current?.clearRouteHighlight();
-    }
-    setIsTripOpen((prev) => !prev);
+    if (isTripOpen) setIsTripOpen(false);
+    else openTrip();
+  };
+
+  // Stop search: fly to the stop and show its buses
+  const handleSelectStop = (station, lines) => {
+    setSelectedStop({ station, lines });
+    setActiveRoute(null);
+    setSelectedSubRouteCodes([]);
+    mapControlsRef.current?.clearRouteHighlight();
+    mapControlsRef.current?.flyToLocation(station.x, station.y, 5.4, {
+      name: station.name,
+      subtitle: `${lines.length} bus route${lines.length === 1 ? '' : 's'}`,
+      color: '#0f172a',
+    });
+    setActivePlace({ name: station.name, x: station.x, y: station.y });
+  };
+
+  // Show one of the stop's buses through the regular operator banner
+  const handleShowLine = (line) => {
+    const service = BUS_SERVICES.find((s) => s.code === line.op);
+    if (!service) return;
+    const branchCodes = getOperatorRoutes(service.name).map((sr) => sr.code);
+    setSelectedStop(null);
+    setActiveRoute(service);
+    setSelectedSubRouteCodes(line.codes.filter((code) => branchCodes.includes(code)));
+    mapControlsRef.current?.highlightRoute(service.name, [line.svgId]);
   };
 
   const handleClearActiveRoute = () => {
@@ -177,11 +229,17 @@ export default function App() {
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-white dark:bg-slate-950 select-none">
       {/* Pure Vector Map with Topographic Valley Relief Base */}
-      <MapViewer registerMapControls={registerMapControls} onPlaceCleared={() => setActivePlace(null)} />
+      <MapViewer
+        registerMapControls={registerMapControls}
+        onPlaceCleared={() => {
+          setActivePlace(null);
+          setSelectedStop(null);
+        }}
+      />
 
       {/* Active Route Floating Banner with Dedicated Route Branches & Multi-Route Selection */}
       {activeRoute && (
-        <div className="absolute top-3 sm:top-4 left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center gap-1.5 max-w-[94vw] sm:max-w-2xl animate-in fade-in slide-in-from-top-3 duration-200">
+        <div className="absolute top-[4.25rem] sm:top-[4.75rem] left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center gap-1.5 max-w-[94vw] sm:max-w-2xl animate-in fade-in slide-in-from-top-3 duration-200">
           {/* Main Operator Pill */}
           <div className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full bg-slate-900/95 backdrop-blur-md border border-slate-800 shadow-2xl text-white">
             <div
@@ -285,7 +343,33 @@ export default function App() {
         onToggleTheme={handleToggleTheme}
       />
 
-      {isTripOpen && <TripPanel mapControlsRef={mapControlsRef} onClose={() => setIsTripOpen(false)} />}
+      {isTripOpen ? (
+        <TripPanel
+          key={tripRequest.key}
+          mapControlsRef={mapControlsRef}
+          initialOrigin={tripRequest.origin}
+          initialDestination={tripRequest.destination}
+          initialOption={tripRequest.option}
+          onShareStateChange={setTripShare}
+          onClose={() => {
+            setIsTripOpen(false);
+            setTripShare(null);
+          }}
+        />
+      ) : (
+        <MapSearchBar
+          selected={selectedStop}
+          onSelectStop={handleSelectStop}
+          onClear={() => {
+            setSelectedStop(null);
+            setActivePlace(null);
+            mapControlsRef.current?.clearPlacePin();
+          }}
+          onShowLine={handleShowLine}
+          onDirectionsFrom={(station) => openTrip({ origin: station })}
+          onDirectionsTo={(station) => openTrip({ destination: station })}
+        />
+      )}
 
       {/* Attribution Bar */}
       <AttributionBar />

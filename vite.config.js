@@ -22,7 +22,18 @@ const PUBLIC_SHELL_FILES = [
 
 const shortHash = (input) => createHash('sha256').update(input).digest('hex').slice(0, 12)
 
-// Lists every tile PNG under public/tiles as { path: 'tiles/z/x/y.png', size }
+// Map canvas at the native zoom (keep in sync with MapViewer.jsx)
+const MAP_WIDTH = 11667
+const MAP_HEIGHT = 8750
+const NATIVE_MAX_ZOOM = 6
+
+// public/tiles also holds tiles from an older, larger raster outside the map; the map never requests them
+const isTileOnMap = (z, x, y) => {
+  const scale = 2 ** (NATIVE_MAX_ZOOM - z)
+  return x < Math.ceil(MAP_WIDTH / scale / 256) && y < Math.ceil(MAP_HEIGHT / scale / 256)
+}
+
+// Lists every tile PNG on the map under public/tiles as { path: 'tiles/z/x/y.png', size }
 function listTiles() {
   const tiles = []
   const walk = (dir) => {
@@ -36,7 +47,7 @@ function listTiles() {
     }
   }
   walk(TILES_DIR)
-  return tiles.sort((a, b) => a.path.localeCompare(b.path, 'en', { numeric: true }))
+  return tiles.filter((t) => isTileOnMap(...t.path.match(/(\d+)\/(\d+)\/(\d+)\.png$/).slice(1).map(Number))).sort((a, b) => a.path.localeCompare(b.path, 'en', { numeric: true }))
 }
 
 // Manifest of all tiles, read by the "Save map offline" downloader. Cache name changes when tiles change.

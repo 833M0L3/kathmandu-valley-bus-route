@@ -38,6 +38,13 @@ const transferGroup = stations.map((st) =>
     .map((o) => o.index)
 );
 
+// Buses stopping at a station (including stops drawn right next to it), ordered by route code
+export function linesAtStop(station) {
+  const found = new Map();
+  for (const s of transferGroup[station.index]) for (const li of linesAtStation[s]) found.set(li, lines[li]);
+  return [...found.values()].sort((a, b) => a.label.localeCompare(b.label, 'en', { numeric: true }));
+}
+
 export function distanceMeters(lat1, lon1, lat2, lon2) {
   const r = Math.PI / 180;
   const a = Math.sin(((lat2 - lat1) * r) / 2) ** 2 + Math.cos(lat1 * r) * Math.cos(lat2 * r) * Math.sin(((lon2 - lon1) * r) / 2) ** 2;

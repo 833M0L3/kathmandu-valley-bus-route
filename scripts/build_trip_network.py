@@ -38,9 +38,10 @@ SVG_FILE = ROOT / 'public' / 'Kathmandu_Bus_Route_Map.svg'
 OSM_CACHE = ROOT / 'routes_data' / 'osm_named_features.json'
 OUT_FILE = ROOT / 'src' / 'data' / 'tripNetwork.js'
 
-VIEW_W, VIEW_H = 1584, 1224
-CANVAS_W, CANVAS_H = 11667, 8750
-SX, SY = CANVAS_W / VIEW_W, CANVAS_H / VIEW_H
+# SVG units -> 11667 x 8750 canvas: uniform scale, cropped at top and bottom (canvas = scale * svg + offset).
+# Measured by locating 58 SVG stop dots in clean-map.jpg (median error 0.6 px); keep in sync with MapViewer.jsx.
+SVG_SCALE_X, SVG_OFFSET_X = 7.36622, -1.19
+SVG_SCALE_Y, SVG_OFFSET_Y = 7.36564, -23.53
 
 STATION_CLUSTER_DIST = 3.6  # SVG units: dots of parallel lines at one stop
 LABEL_MAX_DIST = 6.0
@@ -535,7 +536,8 @@ def main():
     out_stations = []
     for st, (lat, lon, exact) in zip(kept, coords):
         cx, cy = st['dots'].mean(0)
-        out_stations.append([st['name'], round(cx * SX, 1), round(cy * SY, 1), round(lat, 6), round(lon, 6), exact])
+        out_stations.append([st['name'], round(cx * SVG_SCALE_X + SVG_OFFSET_X, 1), round(cy * SVG_SCALE_Y + SVG_OFFSET_Y, 1),
+                             round(lat, 6), round(lon, 6), exact])
     out_lines = []
     for ln in lines:
         nbrs = collections.defaultdict(dict)
