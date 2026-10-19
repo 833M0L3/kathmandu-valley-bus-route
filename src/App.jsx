@@ -6,6 +6,7 @@ import LegendModal from './components/LegendModal';
 import AttributionBar from './components/AttributionBar';
 import TripPanel from './components/TripPanel';
 import MapSearchBar from './components/MapSearchBar';
+import SpotBanner from './components/SpotBanner';
 import LineChooser from './components/LineChooser';
 import { loadLineFinder } from './usePlanner';
 import { getOperatorRoutes } from './data/dedicatedRoutesData';
@@ -26,6 +27,8 @@ export default function App() {
   const [initialLink] = useState(readShareLink);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
   const [tapInfo, setTapInfo] = useState(null); // lines and stop under a map tap, for the line chooser
+  // Lines at a spot (tapped point or searched stop), across operators: { title, lines, selectedIds }; [] = all
+  const [spot, setSpot] = useState(null);
   const [tripPick, setTripPick] = useState(null); // { kind: 'origin' | 'destination', station, key } for an open planner
   // A shared trip link opens the planner; it takes precedence over a shared route or pin
   const [isTripOpen, setIsTripOpen] = useState(initialLink.trip !== null);
@@ -128,6 +131,7 @@ export default function App() {
     setSelectedStop(null);
     setActivePlace(null);
     mapControlsRef.current?.clearPlacePin(); // the planner places its own pins
+    setSpot(null);
     setActiveRoute(null);
     setSelectedSubRouteCodes([]);
     mapControlsRef.current?.clearRouteHighlight();
@@ -144,6 +148,7 @@ export default function App() {
   // Stop search: fly to the stop and show its buses
   const handleSelectStop = (station, lines) => {
     setTapInfo(null);
+    setSpot(null);
     setSelectedStop({ station, lines });
     setActiveRoute(null);
     setSelectedSubRouteCodes([]);
@@ -162,6 +167,7 @@ export default function App() {
     if (!service) return;
     const branchCodes = getOperatorRoutes(service.name).map((sr) => sr.code);
     setSelectedStop(null);
+    setSpot(null);
     setActiveRoute(service);
     setSelectedSubRouteCodes(line.codes.filter((code) => branchCodes.includes(code)));
     mapControlsRef.current?.highlightRoute(service.name, [line.svgId]);
@@ -171,10 +177,48 @@ export default function App() {
   const TAP_LINE_RADIUS_PX = 22; // finger-sized; parallel lines in a bundle are only a few px apart when zoomed out
   const TAP_STOP_RADIUS_PX = 28;
 
+  const highlightSpot = (next) => {
+    const ids = next.selectedIds.length > 0 ? next.selectedIds : next.lines.map((l) => l.svgId);
+    mapControlsRef.current?.highlightRoute('Spot', ids, { fly: false });
+  };
+
+  // Show the lines at a spot, starting with one of them selected (or all)
+  // stop / stopLines: the stop at the spot (if any) and every bus serving it, for Start / Go and "all buses here"
+  const openSpot = (title, lines, firstId = null, stop = null, stopLines = null) => {
+    const next = { title, lines, selectedIds: firstId ? [firstId] : [], stop, stopLines };
+    setSelectedStop(null);
+    setActiveRoute(null);
+    setSelectedSubRouteCodes([]);
+    setSpot(next);
+    highlightSpot(next);
+  };
+
+  // Like the operator branch bar: from "all", a tap isolates one line; then taps add or remove lines
+  const handleToggleSpotLine = (line) => {
+    const ids = spot.selectedIds;
+    const nextIds = ids.length === 0 ? [line.svgId] : ids.includes(line.svgId) ? ids.filter((id) => id !== line.svgId) : [...ids, line.svgId];
+    const next = { ...spot, selectedIds: nextIds };
+    setSpot(next);
+    highlightSpot(next);
+  };
+
+  const handleShowAllSpotLines = () => {
+    const next = { ...spot, selectedIds: [] };
+    setSpot(next);
+    highlightSpot(next);
+  };
+
+  const handleCloseSpot = () => {
+    setSpot(null);
+    mapControlsRef.current?.clearRouteHighlight();
+  };
+
   // Put back the highlight that was showing before a tap preview
   const restoreHighlight = () => {
     if (isTripOpen) return; // the trip panel owns the highlight
-    if (activeRoute) {
+    if (spot) {
+      highlightSpot(spot);
+    } else if (activeRoute) {
       const svgIds = getSubRouteSvgIds(activeRoute.name, selectedSubRouteCodes);
       mapControlsRef.current?.highlightRoute(activeRoute.name, svgIds.length > 0 ? svgIds : null, { fly: false });
     } else {
@@ -197,19 +241,31 @@ export default function App() {
     if (isLegendOpen) return;
     const { findAt } = await loadLineFinder();
     const found = findAt(tap.x, tap.y, TAP_LINE_RADIUS_PX * tap.pxScale, TAP_STOP_RADIUS_PX * tap.pxScale);
-    // With the planner open only stops matter (to set start / destination)
-    if (isTripOpen ? !found.stop : !found.stop && found.lines.length === 0) {
-      closeTapInfo();
+    // With the planner open only stops matter: a small card offers Set as start / destination
+    if (isTripOpen) {
+      if (!found.stop) return closeTapInfo();
+      setTapInfo({ ...found, screen: tap.screen });
       return;
     }
-    setSelectedStop(null);
-    setTapInfo({ ...found, screen: tap.screen });
-    previewLines(found.lines.map((h) => h.line));
+    if (!found.stop && found.lines.length === 0) return; // empty map: keep what is showing
+    // Otherwise the spot card shows everything at the tapped point (one card, updated on every tap)
+    const lines = found.lines.length > 0 ? found.lines.map((h) => h.line) : found.stopLines;
+    setTapInfo(null);
+    openSpot(found.stop?.name ?? 'Lines here', lines, null, found.stop, found.stopLines);
   };
 
+  const handleShowStopLines = () => {
+    const next = { ...spot, lines: spot.stopLines, selectedIds: [] };
+    setSpot(next);
+    highlightSpot(next);
+  };
+
+  // Picking a line keeps the other lines at the spot one tap away
   const handleChooseLine = (line) => {
+    const title = tapInfo?.stop?.name ?? 'Lines here';
+    const lines = tapInfo?.lines.map((h) => h.line) ?? [line];
     setTapInfo(null);
-    handleShowLine(line);
+    openSpot(title, lines, line.svgId);
   };
 
   const handleTapStart = (stop) => {
@@ -271,6 +327,7 @@ export default function App() {
   const handleNavigateToLocation = (location) => {
     setIsLegendOpen(false);
     setIsTripOpen(false);
+    setSpot(null);
     if (location.x !== undefined && location.y !== undefined) {
       mapControlsRef.current?.flyToLocation(location.x, location.y, 5.8, {
         name: location.name,
@@ -318,6 +375,20 @@ export default function App() {
           onGo={handleTapGo}
           onStopDetails={handleTapStopDetails}
           onClose={closeTapInfo}
+        />
+      )}
+
+      {spot && !activeRoute && (
+        <SpotBanner
+          spot={spot}
+          onToggleLine={handleToggleSpotLine}
+          onShowAll={handleShowAllSpotLines}
+          onShowOperator={handleShowLine}
+          onStart={handleTapStart}
+          onGo={handleTapGo}
+          onShowStopLines={handleShowStopLines}
+          onPreview={(line) => (line ? mapControlsRef.current?.highlightRoute('Spot', [line.svgId], { fly: false }) : highlightSpot(spot))}
+          onClose={handleCloseSpot}
         />
       )}
 
@@ -450,7 +521,9 @@ export default function App() {
             setActivePlace(null);
             mapControlsRef.current?.clearPlacePin();
           }}
-          onShowLine={handleShowLine}
+          onShowLine={(line) =>
+            selectedStop && openSpot(selectedStop.station.name, selectedStop.lines, line.svgId, selectedStop.station, selectedStop.lines)
+          }
           onDirectionsFrom={(station) => openTrip({ origin: station })}
           onDirectionsTo={(station) => openTrip({ destination: station })}
         />
