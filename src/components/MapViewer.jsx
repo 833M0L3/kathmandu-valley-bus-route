@@ -46,10 +46,14 @@ const OPERATOR_SVG_MAP = {
   'Om Janata Yatayat': 'Om_Janata_Yatayat',
 };
 
-export default function MapViewer({ registerMapControls, onPlaceCleared }) {
+export default function MapViewer({ registerMapControls, onPlaceCleared, onMapTap, onMapMoveStart }) {
   const mapContainerRef = useRef(null);
   const onPlaceClearedRef = useRef(onPlaceCleared);
   onPlaceClearedRef.current = onPlaceCleared;
+  const onMapTapRef = useRef(onMapTap);
+  onMapTapRef.current = onMapTap;
+  const onMapMoveStartRef = useRef(onMapMoveStart);
+  onMapMoveStartRef.current = onMapMoveStart;
   const mapInstanceRef = useRef(null);
   const targetPinMarkerRef = useRef(null);
   const svgOverlayRef = useRef(null);
@@ -224,6 +228,14 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
 
     labelsLayer.addTo(map);
 
+    // Taps on the map itself (markers and labels handle their own clicks): report the canvas point and how many
+    // canvas px one screen px covers at this zoom, so callers can search with a finger-sized radius
+    map.on('click', (e) => {
+      const p = map.project(e.latlng, NATIVE_MAX_ZOOM);
+      onMapTapRef.current?.({ x: p.x, y: p.y, screen: e.containerPoint, pxScale: 2 ** (NATIVE_MAX_ZOOM - map.getZoom()) });
+    });
+    map.on('movestart', () => onMapMoveStartRef.current?.());
+
     // Pinpoint marker creator for navigation from legend
     const setNavigatedMarker = (latLng, placeInfo) => {
       if (targetPinMarkerRef.current) {
@@ -330,7 +342,8 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
 
     // --- 100% Accurate Native SVG Route Highlighting on Top of Tiles ---
     // Supports highlighting an operator group, a single route branch, or multiple selected branches simultaneously
-    const highlightRoute = (operatorName, specificRouteSvgIds = null) => {
+    // options.fly: move the map to the route (false for previews)
+    const highlightRoute = (operatorName, specificRouteSvgIds = null, { fly = true } = {}) => {
       // Remove any existing active vector highlight overlay
       if (activeHighlightOverlay) {
         map.removeLayer(activeHighlightOverlay);
@@ -345,7 +358,7 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
       }
 
       if (!svgDoc) {
-        pendingHighlight = [operatorName, specificRouteSvgIds];
+        pendingHighlight = [operatorName, specificRouteSvgIds, { fly }];
         return;
       }
 
@@ -428,7 +441,7 @@ export default function MapViewer({ registerMapControls, onPlaceCleared }) {
         activeHighlightOverlay.bringToFront();
 
         // Smoothly fly to center of route(s) if bounding box is accessible
-        if (hasValidBBox) {
+        if (hasValidBBox && fly) {
           const cx = ((combinedMinX + combinedMaxX) / 2) * SVG_SCALE_X + SVG_OFFSET_X;
           const cy = ((combinedMinY + combinedMaxY) / 2) * SVG_SCALE_Y + SVG_OFFSET_Y;
           const targetLatLng = map.unproject([cx, cy], NATIVE_MAX_ZOOM);

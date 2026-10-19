@@ -6,6 +6,8 @@ import LegendModal from './components/LegendModal';
 import AttributionBar from './components/AttributionBar';
 import TripPanel from './components/TripPanel';
 import MapSearchBar from './components/MapSearchBar';
+import LineChooser from './components/LineChooser';
+import { loadLineFinder } from './usePlanner';
 import { getOperatorRoutes } from './data/dedicatedRoutesData';
 import { BUS_SERVICES } from './data/legendData';
 import { readShareLink, writeShareLink } from './shareLink';
@@ -23,6 +25,8 @@ const getSubRouteSvgIds = (operatorName, codes) => [
 export default function App() {
   const [initialLink] = useState(readShareLink);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
+  const [tapInfo, setTapInfo] = useState(null); // lines and stop under a map tap, for the line chooser
+  const [tripPick, setTripPick] = useState(null); // { kind: 'origin' | 'destination', station, key } for an open planner
   // A shared trip link opens the planner; it takes precedence over a shared route or pin
   const [isTripOpen, setIsTripOpen] = useState(initialLink.trip !== null);
   // Prefilled stops for the trip planner; `key` remounts the panel for each new request
@@ -120,6 +124,7 @@ export default function App() {
   // The trip planner draws its own highlight, so drop any operator highlight first
   const openTrip = ({ origin = null, destination = null } = {}) => {
     setIsLegendOpen(false);
+    setTapInfo(null);
     setSelectedStop(null);
     setActivePlace(null);
     mapControlsRef.current?.clearPlacePin(); // the planner places its own pins
@@ -138,6 +143,7 @@ export default function App() {
 
   // Stop search: fly to the stop and show its buses
   const handleSelectStop = (station, lines) => {
+    setTapInfo(null);
     setSelectedStop({ station, lines });
     setActiveRoute(null);
     setSelectedSubRouteCodes([]);
@@ -159,6 +165,69 @@ export default function App() {
     setActiveRoute(service);
     setSelectedSubRouteCodes(line.codes.filter((code) => branchCodes.includes(code)));
     mapControlsRef.current?.highlightRoute(service.name, [line.svgId]);
+  };
+
+  // --- Tapping the map: which bus is this line? / start or go from this stop ---
+  const TAP_LINE_RADIUS_PX = 22; // finger-sized; parallel lines in a bundle are only a few px apart when zoomed out
+  const TAP_STOP_RADIUS_PX = 28;
+
+  // Put back the highlight that was showing before a tap preview
+  const restoreHighlight = () => {
+    if (isTripOpen) return; // the trip panel owns the highlight
+    if (activeRoute) {
+      const svgIds = getSubRouteSvgIds(activeRoute.name, selectedSubRouteCodes);
+      mapControlsRef.current?.highlightRoute(activeRoute.name, svgIds.length > 0 ? svgIds : null, { fly: false });
+    } else {
+      mapControlsRef.current?.clearRouteHighlight();
+    }
+  };
+
+  const previewLines = (lines) => {
+    if (isTripOpen || lines.length === 0) return;
+    mapControlsRef.current?.highlightRoute('Preview', lines.map((l) => l.svgId), { fly: false });
+  };
+
+  const closeTapInfo = () => {
+    if (!tapInfo) return;
+    setTapInfo(null);
+    restoreHighlight();
+  };
+
+  const handleMapTap = async (tap) => {
+    if (isLegendOpen) return;
+    const { findAt } = await loadLineFinder();
+    const found = findAt(tap.x, tap.y, TAP_LINE_RADIUS_PX * tap.pxScale, TAP_STOP_RADIUS_PX * tap.pxScale);
+    // With the planner open only stops matter (to set start / destination)
+    if (isTripOpen ? !found.stop : !found.stop && found.lines.length === 0) {
+      closeTapInfo();
+      return;
+    }
+    setSelectedStop(null);
+    setTapInfo({ ...found, screen: tap.screen });
+    previewLines(found.lines.map((h) => h.line));
+  };
+
+  const handleChooseLine = (line) => {
+    setTapInfo(null);
+    handleShowLine(line);
+  };
+
+  const handleTapStart = (stop) => {
+    setTapInfo(null);
+    if (isTripOpen) setTripPick((prev) => ({ kind: 'origin', station: stop, key: (prev?.key ?? 0) + 1 }));
+    else openTrip({ origin: stop });
+  };
+
+  const handleTapGo = (stop) => {
+    setTapInfo(null);
+    if (isTripOpen) setTripPick((prev) => ({ kind: 'destination', station: stop, key: (prev?.key ?? 0) + 1 }));
+    else openTrip({ destination: stop });
+  };
+
+  const handleTapStopDetails = (stop) => {
+    const lines = tapInfo?.stopLines ?? [];
+    setTapInfo(null);
+    handleSelectStop(stop, lines);
   };
 
   const handleClearActiveRoute = () => {
@@ -235,7 +304,22 @@ export default function App() {
           setActivePlace(null);
           setSelectedStop(null);
         }}
+        onMapTap={handleMapTap}
+        onMapMoveStart={closeTapInfo}
       />
+
+      {tapInfo && (
+        <LineChooser
+          info={tapInfo}
+          tripMode={isTripOpen}
+          onSelectLine={handleChooseLine}
+          onPreview={(line) => previewLines(line ? [line] : tapInfo.lines.map((h) => h.line))}
+          onStart={handleTapStart}
+          onGo={handleTapGo}
+          onStopDetails={handleTapStopDetails}
+          onClose={closeTapInfo}
+        />
+      )}
 
       {/* Active Route Floating Banner with Dedicated Route Branches & Multi-Route Selection */}
       {activeRoute && (
@@ -351,6 +435,7 @@ export default function App() {
           initialDestination={tripRequest.destination}
           initialOption={tripRequest.option}
           onShareStateChange={setTripShare}
+          pick={tripPick}
           onClose={() => {
             setIsTripOpen(false);
             setTripShare(null);

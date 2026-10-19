@@ -113,6 +113,8 @@ Examples: `/?op=S&r=S2&p=Lagankhel` (a route), `/?from=Jawalakhel&to=Ratnapark&o
 
 **Stop search** (top left of the map): type a stop name and pick a result. The map flies to the stop, and a card lists the buses that stop there; tap a bus to highlight its route. **Directions from here / to here** opens the planner with that stop filled in.
 
+**Tap the map** to see what is there. Lines in a bundle are only a few pixels apart, so a tap collects every line within a finger-sized radius (22 screen px at any zoom) and lists them, nearest first, with their route ends and whether they stop at the stop you tapped. All of them light up; hover or focus a row to see just that one, and pick it to show the route. When the tap is near a stop, the card names it and offers **Start here / Go here**. With the planner open, a tap sets the start or destination instead. Hit-testing uses `src/data/lineShapes.js`, simplified branch shapes written by the same build script, so a tap matches exactly what gets highlighted.
+
 The **Find your bus** button (navigation arrow) opens a planner:
 
 1. **From**: a stop you search for. Or tap the location button inside the field: only then does the browser ask for your location, and your position is matched to the nearest stops by real walking distance.

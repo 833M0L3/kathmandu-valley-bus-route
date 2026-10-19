@@ -152,12 +152,26 @@ export default function TripPanel({
   initialOrigin = null,
   initialDestination = null,
   initialOption = 0,
+  pick = null, // { kind: 'origin' | 'destination', station, key }: a stop tapped on the map
 }) {
   const planner = usePlanner();
   const [useGps, setUseGps] = useState(false);
   const [originStop, setOriginStop] = useState(typeof initialOrigin === 'string' ? null : initialOrigin);
   const [destination, setDestination] = useState(typeof initialDestination === 'string' ? null : initialDestination);
   const pendingOption = useRef(initialOption);
+
+  // Stops tapped on the map fill From / To. Only picks made while this panel is open count.
+  const seenPickKey = useRef(pick?.key);
+  useEffect(() => {
+    if (!pick || pick.key === seenPickKey.current) return;
+    seenPickKey.current = pick.key;
+    if (pick.kind === 'origin') {
+      setUseGps(false);
+      setOriginStop(pick.station);
+    } else {
+      setDestination(pick.station);
+    }
+  }, [pick]);
 
   // Stop names from a shared link resolve once the stop network has loaded; unknown names are ignored
   useEffect(() => {
