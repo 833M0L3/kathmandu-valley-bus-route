@@ -36,8 +36,8 @@ function StopSearch({ planner, placeholder, onSelect, autoFocus, action }) {
   const results = planner && query.trim() ? planner.searchStations(query) : [];
   return (
     <div className="relative">
-      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 focus-within:ring-2 focus-within:ring-sky-400/50">
-        <Search className="w-4 h-4 text-slate-400 shrink-0" />
+      <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-neutral-100 dark:bg-white/[0.06] focus-within:ring-2 focus-within:ring-neutral-900/10 dark:focus-within:ring-white/15">
+        <Search className="w-4 h-4 text-neutral-500 shrink-0" />
         <input
           type="text"
           value={query}
@@ -45,12 +45,12 @@ function StopSearch({ planner, placeholder, onSelect, autoFocus, action }) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
           aria-label={placeholder}
-          className="w-full bg-transparent text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none"
+          className="w-full bg-transparent text-sm text-neutral-800 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none"
         />
         {action}
       </div>
       {results.length > 0 && (
-        <ul className="absolute left-0 right-0 mt-1 z-10 max-h-60 overflow-y-auto rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-xl divide-y divide-slate-100 dark:divide-slate-800">
+        <ul className="surface absolute left-0 right-0 mt-1 z-10 max-h-60 overflow-y-auto rounded-xl divide-y divide-neutral-100 dark:divide-white/10">
           {results.map((st) => (
             <li key={st.index}>
               <button
@@ -58,9 +58,9 @@ function StopSearch({ planner, placeholder, onSelect, autoFocus, action }) {
                   setQuery('');
                   onSelect(st);
                 }}
-                className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2 cursor-pointer"
+                className="w-full text-left px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-white/[0.06] flex items-center gap-2 cursor-pointer"
               >
-                <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
                 <span className="truncate">{st.name}</span>
               </button>
             </li>
@@ -68,7 +68,7 @@ function StopSearch({ planner, placeholder, onSelect, autoFocus, action }) {
         </ul>
       )}
       {planner && query.trim() && results.length === 0 && (
-        <p className="mt-1 px-1 text-xs text-slate-500">No stop on the map matches "{query}".</p>
+        <p className="mt-1 px-1 text-xs text-neutral-500">No stop on the map matches "{query}".</p>
       )}
     </div>
   );
@@ -88,12 +88,12 @@ function LineBadge({ line }) {
 
 function TripSteps({ trip, destination, fromGps }) {
   return (
-    <ol className="mt-2.5 space-y-2.5 text-xs text-slate-600 dark:text-slate-300">
+    <ol className="mt-2.5 space-y-2.5 text-xs text-neutral-600 dark:text-neutral-300">
       {fromGps && trip.walkM > 30 && (
         <li className="flex gap-2">
-          <Footprints className="w-4 h-4 text-slate-400 shrink-0" />
+          <Footprints className="w-4 h-4 text-neutral-500 shrink-0" />
           <span>
-            Walk ~{formatDistance(trip.walkM)} to <b className="text-slate-900 dark:text-white">{trip.legs[0].from.name}</b>
+            Walk ~{formatDistance(trip.walkM)} to <b className="text-neutral-900 dark:text-white">{trip.legs[0].from.name}</b>
           </span>
         </li>
       )}
@@ -103,9 +103,9 @@ function TripSteps({ trip, destination, fromGps }) {
           <React.Fragment key={i}>
             {prev && prev.to.index !== leg.from.index && (
               <li className="flex gap-2">
-                <Footprints className="w-4 h-4 text-slate-400 shrink-0" />
+                <Footprints className="w-4 h-4 text-neutral-500 shrink-0" />
                 <span>
-                  Walk from {prev.to.name} to <b className="text-slate-900 dark:text-white">{leg.from.name}</b>
+                  Walk from {prev.to.name} to <b className="text-neutral-900 dark:text-white">{leg.from.name}</b>
                 </span>
               </li>
             )}
@@ -114,14 +114,14 @@ function TripSteps({ trip, destination, fromGps }) {
               <div className="min-w-0">
                 <div>
                   {i === 0 ? 'Board' : 'Change to'} <LineBadge line={leg.line} /> <span className="font-medium">{leg.line.operator}</span> at{' '}
-                  <b className="text-slate-900 dark:text-white">{leg.from.name}</b>
+                  <b className="text-neutral-900 dark:text-white">{leg.from.name}</b>
                 </div>
-                <div className="text-slate-500 dark:text-slate-400">
+                <div className="text-neutral-500 dark:text-neutral-400">
                   {leg.towards ? `Bus towards ${leg.towards}` : `Ring road bus, via ${leg.via.name}`} · {leg.stops} stop{leg.stops === 1 ? '' : 's'} ·
                   ~{formatDistance(leg.rideM)}
                 </div>
                 <details className="mt-0.5">
-                  <summary className="cursor-pointer text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 select-none">Stops on the way</summary>
+                  <summary className="cursor-pointer text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-200 select-none">Stops on the way</summary>
                   <p className="mt-1 leading-relaxed">{leg.path.map((s) => s.name).join(' → ')}</p>
                 </details>
                 <div className="mt-0.5">
@@ -134,9 +134,9 @@ function TripSteps({ trip, destination, fromGps }) {
       })}
       {trip.finalWalkM > 30 && (
         <li className="flex gap-2">
-          <Footprints className="w-4 h-4 text-slate-400 shrink-0" />
+          <Footprints className="w-4 h-4 text-neutral-500 shrink-0" />
           <span>
-            Walk ~{formatDistance(trip.finalWalkM)} to <b className="text-slate-900 dark:text-white">{destination.name}</b>
+            Walk ~{formatDistance(trip.finalWalkM)} to <b className="text-neutral-900 dark:text-white">{destination.name}</b>
           </span>
         </li>
       )}
@@ -292,31 +292,31 @@ export default function TripPanel({
   return (
     <section
       aria-label="Find your bus"
-      className="fixed z-[1100] inset-x-0 bottom-0 max-h-[58vh] rounded-t-2xl sm:inset-x-auto sm:bottom-auto sm:top-4 sm:left-4 sm:w-[380px] sm:max-h-[calc(100vh-5rem)] sm:rounded-2xl flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl font-['Inter'] text-slate-800 dark:text-slate-100 animate-in fade-in slide-in-from-bottom-4 sm:slide-in-from-left-2 duration-200"
+      className="surface fixed z-[1100] inset-x-0 bottom-0 max-h-[58vh] rounded-t-2xl sm:inset-x-auto sm:bottom-auto sm:top-4 sm:left-4 sm:w-[380px] sm:max-h-[calc(100vh-5rem)] sm:rounded-2xl flex flex-col text-neutral-800 dark:text-neutral-100 animate-in fade-in slide-in-from-bottom-4 sm:slide-in-from-left-2 duration-200"
     >
       <header className="flex items-center justify-between px-4 pt-3 pb-2 shrink-0">
-        <h2 className="font-['Outfit'] font-bold text-base text-slate-900 dark:text-white">Find your bus</h2>
+        <h2 className="font-bold text-base text-neutral-900 dark:text-white">Find your bus</h2>
         <span className="flex-1" />
         <button
           onClick={() => setCollapsed((c) => !c)}
           aria-label={collapsed ? 'Show trip details' : 'Show map'}
           aria-expanded={!collapsed}
-          className="sm:hidden p-1 mr-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+          className="sm:hidden p-1 mr-1 rounded-lg text-neutral-500 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.06] cursor-pointer"
         >
           {collapsed ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
         </button>
-        <button onClick={onClose} aria-label="Close trip planner" className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+        <button onClick={onClose} aria-label="Close trip planner" className="p-1 rounded-lg text-neutral-500 hover:text-neutral-700 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-white/[0.06] cursor-pointer">
           <X className="w-4 h-4" />
         </button>
       </header>
 
       {collapsed && (
-        <button onClick={() => setCollapsed(false)} className="sm:hidden px-4 pb-3 text-left text-xs text-slate-600 dark:text-slate-300 cursor-pointer">
+        <button onClick={() => setCollapsed(false)} className="sm:hidden px-4 pb-3 text-left text-xs text-neutral-600 dark:text-neutral-300 cursor-pointer">
           {trip ? (
             <span className="flex items-center gap-1 flex-wrap">
               {trip.legs.map((leg, k) => (
                 <React.Fragment key={k}>
-                  {k > 0 && <ArrowRight className="w-3 h-3 text-slate-400" />}
+                  {k > 0 && <ArrowRight className="w-3 h-3 text-neutral-500" />}
                   <LineBadge line={leg.line} />
                 </React.Fragment>
               ))}
@@ -337,21 +337,21 @@ export default function TripPanel({
       <div className={`px-4 pb-4 overflow-y-auto space-y-3 ${collapsed ? 'hidden sm:block' : ''}`}>
         {/* From */}
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-1">From</div>
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 mb-1">From</div>
           {useGps ? (
-            <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900">
-              <LocateFixed className="w-4 h-4 mt-0.5 text-sky-600 dark:text-sky-400 shrink-0" />
+            <div className="flex items-start gap-2.5 p-2.5 rounded-xl bg-neutral-50 dark:bg-white/[0.03] border border-neutral-200 dark:border-white/10">
+              <LocateFixed className="w-4 h-4 mt-0.5 text-neutral-900 dark:text-white shrink-0" />
               <div className="min-w-0 flex-1 text-sm">
                 {!planner || (geo.status === 'locating' && !nearest) ? (
-                  <span className="flex items-center gap-1.5 text-slate-500">
+                  <span className="flex items-center gap-1.5 text-neutral-500">
                     <LoaderCircle className="w-3.5 h-3.5 animate-spin" /> Finding your location…
                   </span>
                 ) : geo.status === 'denied' ? (
-                  <span className="text-slate-600 dark:text-slate-300">Location access is blocked. Allow it in your browser settings, or choose a starting stop.</span>
+                  <span className="text-neutral-600 dark:text-neutral-300">Location access is blocked. Allow it in your browser settings, or choose a starting stop.</span>
                 ) : geo.status === 'unavailable' && !nearest ? (
-                  <span className="text-slate-600 dark:text-slate-300">Your location isn't available right now. Choose a starting stop instead.</span>
+                  <span className="text-neutral-600 dark:text-neutral-300">Your location isn't available right now. Choose a starting stop instead.</span>
                 ) : isOutsideNetwork ? (
-                  <span className="text-slate-600 dark:text-slate-300">
+                  <span className="text-neutral-600 dark:text-neutral-300">
                     You seem to be outside the area this map covers: the nearest stop, {nearest.station.name}, is {formatDistance(nearest.walkM)} away.
                   </span>
                 ) : nearest ? (
@@ -360,7 +360,7 @@ export default function TripPanel({
                       Nearest stop: <b>{nearest.station.name}</b> · ~{formatDistance(nearest.walkM)} walk
                     </div>
                     {origins.length > 1 && (
-                      <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                      <div className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
                         Also near: {origins.slice(1).map((o) => `${o.station.name} (${formatDistance(o.walkM)})`).join(', ')}
                       </div>
                     )}
@@ -370,19 +370,19 @@ export default function TripPanel({
                   </>
                 ) : null}
               </div>
-              <button onClick={() => setUseGps(false)} className="text-xs font-medium text-sky-700 dark:text-sky-300 hover:underline cursor-pointer shrink-0">
+              <button onClick={() => setUseGps(false)} className="text-xs font-medium text-neutral-900 dark:text-white hover:underline cursor-pointer shrink-0">
                 Change
               </button>
             </div>
           ) : (
             <div className="space-y-1.5">
               {originStop ? (
-                <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm">
+                <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-neutral-100 dark:bg-white/[0.06] text-sm">
                   <span className="flex items-center gap-2 min-w-0">
                     <MapPin className="w-4 h-4 text-emerald-600 shrink-0" />
                     <b className="truncate">{originStop.name}</b>
                   </span>
-                  <button onClick={() => setOriginStop(null)} aria-label="Clear starting stop" className="text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer">
+                  <button onClick={() => setOriginStop(null)} aria-label="Clear starting stop" className="text-neutral-500 hover:text-neutral-700 dark:hover:text-white cursor-pointer">
                     <X className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -397,7 +397,7 @@ export default function TripPanel({
                       onClick={() => setUseGps(true)}
                       title="Use my location"
                       aria-label="Use my location"
-                      className="p-1 -mr-1 rounded-lg text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/50 cursor-pointer shrink-0"
+                      className="p-1 -mr-1 rounded-lg text-neutral-700 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-white/10 cursor-pointer shrink-0"
                     >
                       <LocateFixed className="w-4 h-4" />
                     </button>
@@ -410,14 +410,14 @@ export default function TripPanel({
 
         {/* To */}
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-1">To</div>
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 mb-1">To</div>
           {destination ? (
-            <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm">
+            <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-neutral-100 dark:bg-white/[0.06] text-sm">
               <span className="flex items-center gap-2 min-w-0">
                 <MapPin className="w-4 h-4 text-rose-600 shrink-0" />
                 <b className="truncate">{destination.name}</b>
               </span>
-              <button onClick={() => setDestination(null)} aria-label="Clear destination" className="text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer">
+              <button onClick={() => setDestination(null)} aria-label="Clear destination" className="text-neutral-500 hover:text-neutral-700 dark:hover:text-white cursor-pointer">
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -428,9 +428,9 @@ export default function TripPanel({
 
         {/* Results */}
         {alreadyThere ? (
-          <p className="text-sm text-slate-600 dark:text-slate-300">You're already at {destination.name}.</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-300">You're already at {destination.name}.</p>
         ) : trips && trips.length === 0 ? (
-          <p className="text-sm text-slate-600 dark:text-slate-300">No bus connection found between these stops on this map.</p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-300">No bus connection found between these stops on this map.</p>
         ) : trips ? (
           <ul className="space-y-2" aria-label="Trip options">
             {trips.map((t, i) => {
@@ -438,8 +438,12 @@ export default function TripPanel({
               return (
                 <li key={t.legs.map((l) => l.line.svgId).join('>')}>
                   <div
+                    // The selected option takes a wash of its first bus's route colour
+                    style={{ '--route': t.legs[0].line.color }}
                     className={`rounded-xl border transition-colors ${
-                      isSelected ? 'border-sky-400 dark:border-sky-500 bg-sky-50/60 dark:bg-sky-950/30' : 'border-slate-200 dark:border-slate-800'
+                      isSelected
+                        ? 'border-[color-mix(in_oklab,var(--route)_45%,white)] bg-[color-mix(in_oklab,var(--route)_7%,white)] dark:border-[color-mix(in_oklab,var(--route)_45%,transparent)] dark:bg-[color-mix(in_oklab,var(--route)_10%,transparent)]'
+                        : 'border-neutral-200 dark:border-white/10 hover:border-neutral-300 dark:hover:border-white/20'
                     }`}
                   >
                     <button onClick={() => setSelected(i)} aria-expanded={isSelected} className="w-full text-left p-2.5 cursor-pointer">
@@ -447,17 +451,17 @@ export default function TripPanel({
                         <span className="flex items-center gap-1 flex-wrap min-w-0">
                           {t.legs.map((leg, k) => (
                             <React.Fragment key={k}>
-                              {k > 0 && <ArrowRight className="w-3 h-3 text-slate-400" />}
+                              {k > 0 && <ArrowRight className="w-3 h-3 text-neutral-500" />}
                               <LineBadge line={leg.line} />
                             </React.Fragment>
                           ))}
                         </span>
-                        <span className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 shrink-0">
+                        <span className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400 shrink-0">
                           ~{formatMinutes(t.minutes)}
                           <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isSelected ? 'rotate-180' : ''}`} />
                         </span>
                       </div>
-                      <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                      <div className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
                         {t.legs.length === 1 ? 'Direct bus' : `${t.legs.length} buses, ${t.legs.length - 1} change${t.legs.length > 2 ? 's' : ''}`} · board at{' '}
                         {t.legs[0].from.name}
                       </div>
@@ -474,7 +478,7 @@ export default function TripPanel({
           </ul>
         ) : null}
 
-        <p className="text-[10px] leading-snug text-slate-400">
+        <p className="text-[10px] leading-snug text-neutral-500">
           Routes follow this map; times are rough estimates. Stop locations come from OpenStreetMap, and some are approximate. Your dot on the map is
           approximate because the map is a schematic.
         </p>

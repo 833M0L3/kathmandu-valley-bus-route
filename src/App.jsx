@@ -296,7 +296,7 @@ export default function App() {
   const selectedSubRoutes = subRoutes.filter((sr) => selectedSubRouteCodes.includes(sr.code));
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden bg-white dark:bg-slate-950 select-none">
+    <main className="relative w-screen h-screen overflow-hidden bg-white dark:bg-neutral-950 select-none">
       {/* Pure Vector Map with Topographic Valley Relief Base */}
       <MapViewer
         registerMapControls={registerMapControls}
@@ -325,7 +325,7 @@ export default function App() {
       {activeRoute && (
         <div className="absolute top-[4.25rem] sm:top-[4.75rem] left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center gap-1.5 max-w-[94vw] sm:max-w-2xl animate-in fade-in slide-in-from-top-3 duration-200">
           {/* Main Operator Pill */}
-          <div className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full bg-slate-900/95 backdrop-blur-md border border-slate-800 shadow-2xl text-white">
+          <div className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full dark surface text-white">
             <div
               className="w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold text-[11px] shadow-sm shrink-0"
               style={{ backgroundColor: activeRoute.color }}
@@ -333,7 +333,7 @@ export default function App() {
               {activeRoute.code}
             </div>
             <div className="flex items-center gap-2 min-w-0 pr-1">
-              <span className="font-['Outfit'] font-bold text-xs sm:text-sm tracking-tight truncate max-w-[130px] sm:max-w-[200px]">
+              <span className="font-bold text-xs sm:text-sm tracking-tight truncate max-w-[130px] sm:max-w-[200px]">
                 {activeRoute.name}
               </span>
               {isAllSelected ? (
@@ -353,7 +353,7 @@ export default function App() {
             <button
               onClick={handleClearActiveRoute}
               title="Clear route highlight"
-              className="p-1 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors ml-1 cursor-pointer"
+              className="p-1 rounded-full text-neutral-400 hover:text-white hover:bg-white/[0.07] transition-colors ml-1 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -361,21 +361,21 @@ export default function App() {
 
           {/* Dedicated Sub-Routes Switcher & Multi-Route Selection Bar */}
           {subRoutes.length > 0 && (
-            <div className="flex items-center gap-1.5 p-1.5 rounded-xl bg-slate-900/95 backdrop-blur-md border border-slate-800 shadow-xl overflow-x-auto max-w-full no-scrollbar">
+            <div className="flex items-center gap-1.5 p-1.5 rounded-xl dark surface overflow-x-auto max-w-full no-scrollbar">
               {/* Toggle All Button */}
               <button
                 onClick={handleSelectAllRoutes}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wide transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 ${
                   isAllSelected
-                    ? 'bg-white text-slate-950 shadow-xs font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    ? 'bg-white text-neutral-950 shadow-xs font-bold'
+                    : 'text-neutral-400 hover:text-white hover:bg-white/[0.07]'
                 }`}
                 title="View all operator routes together"
               >
                 <span>All Branches ({subRoutes.length})</span>
               </button>
 
-              <div className="w-[1px] h-4 bg-slate-700 mx-0.5 shrink-0" />
+              <div className="w-[1px] h-4 bg-neutral-700 mx-0.5 shrink-0" />
 
               {/* Individual Dedicated Route Branch Pills (Click to toggle multiple) */}
               {subRoutes.map((sr) => {
@@ -387,10 +387,10 @@ export default function App() {
                     title={`${sr.name} — ${sr.description}\n(Click to select/toggle this route)`}
                     className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 ${
                       isSelected
-                        ? 'bg-white text-slate-950 ring-2 ring-white/70 shadow-sm font-extrabold'
+                        ? 'bg-white text-neutral-950 ring-2 ring-white/70 shadow-sm font-extrabold'
                         : isAllSelected
-                        ? 'text-slate-300 hover:text-white hover:bg-slate-800/80 border border-slate-700/60'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-800'
+                        ? 'text-neutral-300 hover:text-white hover:bg-white/[0.07]/80 border border-neutral-700/60'
+                        : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.07] border border-white/10'
                     }`}
                   >
                     {isSelected && <span className="text-[9px]">✓</span>}
@@ -403,7 +403,7 @@ export default function App() {
               {!isAllSelected && (
                 <button
                   onClick={handleSelectAllRoutes}
-                  className="text-[10px] text-slate-400 hover:text-white px-2 py-1 rounded-lg hover:bg-slate-800 whitespace-nowrap ml-0.5 cursor-pointer font-medium"
+                  className="text-[10px] text-neutral-400 hover:text-white px-2 py-1 rounded-lg hover:bg-white/[0.07] whitespace-nowrap ml-0.5 cursor-pointer font-medium"
                   title="Reset to All Branches"
                 >
                   Show All

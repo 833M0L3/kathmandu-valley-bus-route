@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { CloudDownload, Check, WifiOff, X, MonitorSmartphone } from 'lucide-react';
 import { useOfflineMap, useInstallPrompt } from '../offline';
 
-const BUTTON_CLASS =
-  'relative w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95';
+const BUTTON_CLASS = 'map-tool';
 
 const formatMB = (bytes) => `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 
@@ -12,7 +11,7 @@ function ProgressRing({ progress }) {
   const circumference = 2 * Math.PI * radius;
   return (
     <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 36 36">
-      <circle cx="18" cy="18" r={radius} fill="none" strokeWidth="2.5" className="stroke-slate-200 dark:stroke-slate-700" />
+      <circle cx="18" cy="18" r={radius} fill="none" strokeWidth="2.5" className="stroke-neutral-200 dark:stroke-neutral-700" />
       <circle
         cx="18"
         cy="18"
@@ -22,7 +21,7 @@ function ProgressRing({ progress }) {
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={circumference * (1 - progress)}
-        className="stroke-sky-500 transition-[stroke-dashoffset] duration-200"
+        className="stroke-neutral-900 dark:stroke-white transition-[stroke-dashoffset] duration-200"
       />
     </svg>
   );
@@ -58,7 +57,7 @@ export default function OfflineButton() {
     <>
       {/* Offline indicator */}
       {!isOnline && (
-        <div className="fixed bottom-8 left-3 sm:left-4 z-[1000] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/95 text-white text-[11px] font-medium shadow-lg border border-slate-800 pointer-events-none">
+        <div className="fixed bottom-8 left-3 sm:left-4 z-[1000] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-[11px] font-medium shadow-lg shadow-black/30 border border-white/10 pointer-events-none">
           <WifiOff className="w-3.5 h-3.5 text-amber-400" />
           <span>{status === 'ready' ? 'Offline · full map saved' : 'Offline · only viewed areas available'}</span>
         </div>
@@ -82,40 +81,40 @@ export default function OfflineButton() {
         </button>
 
         {isPanelOpen && (
-          <div className="absolute right-11 top-0 w-60 p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl text-xs text-slate-700 dark:text-slate-200 font-['Inter'] animate-in fade-in slide-in-from-right-1 duration-150">
+          <div className="surface absolute right-11 top-0 w-60 p-3 rounded-xl text-xs text-neutral-700 dark:text-neutral-300">
             <div className="flex items-start justify-between gap-2 mb-1.5">
-              <span className="font-['Outfit'] font-bold text-sm text-slate-900 dark:text-white">
+              <span className="font-bold text-sm text-neutral-900 dark:text-white">
                 {status === 'ready' ? 'Map saved offline' : 'Save map offline'}
               </span>
               <button
                 onClick={() => setIsPanelOpen(false)}
                 aria-label="Close"
-                className="p-0.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer"
+                className="p-0.5 rounded text-neutral-500 hover:text-neutral-700 dark:hover:text-white cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
             {status === 'ready' && (
-              <p className="text-slate-500 dark:text-slate-400">
+              <p className="text-neutral-500 dark:text-neutral-400">
                 The full map ({formatMB(totalBytes)}) works without internet, at every zoom level.
               </p>
             )}
 
             {status === 'downloading' && (
               <>
-                <p className="text-slate-500 dark:text-slate-400 mb-2">
+                <p className="text-neutral-500 dark:text-neutral-400 mb-2">
                   Saving… {percent}% ({formatMB(totalBytes * progress)} of {formatMB(totalBytes)})
                 </p>
-                <div className="h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                  <div className="h-full bg-sky-500 transition-[width] duration-200" style={{ width: `${percent}%` }} />
+                <div className="h-1.5 rounded-full bg-neutral-100 dark:bg-white/[0.06] overflow-hidden">
+                  <div className="h-full bg-neutral-900 dark:bg-white transition-[width] duration-200" style={{ width: `${percent}%` }} />
                 </div>
               </>
             )}
 
             {(status === 'idle' || status === 'error') && (
               <>
-                <p className="text-slate-500 dark:text-slate-400 mb-2.5">
+                <p className="text-neutral-500 dark:text-neutral-400 mb-2.5">
                   {progress > 0
                     ? `Downloads the remaining ${formatMB(remainingBytes)} so the whole map works without internet.`
                     : `Downloads ${formatMB(totalBytes)} so the whole map works without internet.`}
@@ -126,7 +125,7 @@ export default function OfflineButton() {
                 <button
                   onClick={download}
                   disabled={!isOnline}
-                  className="w-full py-1.5 rounded-lg bg-slate-900 text-white dark:bg-sky-500 dark:text-slate-950 font-semibold cursor-pointer hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="btn-primary w-full py-1.5 rounded-lg font-medium cursor-pointer"
                 >
                   {!isOnline ? 'Connect to the internet to save' : status === 'error' ? 'Retry' : 'Save map'}
                 </button>
@@ -134,17 +133,17 @@ export default function OfflineButton() {
             )}
 
             {(canInstall || showIOSHint) && (
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-white/10">
                 {canInstall ? (
                   <button
                     onClick={install}
-                    className="w-full py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800"
+                    className="w-full py-1.5 rounded-lg border border-neutral-200 dark:border-white/15 font-semibold flex items-center justify-center gap-1.5 cursor-pointer hover:bg-neutral-50 dark:hover:bg-white/[0.06]"
                   >
                     <MonitorSmartphone className="w-3.5 h-3.5" />
                     Install as app
                   </button>
                 ) : (
-                  <p className="text-slate-500 dark:text-slate-400">
+                  <p className="text-neutral-500 dark:text-neutral-400">
                     Install as app: tap <span className="font-semibold">Share</span>, then{' '}
                     <span className="font-semibold">Add to Home Screen</span>.
                   </p>

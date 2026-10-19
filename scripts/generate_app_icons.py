@@ -11,7 +11,7 @@ OUT_DIR = Path(__file__).resolve().parent.parent / "public" / "icons"
 SUPERSAMPLE = 4
 BASE = 512  # Design grid; all coordinates below are on a 512 x 512 canvas
 
-BACKGROUND = "#0f172a"
+BACKGROUND = "#0a0a0a"
 STOP_FILL = "#ffffff"
 # (color, polyline) on the 512 grid, kept inside the maskable safe zone (central ~80%)
 ROUTES = [

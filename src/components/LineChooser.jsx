@@ -42,27 +42,27 @@ export default function LineChooser({ info, tripMode, onSelectLine, onPreview, o
       role="dialog"
       aria-label={stop ? `${stop.name}: buses and directions` : 'Bus lines here'}
       style={{ left: position.left, top: position.top, width: `min(${CARD_WIDTH}px, calc(100vw - 16px))` }}
-      className="fixed z-[1150] rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl font-['Inter'] text-slate-800 dark:text-slate-100 overflow-hidden"
+      className="surface fixed z-[1150] rounded-xl text-neutral-800 dark:text-neutral-100 overflow-hidden"
     >
       <div className="flex items-start justify-between gap-2 px-3 pt-2.5 pb-2">
         <div className="min-w-0">
           {stop ? (
             <>
-              <div className="flex items-center gap-1.5 font-['Outfit'] font-bold text-sm">
+              <div className="flex items-center gap-1.5 font-bold text-sm">
                 <MapPin className="w-3.5 h-3.5 text-rose-600 shrink-0" />
                 <span className="truncate">{stop.name}</span>
               </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">
+              <div className="text-[11px] text-neutral-500 dark:text-neutral-400">
                 {info.stopLines.length} bus route{info.stopLines.length === 1 ? '' : 's'} stop here
               </div>
             </>
           ) : (
-            <div className="font-['Outfit'] font-bold text-sm">
+            <div className="font-bold text-sm">
               {lines.length === 1 ? 'Bus line here' : `${lines.length} bus lines here`}
             </div>
           )}
         </div>
-        <button onClick={onClose} aria-label="Close" className="p-0.5 rounded text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer shrink-0">
+        <button onClick={onClose} aria-label="Close" className="p-0.5 rounded text-neutral-500 hover:text-neutral-700 dark:hover:text-white cursor-pointer shrink-0">
           <X className="w-4 h-4" />
         </button>
       </div>
@@ -71,20 +71,20 @@ export default function LineChooser({ info, tripMode, onSelectLine, onPreview, o
         <div className="px-3 pb-2.5 grid grid-cols-2 gap-1.5">
           <button
             onClick={() => onStart(stop)}
-            className="flex items-center justify-center gap-1.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
+            className="flex items-center justify-center gap-1.5 py-1.5 rounded-lg border border-neutral-200 dark:border-white/15 text-xs font-semibold hover:bg-neutral-50 dark:hover:bg-white/[0.06] cursor-pointer"
           >
             <Navigation className="w-3.5 h-3.5 text-emerald-600" /> {tripMode ? 'Set as start' : 'Start here'}
           </button>
           <button
             onClick={() => onGo(stop)}
-            className="flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-slate-900 text-white dark:bg-sky-500 dark:text-slate-950 text-xs font-semibold hover:opacity-90 cursor-pointer"
+            className="btn-primary flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer"
           >
             <Flag className="w-3.5 h-3.5" /> {tripMode ? 'Set as destination' : 'Go here'}
           </button>
           {!tripMode && (
             <button
               onClick={() => onStopDetails(stop)}
-              className="col-span-2 flex items-center justify-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white cursor-pointer"
+              className="col-span-2 flex items-center justify-center gap-1 text-[11px] text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-white cursor-pointer"
             >
               <Info className="w-3 h-3" /> All buses at this stop
             </button>
@@ -94,7 +94,7 @@ export default function LineChooser({ info, tripMode, onSelectLine, onPreview, o
 
       {showLines && (
         <>
-          {stop && <div className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-slate-400 border-t border-slate-100 dark:border-slate-800">Lines at this spot</div>}
+          {stop && <div className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wide text-neutral-500 border-t border-neutral-100 dark:border-white/10">Lines at this spot</div>}
           <ul className="max-h-64 overflow-y-auto pb-1" onMouseLeave={() => onPreview(null)} aria-label="Bus lines here">
             {lines.map(({ line, stopsHere }) => (
               <li key={line.svgId}>
@@ -102,7 +102,7 @@ export default function LineChooser({ info, tripMode, onSelectLine, onPreview, o
                   onClick={() => onSelectLine(line)}
                   onMouseEnter={() => onPreview(line)}
                   onFocus={() => onPreview(line)}
-                  className="w-full text-left px-3 py-1.5 flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-800 focus:bg-slate-50 dark:focus:bg-slate-800 focus:outline-none cursor-pointer"
+                  className="w-full text-left px-3 py-1.5 flex items-center gap-2 hover:bg-neutral-50 dark:hover:bg-white/[0.06] focus:bg-neutral-50 dark:focus:bg-white/[0.06] focus:outline-none cursor-pointer"
                 >
                   <span
                     className="inline-flex items-center justify-center min-w-[2.25rem] px-1.5 py-0.5 rounded-md text-[11px] font-mono font-bold text-white shrink-0"
@@ -112,7 +112,7 @@ export default function LineChooser({ info, tripMode, onSelectLine, onPreview, o
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-xs font-medium truncate">{routeEnds(line)}</span>
-                    <span className="block text-[10px] text-slate-500 dark:text-slate-400 truncate">
+                    <span className="block text-[10px] text-neutral-500 dark:text-neutral-400 truncate">
                       {line.operator}
                       {stop && (stopsHere ? ` · stops at ${stop.name}` : ` · passes without stopping`)}
                     </span>

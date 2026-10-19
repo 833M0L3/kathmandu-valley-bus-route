@@ -58,119 +58,74 @@ export default function Controls({
   const isDark = theme === 'dark';
 
   return (
-    <div className="absolute bottom-8 right-3.5 sm:right-5 z-[1000] flex flex-col gap-1.5 pointer-events-auto">
-      {/* Trip Planner (GPS -> nearest stop -> buses to destination) */}
+    <div className="absolute bottom-8 right-3.5 sm:right-5 z-[1000] flex flex-col items-end gap-2 pointer-events-auto">
+      {/* Primary action: trip planner (stop or GPS -> buses to the destination) */}
       <button
         onClick={onToggleTrip}
         title="Find your bus"
         aria-label="Find your bus"
         aria-pressed={isTripOpen}
-        style={{ cursor: 'pointer' }}
-        className={`w-9 h-9 rounded-lg backdrop-blur-md border transition-all flex items-center justify-center shadow-md cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95 ${
-          isTripOpen
-            ? 'bg-sky-600 text-white border-sky-600 shadow-sky-600/30'
-            : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 text-sky-700 dark:text-sky-300 hover:bg-white dark:hover:bg-slate-800 shadow-slate-200/60 dark:shadow-black/40'
+        className={`btn-primary w-9 h-9 rounded-xl flex items-center justify-center cursor-pointer ${
+          isTripOpen ? 'ring-2 ring-offset-2 ring-neutral-900/40 ring-offset-white dark:ring-white/50 dark:ring-offset-neutral-950' : ''
         }`}
       >
         <Navigation className="w-4 h-4 stroke-[2.2] pointer-events-none" />
       </button>
 
-      {/* Legend Toggle Button */}
-      <button
-        onClick={onToggleLegend}
-        title="Bus Services & Legend"
-        aria-label="Toggle legend"
-        style={{ cursor: 'pointer' }}
-        className={`w-9 h-9 rounded-lg backdrop-blur-md border transition-all flex items-center justify-center shadow-md cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95 ${
-          isLegendOpen
-            ? 'bg-slate-900 text-white border-slate-900 shadow-slate-900/30 dark:bg-sky-500 dark:text-slate-950 dark:border-sky-500 dark:shadow-sky-500/20'
-            : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 shadow-slate-200/60 dark:shadow-black/40'
-        }`}
-      >
-        <BookOpen className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-      </button>
+      {/* Map tools */}
+      <div className="surface rounded-xl flex flex-col p-0.5" role="group" aria-label="Map tools">
+        <button
+          onClick={onToggleLegend}
+          title="Bus services & legend"
+          aria-label="Toggle legend"
+          aria-pressed={isLegendOpen}
+          className="map-tool aria-pressed:bg-neutral-100 aria-pressed:text-neutral-950 dark:aria-pressed:bg-white/10 dark:aria-pressed:text-white"
+        >
+          <BookOpen className="w-4 h-4 stroke-[2] pointer-events-none" />
+        </button>
+        <button
+          onClick={shareCurrentView}
+          title={isLinkCopied ? 'Link copied' : 'Share link to this view'}
+          aria-label="Share link to this view"
+          className="map-tool"
+        >
+          {isLinkCopied ? (
+            <Check className="w-4 h-4 stroke-[2.6] pointer-events-none text-emerald-600 dark:text-emerald-400" />
+          ) : (
+            <Share2 className="w-4 h-4 stroke-[2] pointer-events-none" />
+          )}
+        </button>
+        <OfflineButton />
+        <button
+          onClick={onToggleTheme}
+          title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="map-tool"
+        >
+          {isDark ? <Sun className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Moon className="w-4 h-4 stroke-[2] pointer-events-none" />}
+        </button>
+      </div>
 
-      {/* Dark / Light Mode Toggle Button */}
-      <button
-        onClick={onToggleTheme}
-        title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-amber-400 hover:text-slate-900 dark:hover:text-amber-300 hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        {isDark ? (
-          <Sun className="w-4 h-4 stroke-[2.2] pointer-events-none text-amber-400 animate-in spin-in-180 duration-300" />
-        ) : (
-          <Moon className="w-4 h-4 stroke-[2.2] pointer-events-none text-slate-700 animate-in spin-in-180 duration-300" />
-        )}
-      </button>
+      {/* Zoom */}
+      <div className="surface rounded-xl flex flex-col p-0.5" role="group" aria-label="Zoom">
+        <button onClick={onZoomIn} title="Zoom in" aria-label="Zoom in" className="map-tool">
+          <Plus className="w-4 h-4 stroke-[2] pointer-events-none" />
+        </button>
+        <div className="mx-2 h-px bg-neutral-200 dark:bg-white/10" />
+        <button onClick={onZoomOut} title="Zoom out" aria-label="Zoom out" className="map-tool">
+          <Minus className="w-4 h-4 stroke-[2] pointer-events-none" />
+        </button>
+      </div>
 
-      {/* Share Link */}
-      <button
-        onClick={shareCurrentView}
-        title={isLinkCopied ? 'Link copied' : 'Share link to this view'}
-        aria-label="Share link to this view"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        {isLinkCopied ? (
-          <Check className="w-4 h-4 stroke-[2.6] pointer-events-none text-emerald-600 dark:text-emerald-400" />
-        ) : (
-          <Share2 className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-        )}
-      </button>
-
-      {/* Save Map Offline */}
-      <OfflineButton />
-
-      {/* Zoom In */}
-      <button
-        onClick={onZoomIn}
-        title="Zoom In"
-        aria-label="Zoom in"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        <Plus className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-      </button>
-
-      {/* Zoom Out */}
-      <button
-        onClick={onZoomOut}
-        title="Zoom Out"
-        aria-label="Zoom out"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        <Minus className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-      </button>
-
-      {/* Reset View */}
-      <button
-        onClick={onResetView}
-        title="Reset Map View"
-        aria-label="Reset map view"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        <RotateCcw className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-      </button>
-
-      {/* Fullscreen */}
-      <button
-        onClick={toggleFullscreen}
-        title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-        aria-label="Toggle fullscreen"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        {isFullscreen ? (
-          <Minimize className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-        ) : (
-          <Maximize className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-        )}
-      </button>
+      {/* View */}
+      <div className="surface rounded-xl flex flex-col p-0.5" role="group" aria-label="View">
+        <button onClick={onResetView} title="Reset map view" aria-label="Reset map view" className="map-tool">
+          <RotateCcw className="w-4 h-4 stroke-[2] pointer-events-none" />
+        </button>
+        <button onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label="Toggle fullscreen" className="map-tool">
+          {isFullscreen ? <Minimize className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Maximize className="w-4 h-4 stroke-[2] pointer-events-none" />}
+        </button>
+      </div>
     </div>
   );
 }
-
