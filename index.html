@@ -7,7 +7,9 @@
     <meta name="description" content="Pannable and zoomable vector transit map of Kathmandu Valley bus routes and operators." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet" />
+    <!-- Not render-blocking: a slow or unreachable font host must never hold the app on a blank screen -->
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet" /></noscript>
     <link rel="manifest" href="./manifest.webmanifest" />
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
@@ -15,9 +17,45 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="KTM Bus Map" />
+    <style>
+      #boot { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #fff; color: #737373; font: 500 13px system-ui, sans-serif; }
+      html.dark, html.dark body, html.dark #boot { background: #0a0a0a; }
+      #boot img { width: 72px; height: 72px; border-radius: 16px; }
+      #boot button { margin-top: 6px; padding: 8px 16px; border: 0; border-radius: 999px; background: #0a0a0a; color: #fff; font: inherit; cursor: pointer; }
+      html.dark #boot button { background: #fff; color: #0a0a0a; }
+    </style>
   </head>
   <body class="h-full w-full bg-white text-neutral-900 overflow-hidden antialiased select-none">
-    <div id="root" class="h-full w-full relative flex flex-col bg-white"></div>
+    <div id="root" class="h-full w-full relative flex flex-col bg-white">
+      <!-- Shown until React mounts (it replaces #root's contents) -->
+      <div id="boot">
+        <img src="./icons/icon-192.png" alt="" />
+        <span>Loading map…</span>
+        <button id="boot-repair" type="button" hidden>Still loading? Reload</button>
+      </div>
+    </div>
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('ktm_transit_theme');
+          if (theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        } catch (e) {}
+        // Escape hatch if the app never starts: drop the app-shell caches and service worker (saved map tiles stay) and reload
+        setTimeout(function () {
+          var button = document.getElementById('boot-repair');
+          if (!button) return;
+          button.hidden = false;
+          button.onclick = function () {
+            button.disabled = true;
+            if (!navigator.onLine || !('serviceWorker' in navigator)) return location.reload();
+            Promise.all([
+              navigator.serviceWorker.getRegistrations().then(function (regs) { return Promise.all(regs.map(function (r) { return r.unregister(); })); }),
+              caches.keys().then(function (names) { return Promise.all(names.filter(function (n) { return n.indexOf('ktm-shell-') === 0; }).map(function (n) { return caches.delete(n); })); }),
+            ]).finally(function () { location.reload(); });
+          };
+        }, 8000);
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -7,13 +7,67 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const DOWNLOAD_CONCURRENCY = 6;
 const FETCH_RETRIES = 2;
 
-export function registerServiceWorker() {
-  if (!import.meta.env.PROD || !('serviceWorker' in navigator)) return;
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch((err) => {
-      console.error('Service worker registration failed:', err);
+// Installed PWAs can stay open for days, so look for a new deploy whenever the app comes back to the foreground
+const UPDATE_CHECK_INTERVAL_MS = 30 * 60 * 1000;
+
+const updateListeners = new Set();
+let waitingWorker = null;
+
+const setWaitingWorker = (worker) => {
+  waitingWorker = worker;
+  updateListeners.forEach((listener) => listener(worker));
+};
+
+// A new version installed while an older one controls the page: it waits until the user applies it
+const watchForUpdate = (registration) => {
+  if (registration.waiting && navigator.serviceWorker.controller) setWaitingWorker(registration.waiting);
+  registration.addEventListener('updatefound', () => {
+    const worker = registration.installing;
+    worker?.addEventListener('statechange', () => {
+      if (worker.state === 'installed' && navigator.serviceWorker.controller) setWaitingWorker(worker);
     });
   });
+};
+
+export function registerServiceWorker() {
+  if (!import.meta.env.PROD || !('serviceWorker' in navigator)) return;
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('./sw.js');
+      watchForUpdate(registration);
+      let lastCheck = Date.now();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState !== 'visible' || Date.now() - lastCheck < UPDATE_CHECK_INTERVAL_MS) return;
+        lastCheck = Date.now();
+        registration.update().catch(() => {});
+      });
+    } catch (err) {
+      console.error('Service worker registration failed:', err);
+    }
+  });
+}
+
+/** updateReady: a new deploy is downloaded and waiting. applyUpdate() switches to it and reloads. */
+export function useAppUpdate() {
+  const [worker, setWorker] = useState(() => waitingWorker);
+
+  useEffect(() => {
+    updateListeners.add(setWorker);
+    return () => updateListeners.delete(setWorker);
+  }, []);
+
+  const applyUpdate = useCallback(() => {
+    if (!worker) return;
+    let reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloading) return;
+      reloading = true;
+      window.location.reload();
+    });
+    worker.postMessage('SKIP_WAITING');
+  }, [worker]);
+
+  return { updateReady: worker !== null, applyUpdate };
 }
 
 const tileUrl = (path) => new URL(path, document.baseURI).href;

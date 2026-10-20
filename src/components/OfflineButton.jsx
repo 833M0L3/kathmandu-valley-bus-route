@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CloudDownload, Check, WifiOff, X, MonitorSmartphone } from 'lucide-react';
-import { useOfflineMap, useInstallPrompt } from '../offline';
+import { CloudDownload, Check, WifiOff, X, MonitorSmartphone, RefreshCw } from 'lucide-react';
+import { useOfflineMap, useInstallPrompt, useAppUpdate } from '../offline';
 
 const BUTTON_CLASS = 'map-tool';
 
@@ -30,6 +30,7 @@ function ProgressRing({ progress }) {
 export default function OfflineButton() {
   const { status, progress, error, totalBytes, isOnline, download } = useOfflineMap();
   const { canInstall, showIOSHint, install } = useInstallPrompt();
+  const { updateReady, applyUpdate } = useAppUpdate();
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const containerRef = useRef(null);
 
@@ -42,7 +43,29 @@ export default function OfflineButton() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isPanelOpen]);
 
-  if (status === 'unsupported' || status === 'checking') return null;
+  // Bottom-left status stack: "update ready" and the offline indicator
+  const statusStack = (updateReady || !isOnline) && (
+    <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] md:bottom-8 left-3 sm:left-4 z-[1000] flex flex-col items-start gap-2 pointer-events-none">
+      {updateReady && (
+        <button
+          onClick={applyUpdate}
+          className="pointer-events-auto flex items-center gap-1.5 pl-3 pr-1.5 py-1.5 rounded-full bg-neutral-950 text-white text-[11px] font-medium shadow-lg shadow-black/30 border border-white/10 cursor-pointer"
+        >
+          <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
+          <span>New version ready</span>
+          <span className="ml-1 px-2 py-0.5 rounded-full bg-white text-neutral-950 font-semibold">Reload</span>
+        </button>
+      )}
+      {!isOnline && (
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-[11px] font-medium shadow-lg shadow-black/30 border border-white/10">
+          <WifiOff className="w-3.5 h-3.5 text-amber-400" />
+          <span>{status === 'ready' ? 'Offline · full map saved' : 'Offline · only viewed areas available'}</span>
+        </div>
+      )}
+    </div>
+  );
+
+  if (status === 'unsupported' || status === 'checking') return statusStack || null;
 
   const percent = Math.floor(progress * 100);
   const remainingBytes = totalBytes * (1 - progress);
@@ -55,13 +78,7 @@ export default function OfflineButton() {
 
   return (
     <>
-      {/* Offline indicator */}
-      {!isOnline && (
-        <div className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] md:bottom-8 left-3 sm:left-4 z-[1000] flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-950 text-white text-[11px] font-medium shadow-lg shadow-black/30 border border-white/10 pointer-events-none">
-          <WifiOff className="w-3.5 h-3.5 text-amber-400" />
-          <span>{status === 'ready' ? 'Offline · full map saved' : 'Offline · only viewed areas available'}</span>
-        </div>
-      )}
+      {statusStack}
 
       <div ref={containerRef} className="relative">
         <button
