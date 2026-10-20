@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { X, Navigation, Bus, CheckCircle2, GitFork, ChevronRight } from 'lucide-react';
 import MapViewer from './components/MapViewer';
 import Controls from './components/Controls';
 import LegendModal from './components/LegendModal';
@@ -7,6 +6,7 @@ import AttributionBar from './components/AttributionBar';
 import TripPanel from './components/TripPanel';
 import MapSearchBar from './components/MapSearchBar';
 import SpotBanner from './components/SpotBanner';
+import RouteBanner from './components/RouteBanner';
 import LineChooser from './components/LineChooser';
 import { loadLineFinder } from './usePlanner';
 import { getOperatorRoutes } from './data/dedicatedRoutesData';
@@ -29,6 +29,8 @@ export default function App() {
   const [tapInfo, setTapInfo] = useState(null); // lines and stop under a map tap, for the line chooser
   // Lines at a spot (tapped point or searched stop), across operators: { title, lines, selectedIds }; [] = all
   const [spot, setSpot] = useState(null);
+  // The route panel (spot card / operator routes) can be tucked to the left edge; new content opens it again
+  const [isRoutePanelCollapsed, setIsRoutePanelCollapsed] = useState(false);
   const [tripPick, setTripPick] = useState(null); // { kind: 'origin' | 'destination', station, key } for an open planner
   // A shared trip link opens the planner; it takes precedence over a shared route or pin
   const [isTripOpen, setIsTripOpen] = useState(initialLink.trip !== null);
@@ -168,6 +170,7 @@ export default function App() {
     const branchCodes = getOperatorRoutes(service.name).map((sr) => sr.code);
     setSelectedStop(null);
     setSpot(null);
+    setIsRoutePanelCollapsed(false);
     setActiveRoute(service);
     setSelectedSubRouteCodes(line.codes.filter((code) => branchCodes.includes(code)));
     mapControlsRef.current?.highlightRoute(service.name, [line.svgId]);
@@ -190,6 +193,7 @@ export default function App() {
     setActiveRoute(null);
     setSelectedSubRouteCodes([]);
     setSpot(next);
+    setIsRoutePanelCollapsed(false);
     highlightSpot(next);
   };
 
@@ -328,6 +332,7 @@ export default function App() {
     setIsLegendOpen(false);
     setIsTripOpen(false);
     setSpot(null);
+    setIsRoutePanelCollapsed(false);
     if (location.x !== undefined && location.y !== undefined) {
       mapControlsRef.current?.flyToLocation(location.x, location.y, 5.8, {
         name: location.name,
@@ -349,8 +354,6 @@ export default function App() {
   };
 
   const subRoutes = activeRoute ? getOperatorRoutes(activeRoute.name) : [];
-  const isAllSelected = selectedSubRouteCodes.length === 0;
-  const selectedSubRoutes = subRoutes.filter((sr) => selectedSubRouteCodes.includes(sr.code));
 
   return (
     <main className="relative w-screen h-screen overflow-hidden bg-white dark:bg-neutral-950 select-none">
@@ -381,6 +384,9 @@ export default function App() {
       {spot && !activeRoute && (
         <SpotBanner
           spot={spot}
+          collapsed={isRoutePanelCollapsed}
+          onCollapse={() => setIsRoutePanelCollapsed(true)}
+          onExpand={() => setIsRoutePanelCollapsed(false)}
           onToggleLine={handleToggleSpotLine}
           onShowAll={handleShowAllSpotLines}
           onShowOperator={handleShowLine}
@@ -392,97 +398,19 @@ export default function App() {
         />
       )}
 
-      {/* Active Route Floating Banner with Dedicated Route Branches & Multi-Route Selection */}
       {activeRoute && (
-        <div className="absolute top-[4.25rem] sm:top-[4.75rem] left-1/2 -translate-x-1/2 z-[1000] flex flex-col items-center gap-1.5 max-w-[94vw] sm:max-w-2xl animate-in fade-in slide-in-from-top-3 duration-200">
-          {/* Main Operator Pill */}
-          <div className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-full dark surface text-white">
-            <div
-              className="w-6 h-6 rounded-full flex items-center justify-center font-mono font-bold text-[11px] shadow-sm shrink-0"
-              style={{ backgroundColor: activeRoute.color }}
-            >
-              {activeRoute.code}
-            </div>
-            <div className="flex items-center gap-2 min-w-0 pr-1">
-              <span className="font-bold text-xs sm:text-sm tracking-tight truncate max-w-[130px] sm:max-w-[200px]">
-                {activeRoute.name}
-              </span>
-              {isAllSelected ? (
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-white/90 border border-white/20 whitespace-nowrap">
-                  All Routes {subRoutes.length > 0 ? `(${subRoutes.length})` : ''}
-                </span>
-              ) : selectedSubRoutes.length === 1 ? (
-                <span className="text-[11px] font-semibold text-white bg-white/15 px-2 py-0.5 rounded-full border border-white/25 truncate max-w-[140px] sm:max-w-[240px]">
-                  {selectedSubRoutes[0].code}: {selectedSubRoutes[0].name.split(':')[1] || selectedSubRoutes[0].name}
-                </span>
-              ) : (
-                <span className="text-[11px] font-semibold text-white bg-white/15 px-2 py-0.5 rounded-full border border-white/25 truncate max-w-[160px] sm:max-w-[260px]">
-                  {selectedSubRoutes.length} of {subRoutes.length} Routes ({selectedSubRoutes.map((s) => s.code).join(', ')})
-                </span>
-              )}
-            </div>
-            <button
-              onClick={handleClearActiveRoute}
-              title="Clear route highlight"
-              className="p-1 rounded-full text-neutral-400 hover:text-white hover:bg-white/[0.07] transition-colors ml-1 cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Dedicated Sub-Routes Switcher & Multi-Route Selection Bar */}
-          {subRoutes.length > 0 && (
-            <div className="flex items-center gap-1.5 p-1.5 rounded-xl dark surface overflow-x-auto max-w-full no-scrollbar">
-              {/* Toggle All Button */}
-              <button
-                onClick={handleSelectAllRoutes}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wide transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 ${
-                  isAllSelected
-                    ? 'bg-white text-neutral-950 shadow-xs font-bold'
-                    : 'text-neutral-400 hover:text-white hover:bg-white/[0.07]'
-                }`}
-                title="View all operator routes together"
-              >
-                <span>All Branches ({subRoutes.length})</span>
-              </button>
-
-              <div className="w-[1px] h-4 bg-neutral-700 mx-0.5 shrink-0" />
-
-              {/* Individual Dedicated Route Branch Pills (Click to toggle multiple) */}
-              {subRoutes.map((sr) => {
-                const isSelected = selectedSubRouteCodes.includes(sr.code);
-                return (
-                  <button
-                    key={sr.code}
-                    onClick={() => handleToggleSubRoute(sr)}
-                    title={`${sr.name} — ${sr.description}\n(Click to select/toggle this route)`}
-                    className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all cursor-pointer whitespace-nowrap flex items-center gap-1 ${
-                      isSelected
-                        ? 'bg-white text-neutral-950 ring-2 ring-white/70 shadow-sm font-extrabold'
-                        : isAllSelected
-                        ? 'text-neutral-300 hover:text-white hover:bg-white/[0.07]/80 border border-neutral-700/60'
-                        : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/[0.07] border border-white/10'
-                    }`}
-                  >
-                    {isSelected && <span className="text-[9px]">✓</span>}
-                    <span>{sr.code}</span>
-                  </button>
-                );
-              })}
-
-              {/* Reset to All if a subset is selected */}
-              {!isAllSelected && (
-                <button
-                  onClick={handleSelectAllRoutes}
-                  className="text-[10px] text-neutral-400 hover:text-white px-2 py-1 rounded-lg hover:bg-white/[0.07] whitespace-nowrap ml-0.5 cursor-pointer font-medium"
-                  title="Reset to All Branches"
-                >
-                  Show All
-                </button>
-              )}
-            </div>
-          )}
-        </div>
+        <RouteBanner
+          route={activeRoute}
+          subRoutes={subRoutes}
+          selectedCodes={selectedSubRouteCodes}
+          collapsed={isRoutePanelCollapsed}
+          onCollapse={() => setIsRoutePanelCollapsed(true)}
+          onExpand={() => setIsRoutePanelCollapsed(false)}
+          onToggle={handleToggleSubRoute}
+          onShowAll={handleSelectAllRoutes}
+          onPreview={(sr) => (sr?.svgId ? mapControlsRef.current?.highlightRoute(activeRoute.name, [sr.svgId], { fly: false }) : restoreHighlight())}
+          onClear={handleClearActiveRoute}
+        />
       )}
 
       {/* Floating Action Controls */}
