@@ -3,6 +3,6 @@
   "height": 8750,
   "tileSize": 256,
   "minZoom": 0,
-  "maxZoom": 6
+  "maxZoom": 6,
   "backgroundColor": "#ffffff"
 }

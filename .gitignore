@@ -21,3 +21,6 @@ scratch/
 __pycache__/
 *.pyc
 
+
+# Overpass API cache for scripts/build_trip_network.py (regenerated with --refresh-osm)
+routes_data/osm_named_features.json
