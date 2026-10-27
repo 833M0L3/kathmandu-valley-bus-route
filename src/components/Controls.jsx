@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Minus, RotateCcw, Maximize, Minimize, BookOpen, Sun, Moon } from 'lucide-react';
+import { Plus, Minus, Maximize, Minimize, BookOpen, Sun, Moon, Share2, Check, Navigation } from 'lucide-react';
+import OfflineButton from './OfflineButton';
 
 export default function Controls({
   onZoomIn,
@@ -7,6 +8,8 @@ export default function Controls({
   onResetView,
   onToggleLegend,
   isLegendOpen,
+  onToggleTrip,
+  isTripOpen,
   theme,
   onToggleTheme,
 }) {
@@ -20,6 +23,30 @@ export default function Controls({
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  useEffect(() => {
+    if (!isLinkCopied) return;
+    const timer = setTimeout(() => setIsLinkCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [isLinkCopied]);
+
+  // The URL always reflects the selected route & place (see shareLink.js), so share it as-is
+  const shareCurrentView = async () => {
+    const url = window.location.href;
+    const isTouchDevice = window.matchMedia?.('(pointer: coarse)').matches;
+    if (navigator.share && isTouchDevice) {
+      navigator.share({ title: document.title, url }).catch(() => {});
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setIsLinkCopied(true);
+    } catch {
+      window.prompt('Copy this link:', url);
+    }
+  };
+
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
@@ -29,87 +56,93 @@ export default function Controls({
   };
 
   const isDark = theme === 'dark';
+  const canFullscreen = Boolean(document.fullscreenEnabled);
 
   return (
-    <div className="absolute bottom-8 right-3.5 sm:right-5 z-[1000] flex flex-col gap-1.5 pointer-events-auto">
-      {/* Legend Toggle Button */}
-      <button
-        onClick={onToggleLegend}
-        title="Bus Services & Legend"
-        aria-label="Toggle legend"
-        style={{ cursor: 'pointer' }}
-        className={`w-9 h-9 rounded-lg backdrop-blur-md border transition-all flex items-center justify-center shadow-md cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95 ${
-          isLegendOpen
-            ? 'bg-slate-900 text-white border-slate-900 shadow-slate-900/30 dark:bg-sky-500 dark:text-slate-950 dark:border-sky-500 dark:shadow-sky-500/20'
-            : 'bg-white/90 dark:bg-slate-900/90 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 shadow-slate-200/60 dark:shadow-black/40'
-        }`}
-      >
-        <BookOpen className="w-4 h-4 stroke-[2.2] pointer-events-none" />
+    <>
+    {/* Zoom and reset: bottom centre, in thumb reach on phones. Hidden on smaller screens while the trip panel is open
+        (bottom sheet on phones, side panel that would overlap it on tablets). */}
+    <div
+      role="group"
+      aria-label="Zoom"
+      className={`surface absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-[1000] items-center rounded-full p-0.5 ${
+        isTripOpen ? 'hidden lg:flex' : 'flex'
+      }`}
+    >
+      <button onClick={onZoomOut} title="Zoom out" aria-label="Zoom out" className="map-tool rounded-full">
+        <Minus className="w-4 h-4 stroke-[2] pointer-events-none" />
       </button>
-
-      {/* Dark / Light Mode Toggle Button */}
-      <button
-        onClick={onToggleTheme}
-        title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-amber-400 hover:text-slate-900 dark:hover:text-amber-300 hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        {isDark ? (
-          <Sun className="w-4 h-4 stroke-[2.2] pointer-events-none text-amber-400 animate-in spin-in-180 duration-300" />
-        ) : (
-          <Moon className="w-4 h-4 stroke-[2.2] pointer-events-none text-slate-700 animate-in spin-in-180 duration-300" />
-        )}
-      </button>
-
-      {/* Zoom In */}
-      <button
-        onClick={onZoomIn}
-        title="Zoom In"
-        aria-label="Zoom in"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        <Plus className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-      </button>
-
-      {/* Zoom Out */}
-      <button
-        onClick={onZoomOut}
-        title="Zoom Out"
-        aria-label="Zoom out"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        <Minus className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-      </button>
-
-      {/* Reset View */}
+      <div className="w-px h-4 bg-neutral-200 dark:bg-white/10" />
       <button
         onClick={onResetView}
-        title="Reset Map View"
+        title="Show the whole map"
         aria-label="Reset map view"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
+        className="h-8 [@media(pointer:coarse)]:h-10 px-3 rounded-full text-xs font-medium text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:text-white dark:hover:bg-white/[0.07] transition-colors cursor-pointer"
       >
-        <RotateCcw className="w-4 h-4 stroke-[2.2] pointer-events-none" />
+        Reset
       </button>
-
-      {/* Fullscreen */}
-      <button
-        onClick={toggleFullscreen}
-        title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-        aria-label="Toggle fullscreen"
-        style={{ cursor: 'pointer' }}
-        className="w-9 h-9 rounded-lg bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 transition-all flex items-center justify-center shadow-md shadow-slate-200/60 dark:shadow-black/40 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95"
-      >
-        {isFullscreen ? (
-          <Minimize className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-        ) : (
-          <Maximize className="w-4 h-4 stroke-[2.2] pointer-events-none" />
-        )}
+      <div className="w-px h-4 bg-neutral-200 dark:bg-white/10" />
+      <button onClick={onZoomIn} title="Zoom in" aria-label="Zoom in" className="map-tool rounded-full">
+        <Plus className="w-4 h-4 stroke-[2] pointer-events-none" />
       </button>
     </div>
+
+    <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] right-3.5 sm:right-5 z-[1000] flex flex-col items-end gap-2 pointer-events-auto">
+      {/* Primary action: trip planner (stop or GPS -> buses to the destination) */}
+      <button
+        onClick={onToggleTrip}
+        title="Find your bus"
+        aria-label="Find your bus"
+        aria-pressed={isTripOpen}
+        className={`btn-primary w-9 h-9 [@media(pointer:coarse)]:w-10 [@media(pointer:coarse)]:h-10 rounded-xl flex items-center justify-center cursor-pointer ${
+          isTripOpen ? 'ring-2 ring-offset-2 ring-neutral-900/40 ring-offset-white dark:ring-white/50 dark:ring-offset-neutral-950' : ''
+        }`}
+      >
+        <Navigation className="w-4 h-4 stroke-[2.2] pointer-events-none" />
+      </button>
+
+      {/* Map tools */}
+      <div className="surface rounded-xl flex flex-col p-0.5" role="group" aria-label="Map tools">
+        <button
+          onClick={onToggleLegend}
+          title="Bus services & legend"
+          aria-label="Toggle legend"
+          aria-pressed={isLegendOpen}
+          className="map-tool aria-pressed:bg-neutral-100 aria-pressed:text-neutral-950 dark:aria-pressed:bg-white/10 dark:aria-pressed:text-white"
+        >
+          <BookOpen className="w-4 h-4 stroke-[2] pointer-events-none" />
+        </button>
+        <button
+          onClick={shareCurrentView}
+          title={isLinkCopied ? 'Link copied' : 'Share link to this view'}
+          aria-label="Share link to this view"
+          className="map-tool"
+        >
+          {isLinkCopied ? (
+            <Check className="w-4 h-4 stroke-[2.6] pointer-events-none text-emerald-600 dark:text-emerald-400" />
+          ) : (
+            <Share2 className="w-4 h-4 stroke-[2] pointer-events-none" />
+          )}
+        </button>
+        <OfflineButton />
+        <button
+          onClick={onToggleTheme}
+          title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="map-tool"
+        >
+          {isDark ? <Sun className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Moon className="w-4 h-4 stroke-[2] pointer-events-none" />}
+        </button>
+        {/* Fullscreen: desktop only (phones lack the API or are already full screen as an installed app) */}
+        {canFullscreen && (
+          <div className="hidden sm:block">
+            <button onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label="Toggle fullscreen" className="map-tool">
+              {isFullscreen ? <Minimize className="w-4 h-4 stroke-[2] pointer-events-none" /> : <Maximize className="w-4 h-4 stroke-[2] pointer-events-none" />}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+    </>
   );
 }
-

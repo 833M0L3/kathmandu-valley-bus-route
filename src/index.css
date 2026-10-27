@@ -1,12 +1,83 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 
+/* Theme: neutral monochrome, no accent hue (the route colours carry the colour). Light mode is white / zinc-like
+   greys; dark mode is near-black panels with hairline white borders and a faint highlight along the top edge. */
+@theme {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 :root {
   --map-bg: #ffffff;
+  --panel: #ffffff;
+  --panel-line: rgb(0 0 0 / 0.08);
+  --panel-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 12px 32px -12px rgb(0 0 0 / 0.2);
+  --panel-highlight: none;
+  --ring: rgb(10 10 10 / 0.4);
 }
 
 .dark {
-  --map-bg: #090d16;
+  --map-bg: #0a0a0a;
+  --panel: #0a0a0a;
+  --panel-line: rgb(255 255 255 / 0.09);
+  --panel-shadow: 0 0 0 1px rgb(0 0 0 / 0.5), 0 16px 40px -12px rgb(0 0 0 / 0.85);
+  --panel-highlight: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.16) 50%, transparent);
+  --ring: rgb(255 255 255 / 0.45);
+}
+
+/* Floating surface over the map: search, panels, cards, map controls */
+@utility surface {
+  background-color: var(--panel);
+  background-image: var(--panel-highlight);
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  border: 1px solid var(--panel-line);
+  box-shadow: var(--panel-shadow);
+}
+
+/* The one primary action per surface: black in light mode, white with a soft glow in dark mode */
+@utility btn-primary {
+  background-color: #0a0a0a;
+  color: #fafafa;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 1px 2px rgb(0 0 0 / 0.25);
+  transition: background-color 150ms ease-out, box-shadow 150ms ease-out, transform 150ms ease-out;
+  &:hover { background-color: #262626; }
+  &:active { transform: translateY(1px); }
+  &:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  @variant dark {
+    background-color: #fafafa;
+    color: #0a0a0a;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.12), 0 0 24px -6px rgb(255 255 255 / 0.35);
+    &:hover { background-color: #e5e5e5; }
+  }
+}
+
+/* Icon button inside a grouped map-tool stack */
+@utility map-tool {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  color: #525252;
+  cursor: pointer;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+  &:hover { background-color: #f5f5f5; color: #0a0a0a; }
+  /* Finger-sized on touch screens */
+  @media (pointer: coarse) { width: 2.5rem; height: 2.5rem; }
+  @variant dark {
+    color: #d4d4d4;
+    &:hover { background-color: rgb(255 255 255 / 0.07); color: #ffffff; }
+  }
+}
+
+/* Keyboard focus, everywhere (inputs style their own container) */
+:where(button, a, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 html, body, #root {
@@ -15,15 +86,15 @@ html, body, #root {
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-  color: #0f172a;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #171717;
+  font-family: var(--font-sans);
   overflow: hidden;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 html.dark, body.dark, .dark #root {
-  background-color: #090d16;
-  color: #f8fafc;
+  background-color: #0a0a0a;
+  color: #fafafa;
 }
 
 button, [role="button"], .cursor-pointer, .leaflet-control button {
@@ -41,7 +112,7 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 }
 
 .dark .leaflet-container {
-  background: #090d16 !important;
+  background: #0a0a0a !important;
 }
 
 /* High-performance Leaflet Tile Pane */
@@ -123,16 +194,16 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 /* Dark Mode Text Halo & Crisp Contrast */
 .dark .gmap-halo-text {
   text-shadow: 
-    -1.5px -1.5px 0 #090d16,
-     1.5px -1.5px 0 #090d16,
-    -1.5px  1.5px 0 #090d16,
-     1.5px  1.5px 0 #090d16,
-     0px   -1.5px 0 #090d16,
-     0px    1.5px 0 #090d16,
-    -1.5px  0px   0 #090d16,
-     1.5px  0px   0 #090d16,
-     0 0 6px rgba(9, 13, 22, 0.98),
-     0 0 10px rgba(9, 13, 22, 0.9);
+    -1.5px -1.5px 0 #0a0a0a,
+     1.5px -1.5px 0 #0a0a0a,
+    -1.5px  1.5px 0 #0a0a0a,
+     1.5px  1.5px 0 #0a0a0a,
+     0px   -1.5px 0 #0a0a0a,
+     0px    1.5px 0 #0a0a0a,
+    -1.5px  0px   0 #0a0a0a,
+     1.5px  0px   0 #0a0a0a,
+     0 0 6px rgba(10, 10, 10, 0.98),
+     0 0 10px rgba(10, 10, 10, 0.9);
 }
 
 /* --- TIER 1: PRIMARY METROPOLITAN CITIES --- */
@@ -145,22 +216,22 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 .gmap-city-name {
   font-size: 20px;
   font-weight: 700;
-  color: #0f172a;
+  color: #171717;
   letter-spacing: -0.015em;
   line-height: 1.15;
 }
 .dark .gmap-city-name {
-  color: #f8fafc;
+  color: #fafafa;
 }
 
 .gmap-city-nepali {
   font-size: 15px;
   font-weight: 600;
-  color: #334155;
+  color: #404040;
   line-height: 1.2;
 }
 .dark .gmap-city-nepali {
-  color: #cbd5e1;
+  color: #d4d4d4;
 }
 
 /* --- TIER 2: MAJOR HUBS & GATEWAYS --- */
@@ -173,23 +244,23 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 .gmap-hub-name {
   font-size: 12px;
   font-weight: 700;
-  color: #1e293b;
+  color: #262626;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   line-height: 1.15;
 }
 .dark .gmap-hub-name {
-  color: #f1f5f9;
+  color: #f5f5f5;
 }
 
 .gmap-hub-nepali {
   font-size: 11px;
   font-weight: 500;
-  color: #475569;
+  color: #525252;
   line-height: 1.15;
 }
 .dark .gmap-hub-nepali {
-  color: #94a3b8;
+  color: #a3a3a3;
 }
 
 /* --- TIER 3: NEIGHBORHOODS & LOCALITIES --- */
@@ -202,23 +273,23 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 .gmap-local-name {
   font-size: 11px;
   font-weight: 600;
-  color: #334155;
+  color: #404040;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   line-height: 1.15;
 }
 .dark .gmap-local-name {
-  color: #e2e8f0;
+  color: #e5e5e5;
 }
 
 .gmap-local-nepali {
   font-size: 10px;
   font-weight: 500;
-  color: #64748b;
+  color: #737373;
   line-height: 1.15;
 }
 .dark .gmap-local-nepali {
-  color: #94a3b8;
+  color: #a3a3a3;
 }
 
 /* --- TIER 4: PERIMETER MOUNTAIN PEAKS --- */
@@ -236,33 +307,33 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 
 .gmap-peak-icon {
   font-size: 10px;
-  color: #334155;
+  color: #404040;
   vertical-align: middle;
 }
 .dark .gmap-peak-icon {
-  color: #cbd5e1;
+  color: #d4d4d4;
 }
 
 .gmap-peak-name {
   font-size: 12px;
   font-weight: 700;
-  color: #334155;
+  color: #404040;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.2;
 }
 .dark .gmap-peak-name {
-  color: #e2e8f0;
+  color: #e5e5e5;
 }
 
 .gmap-peak-sub {
   font-size: 10px;
   font-weight: 600;
-  color: #64748b;
+  color: #737373;
   line-height: 1.2;
 }
 .dark .gmap-peak-sub {
-  color: #94a3b8;
+  color: #a3a3a3;
 }
 
 /* --- TIER 5: DETAILED STATIONS & LANDMARKS --- */
@@ -276,25 +347,25 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 .gmap-station-name {
   font-size: 10px;
   font-weight: 600;
-  color: #475569;
+  color: #525252;
   letter-spacing: 0.03em;
   line-height: 1.1;
   max-width: 140px;
   text-align: center;
 }
 .dark .gmap-station-name {
-  color: #cbd5e1;
+  color: #d4d4d4;
 }
 
 .gmap-station-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #64748b;
+  background-color: #737373;
   margin-bottom: 2px;
 }
 .dark .gmap-station-dot {
-  background-color: #94a3b8;
+  background-color: #a3a3a3;
 }
 
 /* ==========================================================
@@ -328,7 +399,7 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 }
 
 .dark .gmap-stop-dot {
-  border: 3px solid #090d16;
+  border: 3px solid #0a0a0a;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 
@@ -342,7 +413,7 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: #0f172a;
+  background: #171717;
   color: #ffffff;
   padding: 4px 9px;
   border-radius: 8px;
@@ -352,12 +423,12 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
   flex-direction: column;
   align-items: center;
   white-space: nowrap;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   pointer-events: auto;
 }
 
 .dark .gmap-pin-badge {
-  background: #020617;
+  background: #0a0a0a;
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
@@ -365,13 +436,13 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 .gmap-pin-badge-name {
   font-size: 11px;
   font-weight: 700;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-sans);
   letter-spacing: -0.01em;
 }
 
 .gmap-pin-badge-category {
   font-size: 9px;
-  color: #94a3b8;
+  color: #a3a3a3;
   font-weight: 500;
 }
 
@@ -382,25 +453,25 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f5f5f5;
 }
 .dark ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #171717;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d4d4d4;
   border-radius: 4px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #404040;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #a3a3a3;
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #525252;
 }
 
 /* ==========================================================
@@ -436,3 +507,34 @@ button, [role="button"], .cursor-pointer, .leaflet-control button {
 
 
 
+
+/* --- Trip planner: "you are here" dot and board / change / get-off pins --- */
+.gmap-user-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+.gmap-user-dot span {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.25);
+  animation: gmap-user-pulse 2s ease-out infinite;
+}
+@keyframes gmap-user-pulse {
+  from { transform: scale(0.4); opacity: 1; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gmap-user-dot span { animation: none; }
+}
+.gmap-trip-board .gmap-stop-dot { background-color: #16a34a; }
+.gmap-trip-change .gmap-stop-dot { background-color: #f59e0b; }
+.gmap-trip-alight .gmap-stop-dot { background-color: #e11d48; }
+.gmap-trip-change .gmap-pin-badge { background: #78350f; }
+.gmap-trip-alight .gmap-pin-badge { background: #881337; }

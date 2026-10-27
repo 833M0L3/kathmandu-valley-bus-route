@@ -8,6 +8,16 @@ const NATIVE_MAX_ZOOM = 6;
 const MIN_ZOOM = 0;
 const MAX_ZOOM = 7.5; // Fluid continuous zoom up to 7.5
 
+// The route SVG (viewBox 1584 x 1224) sits on the 11667 x 8750 canvas at a uniform scale, cropped at the top and
+// bottom: canvas = scale * svg + offset. Measured by locating 58 SVG stop dots in clean-map.jpg (median error 0.6 px).
+// Stretching the viewBox over the canvas instead put southern routes up to ~240 px too high.
+const SVG_VIEW_W = 1584;
+const SVG_VIEW_H = 1224;
+const SVG_SCALE_X = 7.36622;
+const SVG_OFFSET_X = -1.19;
+const SVG_SCALE_Y = 7.36564;
+const SVG_OFFSET_Y = -23.53;
+
 // Exact 1-to-1 mapping from operator names to SVG element IDs in Kathmandu_Bus_Route_Map.svg
 const OPERATOR_SVG_MAP = {
   'Sajha Yatayat': 'Sajha_Yatayat',
@@ -36,8 +46,14 @@ const OPERATOR_SVG_MAP = {
   'Om Janata Yatayat': 'Om_Janata_Yatayat',
 };
 
-export default function MapViewer({ registerMapControls }) {
+export default function MapViewer({ registerMapControls, onPlaceCleared, onMapTap, onMapMoveStart }) {
   const mapContainerRef = useRef(null);
+  const onPlaceClearedRef = useRef(onPlaceCleared);
+  onPlaceClearedRef.current = onPlaceCleared;
+  const onMapTapRef = useRef(onMapTap);
+  onMapTapRef.current = onMapTap;
+  const onMapMoveStartRef = useRef(onMapMoveStart);
+  onMapMoveStartRef.current = onMapMoveStart;
   const mapInstanceRef = useRef(null);
   const targetPinMarkerRef = useRef(null);
   const svgOverlayRef = useRef(null);
@@ -66,10 +82,15 @@ export default function MapViewer({ registerMapControls }) {
 
     mapInstanceRef.current = map;
 
-    // Coordinate mapping for 11667 x 8750 px canvas space (matches SVG 1584 x 1224 pt)
+    // Coordinate mapping for the 11667 x 8750 px canvas (tile pixels at zoom 6)
     const southWest = map.unproject([0, MAP_HEIGHT], NATIVE_MAX_ZOOM);
     const northEast = map.unproject([MAP_WIDTH, 0], NATIVE_MAX_ZOOM);
     const imageBounds = new L.LatLngBounds(southWest, northEast);
+    // Where the route SVG's viewBox lands on the canvas (extends past the image at the bottom)
+    const svgBounds = new L.LatLngBounds(
+      map.unproject([SVG_OFFSET_X, SVG_OFFSET_Y + SVG_VIEW_H * SVG_SCALE_Y], NATIVE_MAX_ZOOM),
+      map.unproject([SVG_OFFSET_X + SVG_VIEW_W * SVG_SCALE_X, SVG_OFFSET_Y], NATIVE_MAX_ZOOM)
+    );
 
     // Geographic center of Kathmandu Valley transit bowl
     const valleyCenter = map.unproject([4850, 4550], NATIVE_MAX_ZOOM);
@@ -93,7 +114,11 @@ export default function MapViewer({ registerMapControls }) {
     map.setMaxBounds(imageBounds);
 
     // Dynamically update minZoom on window resize
+    // While a trip is shown the view limits are relaxed so the whole trip can be framed (see fitPoints)
+    let isViewRelaxed = false;
+
     map.on('resize', () => {
+      if (isViewRelaxed) return;
       const newCoverZoom = calculateCoverZoom();
       map.setMinZoom(newCoverZoom);
       if (map.getZoom() < newCoverZoom) {
@@ -120,6 +145,7 @@ export default function MapViewer({ registerMapControls }) {
     // 2. VECTOR ROUTE REPOSITORY: Preload SVG for on-demand 100% accurate vector route highlighting
     let svgDoc = null;
     let activeHighlightOverlay = null;
+    let pendingHighlight = null; // Highlight requested before the SVG finished loading (e.g. from a shared link)
 
     fetch('./Kathmandu_Bus_Route_Map.svg')
       .then((res) => {
@@ -129,6 +155,10 @@ export default function MapViewer({ registerMapControls }) {
       .then((svgText) => {
         const parser = new DOMParser();
         svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+        if (pendingHighlight) {
+          highlightRoute(...pendingHighlight);
+          pendingHighlight = null;
+        }
       })
       .catch((err) => {
         console.error('Failed to preload SVG vector routes:', err);
@@ -198,6 +228,14 @@ export default function MapViewer({ registerMapControls }) {
 
     labelsLayer.addTo(map);
 
+    // Taps on the map itself (markers and labels handle their own clicks): report the canvas point and how many
+    // canvas px one screen px covers at this zoom, so callers can search with a finger-sized radius
+    map.on('click', (e) => {
+      const p = map.project(e.latlng, NATIVE_MAX_ZOOM);
+      onMapTapRef.current?.({ x: p.x, y: p.y, screen: e.containerPoint, pxScale: 2 ** (NATIVE_MAX_ZOOM - map.getZoom()) });
+    });
+    map.on('movestart', () => onMapMoveStartRef.current?.());
+
     // Pinpoint marker creator for navigation from legend
     const setNavigatedMarker = (latLng, placeInfo) => {
       if (targetPinMarkerRef.current) {
@@ -231,6 +269,7 @@ export default function MapViewer({ registerMapControls }) {
       marker.on('click', () => {
         marker.remove();
         targetPinMarkerRef.current = null;
+        onPlaceClearedRef.current?.();
       });
     };
 
@@ -303,12 +342,14 @@ export default function MapViewer({ registerMapControls }) {
 
     // --- 100% Accurate Native SVG Route Highlighting on Top of Tiles ---
     // Supports highlighting an operator group, a single route branch, or multiple selected branches simultaneously
-    const highlightRoute = (operatorName, specificRouteSvgIds = null) => {
+    // options.fly: move the map to the route (false for previews)
+    const highlightRoute = (operatorName, specificRouteSvgIds = null, { fly = true } = {}) => {
       // Remove any existing active vector highlight overlay
       if (activeHighlightOverlay) {
         map.removeLayer(activeHighlightOverlay);
         activeHighlightOverlay = null;
       }
+      pendingHighlight = null;
 
       if (!operatorName) {
         tileLayer.setOpacity(1.0);
@@ -316,7 +357,10 @@ export default function MapViewer({ registerMapControls }) {
         return;
       }
 
-      if (!svgDoc) return;
+      if (!svgDoc) {
+        pendingHighlight = [operatorName, specificRouteSvgIds, { fly }];
+        return;
+      }
 
       const targetElements = [];
 
@@ -355,7 +399,7 @@ export default function MapViewer({ registerMapControls }) {
 
         // Create an isolated SVG overlay containing ONLY the target route paths (zero layout lag)
         const highlightSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        highlightSvg.setAttribute('viewBox', '0 0 1584 1224');
+        highlightSvg.setAttribute('viewBox', `0 0 ${SVG_VIEW_W} ${SVG_VIEW_H}`);
         highlightSvg.setAttribute('preserveAspectRatio', 'none');
         highlightSvg.setAttribute('class', 'active-route-vector-root');
 
@@ -389,7 +433,7 @@ export default function MapViewer({ registerMapControls }) {
           }
         });
 
-        activeHighlightOverlay = L.svgOverlay(highlightSvg, imageBounds, {
+        activeHighlightOverlay = L.svgOverlay(highlightSvg, svgBounds, {
           interactive: false,
           zIndex: 1000,
         });
@@ -397,9 +441,9 @@ export default function MapViewer({ registerMapControls }) {
         activeHighlightOverlay.bringToFront();
 
         // Smoothly fly to center of route(s) if bounding box is accessible
-        if (hasValidBBox) {
-          const cx = ((combinedMinX + combinedMaxX) / 2) * (MAP_WIDTH / 1584);
-          const cy = ((combinedMinY + combinedMaxY) / 2) * (MAP_HEIGHT / 1224);
+        if (hasValidBBox && fly) {
+          const cx = ((combinedMinX + combinedMaxX) / 2) * SVG_SCALE_X + SVG_OFFSET_X;
+          const cy = ((combinedMinY + combinedMaxY) / 2) * SVG_SCALE_Y + SVG_OFFSET_Y;
           const targetLatLng = map.unproject([cx, cy], NATIVE_MAX_ZOOM);
           map.flyTo(targetLatLng, Math.max(map.getZoom(), 3.5), { duration: 0.8 });
         }
@@ -407,12 +451,90 @@ export default function MapViewer({ registerMapControls }) {
     };
 
     const clearRouteHighlight = () => {
+      pendingHighlight = null;
       tileLayer.setOpacity(1.0);
       map.getContainer().classList.remove('route-highlight-active');
       if (activeHighlightOverlay) {
         map.removeLayer(activeHighlightOverlay);
         activeHighlightOverlay = null;
       }
+    };
+
+    // --- Trip planner: "you are here" dot and board / change / get-off pins ---
+    let userMarker = null;
+    const tripLayer = L.layerGroup().addTo(map);
+    const escapeHtml = (text) =>
+      String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+    const setUserLocation = (point) => {
+      if (!point) {
+        userMarker?.remove();
+        userMarker = null;
+        return;
+      }
+      const latLng = map.unproject([point.x, point.y], NATIVE_MAX_ZOOM);
+      if (userMarker) {
+        userMarker.setLatLng(latLng);
+        return;
+      }
+      userMarker = L.marker(latLng, {
+        icon: L.divIcon({
+          className: 'leaflet-gmap-user-layer',
+          html: '<div class="gmap-user-dot" title="You are here (approximate on this schematic map)"><span></span></div>',
+          iconSize: [0, 0],
+          iconAnchor: [0, 0],
+        }),
+        zIndexOffset: 11000,
+        interactive: false,
+      }).addTo(map);
+    };
+
+    // markers: [{ x, y, kind: 'board' | 'change' | 'alight', title, subtitle }]
+    const restoreView = () => {
+      if (!isViewRelaxed) return;
+      isViewRelaxed = false;
+      map.setMaxBounds(imageBounds);
+      map.setMinZoom(calculateCoverZoom());
+    };
+
+    const setTripMarkers = (markers) => {
+      tripLayer.clearLayers();
+      if (markers.length === 0) restoreView();
+      for (const m of markers) {
+        const html = `
+          <div class="gmap-pin-root gmap-trip-pin gmap-trip-${m.kind}">
+            <div class="gmap-pin-pulse-container">
+              <div class="gmap-stop-dot"></div>
+              <div class="gmap-pin-badge">
+                <span class="gmap-pin-badge-name">${escapeHtml(m.title)}</span>
+                ${m.subtitle ? `<span class="gmap-pin-badge-category">${escapeHtml(m.subtitle)}</span>` : ''}
+              </div>
+            </div>
+          </div>`;
+        L.marker(map.unproject([m.x, m.y], NATIVE_MAX_ZOOM), {
+          icon: L.divIcon({ className: 'leaflet-gmap-pin-layer', html, iconSize: [0, 0], iconAnchor: [0, 0] }),
+          zIndexOffset: 10500,
+        }).addTo(tripLayer);
+      }
+    };
+
+    // Fit canvas points into view, keeping clear of panels (padding in screen px)
+    const fitPoints = (points, { paddingTopLeft = [60, 60], paddingBottomRight = [60, 60], maxZoom = 5.4 } = {}) => {
+      if (!points.length) return;
+      const bounds = L.latLngBounds(points.map((p) => map.unproject([p.x, p.y], NATIVE_MAX_ZOOM)));
+      // On a tall phone the cover zoom shows the full map height, and the bounds lock vertical panning, so a long
+      // trip cannot be framed above the bottom sheet. Allow zooming out and panning past the edges for now.
+      // Zoom that fits the points (map.getBoundsZoom would clamp it to the current minimum)
+      const zoom = map.getZoom();
+      const span = map.project(bounds.getSouthEast(), zoom).subtract(map.project(bounds.getNorthWest(), zoom));
+      const room = map.getSize().subtract(L.point(paddingTopLeft).add(paddingBottomRight));
+      const needed = zoom + Math.log2(Math.min(room.x / Math.max(span.x, 1), room.y / Math.max(span.y, 1)));
+      if (needed < map.getMinZoom() || paddingBottomRight[1] > map.getSize().y / 3) {
+        isViewRelaxed = true;
+        map.setMinZoom(Math.min(map.getMinZoom(), Math.floor(needed * 4) / 4));
+        map.setMaxBounds(null);
+      }
+      map.flyToBounds(bounds, { paddingTopLeft, paddingBottomRight, maxZoom, duration: 0.8 });
     };
 
     // Register external control hooks
@@ -430,9 +552,12 @@ export default function MapViewer({ registerMapControls }) {
           if (targetPinMarkerRef.current) {
             targetPinMarkerRef.current.remove();
             targetPinMarkerRef.current = null;
+            onPlaceClearedRef.current?.();
           }
-          const currentCoverZoom = calculateCoverZoom();
-          map.flyTo(valleyCenter, currentCoverZoom, { duration: 0.8 });
+          // Same zoom as the first view: setView snaps to zoomSnap steps, flyTo does not
+          const snap = map.options.zoomSnap;
+          const startZoom = Math.max(map.getMinZoom(), Math.round(calculateCoverZoom() / snap) * snap);
+          map.flyTo(valleyCenter, startZoom, { duration: 0.8 });
         },
         flyToLocation: (x, y, zoom = 5.8, placeInfo = null) => {
           const targetZoom = Math.min(zoom, MAX_ZOOM);
@@ -442,8 +567,15 @@ export default function MapViewer({ registerMapControls }) {
             setNavigatedMarker(latLng, placeInfo);
           }
         },
+        clearPlacePin: () => {
+          targetPinMarkerRef.current?.remove();
+          targetPinMarkerRef.current = null;
+        },
         highlightRoute,
         clearRouteHighlight,
+        setUserLocation,
+        setTripMarkers,
+        fitPoints,
       });
     }
 

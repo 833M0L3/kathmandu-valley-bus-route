@@ -1,154 +1,172 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Search, X, MapPin, Building, Cross, GraduationCap, Store, Bus, Compass } from 'lucide-react';
-import { ALL_MAP_PLACES } from '../data/placesData';
+import React, { useEffect, useRef, useState } from 'react';
+import { Search, X, MapPin, LoaderCircle, Navigation, Flag } from 'lucide-react';
+import { usePlanner } from '../usePlanner';
 
-export default function MapSearchBar({ onSelectPlace, activePlace, onClearPlace }) {
+// Stop search on the map. Picking a stop flies to it and opens a card with the buses that stop there and
+// shortcuts into the trip planner. The stop network loads when the search is first focused.
+
+function LineBadge({ line, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      title={`${line.operator}: show ${line.label} on the map`}
+      className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[11px] font-mono font-bold text-white cursor-pointer hover:brightness-110 hover:ring-2 hover:ring-offset-1 hover:ring-neutral-300 dark:hover:ring-offset-neutral-900"
+      style={{ backgroundColor: line.color }}
+    >
+      {line.label}
+    </button>
+  );
+}
+
+export default function MapSearchBar({ selected, onSelectStop, onClear, onDirectionsFrom, onDirectionsTo, onShowLine }) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [highlight, setHighlight] = useState(0);
+  const [wantsPlanner, setWantsPlanner] = useState(false);
+  const planner = usePlanner(wantsPlanner);
   const containerRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Close dropdown on click outside
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
-    }
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) setIsOpen(false);
+    };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const trimmed = query.trim().toLowerCase();
+  const trimmed = query.trim();
+  const results = planner && trimmed ? planner.searchStations(trimmed, 8) : [];
 
-  const results = trimmed
-    ? ALL_MAP_PLACES.filter((p) => {
-        if (p.name.toLowerCase().includes(trimmed)) return true;
-        if (p.nepali && p.nepali.includes(trimmed)) return true;
-        if (p.category && p.category.toLowerCase().includes(trimmed)) return true;
-        return false;
-      }).slice(0, 15) // Top 15 matching results
-    : [];
+  useEffect(() => setHighlight(0), [trimmed]);
 
-  const handleSelect = (place) => {
-    setQuery(place.name);
-    setIsOpen(false);
-    if (onSelectPlace) {
-      onSelectPlace(place);
-    }
-  };
-
-  const handleClear = () => {
+  const choose = (station) => {
     setQuery('');
     setIsOpen(false);
-    if (onClearPlace) {
-      onClearPlace();
-    }
-    inputRef.current?.focus();
+    inputRef.current?.blur();
+    onSelectStop(station, planner.linesAtStop(station));
   };
 
-  const getPlaceIcon = (tier, category) => {
-    const cat = (category || '').toLowerCase();
-    if (cat.includes('hospital')) return <Cross className="w-3.5 h-3.5 text-rose-500" />;
-    if (cat.includes('campus') || cat.includes('college') || cat.includes('school'))
-      return <GraduationCap className="w-3.5 h-3.5 text-indigo-500" />;
-    if (cat.includes('shopping') || cat.includes('market') || cat.includes('mart'))
-      return <Store className="w-3.5 h-3.5 text-amber-500" />;
-    if (cat.includes('terminal') || cat.includes('bus park') || tier === 'hub')
-      return <Bus className="w-3.5 h-3.5 text-emerald-500" />;
-    if (tier === 'city') return <Building className="w-3.5 h-3.5 text-blue-600" />;
-    if (tier === 'peak') return <Compass className="w-3.5 h-3.5 text-amber-600" />;
-    return <MapPin className="w-3.5 h-3.5 text-slate-500" />;
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+      inputRef.current?.blur();
+    } else if (results.length > 0 && e.key === 'ArrowDown') {
+      e.preventDefault();
+      setHighlight((h) => (h + 1) % results.length);
+    } else if (results.length > 0 && e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlight((h) => (h - 1 + results.length) % results.length);
+    } else if (results.length > 0 && e.key === 'Enter') {
+      e.preventDefault();
+      choose(results[highlight]);
+    }
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute top-3 left-3 right-3 sm:right-auto sm:left-4 sm:w-84 md:w-96 z-[1000] font-['Inter']"
-    >
-      {/* Search Input Box */}
-      <div className="relative flex items-center bg-white/95 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/80 transition-all focus-within:border-slate-400 focus-within:ring-2 focus-within:ring-slate-100">
-        <div className="pl-3.5 pr-2 text-slate-400">
-          <Search className="w-4 h-4" />
-        </div>
-
+    <div ref={containerRef} className="absolute top-3 left-3 right-3 sm:right-auto sm:top-4 sm:left-4 sm:w-96 z-[1000] ">
+      <div className="surface flex items-center rounded-xl focus-within:border-neutral-400 dark:focus-within:border-white/25">
+        <Search className="w-4 h-4 ml-3.5 mr-2 text-neutral-500 shrink-0" />
         <input
           ref={inputRef}
-          type="text"
+          type="search"
           value={query}
+          role="combobox"
+          aria-expanded={isOpen && results.length > 0}
+          aria-controls="map-stop-search-results"
+          aria-label="Search bus stops"
+          placeholder="Search bus stops…"
+          onFocus={() => {
+            setWantsPlanner(true);
+            if (trimmed) setIsOpen(true);
+          }}
           onChange={(e) => {
             setQuery(e.target.value);
             setIsOpen(true);
           }}
-          onFocus={() => {
-            if (query.trim()) setIsOpen(true);
-          }}
-          placeholder="Search any place or stop in Kathmandu..."
-          className="w-full py-2.5 sm:py-3 bg-transparent text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none"
+          onKeyDown={handleKeyDown}
+          className="w-full py-2.5 sm:py-3 bg-transparent text-sm text-neutral-800 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
         />
-
+        {wantsPlanner && !planner && trimmed && <LoaderCircle className="w-4 h-4 mr-3 text-neutral-500 animate-spin shrink-0" />}
         {query && (
           <button
-            onClick={handleClear}
-            className="p-2 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer mr-1 rounded-lg hover:bg-slate-100"
+            onClick={() => {
+              setQuery('');
+              inputRef.current?.focus();
+            }}
             aria-label="Clear search"
+            className="p-2 mr-1 text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-200 rounded-lg cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         )}
       </div>
 
-      {/* Autocomplete Results Dropdown */}
-      {isOpen && query.trim().length > 0 && (
-        <div className="absolute left-0 right-0 mt-1.5 max-h-72 sm:max-h-80 overflow-y-auto bg-white/98 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 divide-y divide-slate-100 no-scrollbar animate-in fade-in slide-in-from-top-1 duration-150">
+      {isOpen && planner && trimmed && (
+        <ul
+          id="map-stop-search-results"
+          role="listbox"
+          className="surface mt-1.5 max-h-72 overflow-y-auto rounded-xl divide-y divide-neutral-100 dark:divide-white/10"
+        >
           {results.length > 0 ? (
-            results.map((place) => (
-              <button
-                key={place.id + place.x}
-                onClick={() => handleSelect(place)}
-                className="w-full text-left px-3.5 py-2.5 sm:py-3 hover:bg-slate-50/90 transition-colors flex items-center justify-between gap-3 cursor-pointer group"
-              >
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-slate-200/80 transition-colors">
-                    {getPlaceIcon(place.tier, place.category)}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="font-semibold text-xs sm:text-sm text-slate-800 font-['Outfit'] truncate">
-                      {place.name}
-                    </div>
-                    <div className="text-[11px] text-slate-400 truncate flex items-center gap-1.5">
-                      {place.nepali && <span>{place.nepali} •</span>}
-                      <span>{place.category || 'Transit Location'}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <span className="text-[10px] font-medium text-slate-400 px-1.5 py-0.5 rounded bg-slate-100 shrink-0 capitalize">
-                  {place.tier}
-                </span>
-              </button>
-            ))
+            results.map((st, i) => {
+              const stopLines = planner.linesAtStop(st);
+              return (
+                <li key={st.index} role="option" aria-selected={i === highlight}>
+                  <button
+                    onClick={() => choose(st)}
+                    onMouseEnter={() => setHighlight(i)}
+                    className={`w-full text-left px-3.5 py-2.5 flex items-center gap-2.5 cursor-pointer ${i === highlight ? 'bg-neutral-50 dark:bg-white/[0.06]' : ''}`}
+                  >
+                    <MapPin className="w-4 h-4 text-neutral-500 shrink-0" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-neutral-800 dark:text-neutral-100 truncate">{st.name}</span>
+                      <span className="block text-[11px] text-neutral-500 dark:text-neutral-400 truncate">
+                        {stopLines.length} bus route{stopLines.length === 1 ? '' : 's'}: {stopLines.map((l) => l.label).join(', ')}
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })
           ) : (
-            <div className="p-4 text-center text-xs text-slate-500">
-              No matching places found for "{query}"
-            </div>
+            <li className="p-4 text-center text-xs text-neutral-500">No stop on the map matches "{trimmed}".</li>
           )}
-        </div>
+        </ul>
       )}
 
-      {/* Active Selection Chip (if place selected) */}
-      {activePlace && !isOpen && (
-        <div className="mt-1.5 flex items-center justify-between px-3 py-1.5 bg-slate-900 text-white rounded-xl shadow-md text-xs animate-in fade-in duration-150">
-          <div className="flex items-center gap-2 truncate">
-            <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-            <span className="truncate font-medium">{activePlace.name}</span>
+      {selected && !isOpen && (
+        <div className="surface mt-1.5 p-3 rounded-xl text-neutral-800 dark:text-neutral-100">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0">
+              <div className="font-bold text-sm truncate">{selected.station.name}</div>
+              <div className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                {selected.lines.length} bus route{selected.lines.length === 1 ? '' : 's'} stop here · tap one to see it
+              </div>
+            </div>
+            <button onClick={onClear} aria-label="Close stop details" className="p-0.5 rounded text-neutral-500 hover:text-neutral-700 dark:hover:text-white cursor-pointer">
+              <X className="w-4 h-4" />
+            </button>
           </div>
-          <button
-            onClick={handleClear}
-            className="p-0.5 hover:bg-slate-800 rounded text-slate-300 hover:text-white transition-colors cursor-pointer"
-          >
-            <X className="w-3 h-3" />
-          </button>
+          <div className="mt-2 flex flex-wrap gap-1">
+            {selected.lines.map((line) => (
+              <LineBadge key={line.svgId} line={line} onClick={() => onShowLine(line)} />
+            ))}
+          </div>
+          <div className="mt-2.5 grid grid-cols-2 gap-1.5">
+            <button
+              onClick={() => onDirectionsFrom(selected.station)}
+              className="flex items-center justify-center gap-1.5 py-1.5 rounded-lg border border-neutral-200 dark:border-white/15 text-xs font-semibold hover:bg-neutral-50 dark:hover:bg-white/[0.06] cursor-pointer"
+            >
+              <Navigation className="w-3.5 h-3.5 text-emerald-600" /> Directions from here
+            </button>
+            <button
+              onClick={() => onDirectionsTo(selected.station)}
+              className="btn-primary flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer"
+            >
+              <Flag className="w-3.5 h-3.5" /> Directions to here
+            </button>
+          </div>
         </div>
       )}
     </div>
